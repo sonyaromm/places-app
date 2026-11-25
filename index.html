@@ -27,6 +27,7 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;background:#F1E9DC;overscroll-behavior:none}
 @media (min-width:441px){html,body{background:#0f110f}}
+html.dark,html.dark body{background:#2B1A14}
 body{font-family:var(--sans);color:var(--ink);display:flex;justify-content:center}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
 #app{position:fixed;top:0;bottom:0;left:0;right:0;margin:0 auto;width:100%;max-width:440px;overflow:hidden;background:var(--paper)}
@@ -1490,6 +1491,14 @@ async function finishQuiz(skipped){
 const _rph3=renderProfileHead;renderProfileHead=function(){_rph3();const t=MYPROFILE&&MYPROFILE.taste;$('#pTaste').style.display=t?'block':'none';$('#pTaste').textContent=t?'Taste: '+t:''};
 $('#epQuiz').onclick=()=>{show('quiz')};
 const _show7=show;show=function(id,push){if(id==='quiz')openQuiz();if(id==='intro'){inT.scrollLeft=0;$('#inNext').textContent='Next';[...$('#inDots').children].forEach((d,j)=>d.classList.toggle('on',j===0))}return _show7(id,push)};
+
+/* iOS home-screen: app sometimes launches shorter than the screen → stretch to full height; dark backdrop under welcome */
+(function(){const sa=navigator.standalone||matchMedia('(display-mode: standalone)').matches;
+  function fit(){if(!sa)return;const h=Math.max(innerHeight,document.documentElement.clientHeight,screen.height>screen.width?screen.height:screen.width);const a=$('#app');a.style.bottom='auto';a.style.height=h+'px'}
+  fit();addEventListener('resize',fit);addEventListener('orientationchange',()=>setTimeout(fit,300));addEventListener('pageshow',fit);
+  const _s=show;show=function(id,push){document.documentElement.classList.toggle('dark',id==='welcome');return _s(id,push)};
+  const cur=$('.screen.active');if(cur)document.documentElement.classList.toggle('dark',cur.id==='s-welcome');
+})();
 </script>
 </body>
 </html>
