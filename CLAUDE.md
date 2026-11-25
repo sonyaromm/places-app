@@ -9,6 +9,7 @@ Read this first before changing anything. Keep it updated: add a line to the cha
 - Target: travelers / digital nomads, starting with Bali & SE Asia.
 
 ## Brand & design system
+- **Process rule (Sofia 2026-11-26): for visual/design changes show a mockup first; implement only after she approves.**
 - Logo: wordmark `img/brand/wordmark.png` (transparent, espresso) + `wordmark-light.png`; app icon "h with a location pin" `img/brand/apple-touch-icon.png`, `icon-192.png`, `icon-512.png`. Originals were uploaded by Sofia in chat.
 - **Design principle (2026-11-26, decided with Sofia from Instagram 2016 redesign + Apple HIG + NN/g):** content screens are NEUTRAL so users' place photos are the colour; colour/brand lives only in brand moments (welcome, intro, quiz, taste card, places without photo). One accent colour, used sparingly.
 - Colors: bg white `#FFFFFF`, surfaces `#F4F3F1`, lines `rgba(17,18,22,.08)`, ink Charcoal `#111216` (text, primary buttons, selected chips), ink2 `#56545C`, muted `#75737B`. **Accent = the orb gradient `--orb`** (peach core → coral → periwinkle → lavender, Sofia 2026-11-26): active tab circle, "Your taste" badge, taste label text, arrow circle on onboarding buttons, and the welcome wordmark (CSS mask over wordmark-light.png, `.orbmark`). Everything else graphite/white. + button = white circle on the dark tab bar. Aura colours (brand moments only): Coral, Periwinkle `#6078F6`, Lavender `#B7A7D8`, Peach `#FFC2A8`, Milk `#F5F1EC`.
@@ -99,3 +100,4 @@ MVP navigation (decided with Sofia 2026-11-26, based on her UX research): **Expl
 - 2026-11-26 — Orbs looked like a wellness app → intro slides and taste card show Sofia's photos with charcoal fade; line drawings removed.
 - 2026-11-26 — Stylish-minimal pass from Sofia's refs: photo-first Explore cards, profile cover + photo grid, dark pill tab bar; orb gradient becomes the single accent (active tab, taste badge/label, onboarding arrow, gradient wordmark on welcome).
 - 2026-11-26 — Orb accent: less orange in the centre (smaller peach/coral core, more periwinkle/lavender).
+- 2026-11-26 — Reverted the accent picker + warm sunset accent (Sofia: too orange, no colour choice). RULE from Sofia: do NOT implement visual changes until she approves a mockup (show static mockups first).
