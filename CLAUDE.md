@@ -3,7 +3,7 @@
 Read this first before changing anything. Keep it updated: add a line to the changelog for every shipped change, and update the decision sections when something changes.
 
 ## Product
-- **haunts** — a Letterboxd-style app for places & experiences. Tagline: "We bring together / more than places". Subline: "Save the spots you love, rate them honestly and share them with people who get your taste" (no trailing periods).
+- **haunts** — a Letterboxd-style app for places & experiences. Tagline: "We bring together / more than places". Subline: "Save the places and experiences you love, rate them honestly and share them with people who get your taste" (no trailing periods).
 - Founder: Sofia (@sonyaromm on Instagram/Telegram), travels a lot, based in Bali. Not a developer; communicates in Russian, casual tone. UI is English for now.
 - Concept: personal diary of places (ratings, notes, photos) + social (friends, profiles, recommendations) + creators (guides that open via web link, paid guides / creator subscriptions).
 - Target: travelers / digital nomads, starting with Bali & SE Asia.
@@ -60,3 +60,4 @@ welcome (slideshow of Sofia's own photos `img/welcome/s1–s10.jpg`, no captions
 - 2026-11-25 — Countries visited, personal stats screen, maps (my places, everyone, countries) with pin → place card; location on add/edit place; `003_countries_map.sql`.
 - 2026-11-25 — Welcome slideshow now uses Sofia's 10 own photos (Bali + Bangkok); Starbucks Reserve photo placed last.
 - 2026-11-25 — UX fixes: removed slideshow progress bars, cache-busted photos, toast moved to bottom, demo content uses real photos, Explore title "Find your next haunt", Postcards add-circle with +.
+- 2026-11-25 — Welcome subline now mentions experiences: "Save the places and experiences you love…".
