@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#F3EDE3">
+<meta name="theme-color" content="#F8F3EC">
 <title>haunts · wine</title>
 <link rel="apple-touch-icon" href="img/brand/apple-touch-icon.png">
 <link rel="icon" href="img/brand/icon-192.png">
@@ -24,13 +24,13 @@
 @font-face{font-family:'Newsreader';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/newsreader-latin-500-normal.woff2) format('woff2')}
 @font-face{font-family:'Newsreader';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/newsreader-latin-600-normal.woff2) format('woff2')}
 :root{
-  --paper:#F3EDE3; --paper2:rgba(255,255,255,.6); --line:rgba(42,20,24,.1); --ink:#2A1418; --ink2:#5E4A4C; --muted:#7C6C69;
+  --paper:#F8F3EC; --paper2:rgba(255,255,255,.6); --line:rgba(42,20,24,.1); --ink:#2A1418; --ink2:#5E4A4C; --muted:#7C6C69;
   --moss:#6E1E2A; --blue:#6E1E2A; --coral:#5C6B45; --lav:#B9C2A4; --sage:#DDE2CF; --night:#2A1418;
   --serif:'Albert Sans', system-ui, sans-serif; --book:'Newsreader', Georgia, serif; --sans:'Albert Sans', system-ui, sans-serif; --mono:'Albert Sans', system-ui, sans-serif;
   --top: max(env(safe-area-inset-top), 16px); --bot: env(safe-area-inset-bottom);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;height:100%;background:#F3EDE3;overscroll-behavior:none}
+html,body{margin:0;height:100%;background:#F8F3EC;overscroll-behavior:none}
 @media (min-width:441px){html,body{background:#0f110f}}
 html.dark,html.dark body{background:#2A1418}
 html.dark #app{background:#2A1418}
@@ -52,7 +52,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 
 /* ===== aura system ===== */
 .aura{position:relative;overflow:hidden;isolation:isolate}
-.aura::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;opacity:.5;mix-blend-mode:soft-light;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.aura::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;opacity:.3;mix-blend-mode:soft-light;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .screen.aura{position:absolute;overflow-y:auto}
 #bgAura{position:absolute;inset:0;z-index:0;pointer-events:none}
 #bgAura::after{content:"";position:absolute;inset:0;opacity:.35;mix-blend-mode:soft-light;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -85,7 +85,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .thumb{flex:none;border-radius:12px}
 /* tab bar */
 #tabs{position:absolute;left:12px;right:12px;bottom:calc(12px + var(--bot));height:64px;border-radius:32px;background:rgba(42,20,24,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);display:flex;justify-content:space-around;align-items:center;z-index:20}
-#tabs button{display:flex;flex-direction:column;align-items:center;gap:3px;color:rgba(243,237,227,.55);font-size:11px;min-width:60px;min-height:48px;justify-content:center}
+#tabs button{display:flex;flex-direction:column;align-items:center;gap:3px;color:rgba(248,243,236,.55);font-size:11px;min-width:60px;min-height:48px;justify-content:center}
 #tabs button.on{color:var(--paper)}
 #tabs.hide{display:none}
 #tabs{transition:height .25s ease,bottom .25s ease}
@@ -111,7 +111,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* bars */
 .bar{display:flex;gap:4px}.bar span{flex:1;height:6px;border-radius:3px;background:#CFCBBE}.bar span.f{background:var(--moss)}
 .blur{filter:blur(5px);opacity:.6}
-.plan{width:100%;min-height:56px;padding:8px 14px;border-radius:16px;display:flex;align-items:center;justify-content:space-between;color:var(--paper);border:1px solid rgba(243,237,227,.25);text-align:left}
+.plan{width:100%;min-height:56px;padding:8px 14px;border-radius:16px;display:flex;align-items:center;justify-content:space-between;color:var(--paper);border:1px solid rgba(248,243,236,.25);text-align:left}
 .plan.on{border:1.5px solid var(--paper)}
 .field{display:flex;flex-direction:column;gap:6px}
 .input{border:1px solid #D9CFC4;border-radius:14px;background:#FFFFFF;padding:12px 14px;font:inherit;font-size:17px;color:var(--ink);outline:none;width:100%}
@@ -121,10 +121,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .wSlide.on{opacity:1}
 .wSlide img{width:100%;height:100%;object-fit:cover;transform:scale(1.02);transition:transform 6s ease-out}
 .wSlide.on img{transform:scale(1.1)}
-.wSlide span{position:absolute;left:20px;bottom:110px;color:rgba(243,237,227,.92);text-shadow:0 1px 8px rgba(0,0,0,.4);z-index:2}
-.wFade{position:absolute;left:0;right:0;bottom:0;height:45%;background:linear-gradient(180deg,rgba(243,237,227,0) 0%,rgba(243,237,227,.55) 60%,#F3EDE3 100%);pointer-events:none;z-index:1}
-.wBar{flex:1;height:2px;border-radius:1px;background:rgba(243,237,227,.35);overflow:hidden}
-.wBar i{display:block;height:100%;width:0;background:#F3EDE3}
+.wSlide span{position:absolute;left:20px;bottom:110px;color:rgba(248,243,236,.92);text-shadow:0 1px 8px rgba(0,0,0,.4);z-index:2}
+.wFade{position:absolute;left:0;right:0;bottom:0;height:45%;background:linear-gradient(180deg,rgba(248,243,236,0) 0%,rgba(248,243,236,.55) 60%,#F8F3EC 100%);pointer-events:none;z-index:1}
+.wBar{flex:1;height:2px;border-radius:1px;background:rgba(248,243,236,.35);overflow:hidden}
+.wBar i{display:block;height:100%;width:0;background:#F8F3EC}
 .wBar.done i{width:100%}
 .wBar.run i{width:100%;transition:width 4.5s linear}
 #pcRow::-webkit-scrollbar{display:none}
@@ -141,7 +141,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .scene .mute{position:absolute;top:calc(var(--top) + 8px);right:12px}
 .leaflet-container{font-family:var(--sans);background:rgba(255,255,255,.6)}
 .leaflet-tile{filter:grayscale(.55) sepia(.35) saturate(.8) brightness(1.04) contrast(.92)}
-.leaflet-control-attribution{font-size:10px;background:rgba(243,237,227,.8)!important}
+.leaflet-control-attribution{font-size:10px;background:rgba(248,243,236,.8)!important}
 .leaflet-popup-content-wrapper{border-radius:14px;background:var(--paper);color:var(--ink)}
 .leaflet-popup-tip{background:var(--paper)}
 .ctrow{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:48px;border-bottom:1px solid var(--line);font-size:17px;text-align:left}
@@ -158,7 +158,7 @@ button:disabled{opacity:.6}
 .btn.loading{position:relative;overflow:hidden;pointer-events:none}
 .btn.loading::after{content:'';position:absolute;left:0;bottom:0;height:3px;width:40%;background:currentColor;opacity:.6;animation:ld 1.1s ease-in-out infinite}
 @keyframes ld{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
-.skel{background:linear-gradient(90deg,#ECE8E3 0%,#F3EDE3 50%,#ECE8E3 100%);background-size:200% 100%;animation:sk 1.2s linear infinite;border-radius:10px}
+.skel{background:linear-gradient(90deg,#ECE8E3 0%,#F8F3EC 50%,#ECE8E3 100%);background-size:200% 100%;animation:sk 1.2s linear infinite;border-radius:10px}
 @keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .sheet-panel{transform:translateY(110%);transition:transform .32s cubic-bezier(.2,.9,.3,1)}
 .open>.sheet-panel{transform:none}
@@ -179,6 +179,11 @@ button:disabled{opacity:.6}
 .toast{opacity:0;pointer-events:none}
 .toast.show{transform:translate(-50%,0);opacity:1}
 .toast{transition:transform .35s cubic-bezier(.2,.9,.3,1.2),opacity .2s}
+
+/* wine preview: burgundy primary buttons */
+.btn.dark{background:#6E1E2A!important;color:#F8F3EC!important;border:0!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:0 10px 24px rgba(110,30,42,.25)!important}
+#tabs .add{background:#6E1E2A!important}
+.chip.on{background:#6E1E2A!important;border-color:#6E1E2A!important;color:#F8F3EC!important}
 </style>
 </head>
 <body>
@@ -257,7 +262,7 @@ button:disabled{opacity:.6}
 <!-- ========== PLACE ========== -->
 <section class="screen no-tabs" id="s-place">
   <div class="grain" id="plHero" style="height:calc(250px + var(--top));flex:none">
-    <button class="icon-btn" data-back aria-label="Back" style="position:absolute;top:calc(var(--top) + 4px);left:16px;background:rgba(243,237,227,.85);z-index:2"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#2A1418" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <button class="icon-btn" data-back aria-label="Back" style="position:absolute;top:calc(var(--top) + 4px);left:16px;background:rgba(248,243,236,.85);z-index:2"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#2A1418" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
     <div class="ph" id="plPh" style="position:absolute;left:20px;bottom:16px"></div>
   </div>
   <div class="pad" style="margin-top:18px;display:flex;flex-direction:column;gap:6px">
@@ -306,9 +311,9 @@ button:disabled{opacity:.6}
 <!-- ========== PAYWALL ========== -->
 <section class="screen no-tabs" id="s-paywall">
   <div class="grain" style="height:calc(230px + var(--top));flex:none;background:url(img/welcome/s4.jpg) center/cover no-repeat">
-    <button class="icon-btn" data-back aria-label="Back" style="position:absolute;top:calc(var(--top) + 4px);left:16px;background:rgba(243,237,227,.85);z-index:2"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#2A1418" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
-    <div style="position:absolute;left:20px;right:20px;bottom:18px;color:#F3EDE3;display:flex;flex-direction:column;gap:6px;z-index:2">
-      <div class="mono" style="color:rgba(243,237,227,.85)">Guide by @sonyaromm · 42 places · 7 days</div>
+    <button class="icon-btn" data-back aria-label="Back" style="position:absolute;top:calc(var(--top) + 4px);left:16px;background:rgba(248,243,236,.85);z-index:2"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#2A1418" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <div style="position:absolute;left:20px;right:20px;bottom:18px;color:#F8F3EC;display:flex;flex-direction:column;gap:6px;z-index:2">
+      <div class="mono" style="color:rgba(248,243,236,.85)">Guide by @sonyaromm · 42 places · 7 days</div>
       <div class="serif" style="font-size:36px;line-height:1">Bali <span class="it">for insiders</span></div>
     </div>
   </div>
@@ -394,8 +399,8 @@ button:disabled{opacity:.6}
 <!-- ========== INTRO (what is haunts) ========== -->
 <section class="screen no-tabs" id="s-intro" style="padding:0;overflow:hidden">
   <div class="pad top" style="position:absolute;left:0;right:0;top:0;z-index:3;display:flex;justify-content:space-between;align-items:center">
-    <button class="icon-btn" data-back aria-label="Back" style="background:rgba(243,237,227,.9)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#2A1418" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
-    <button class="mono" id="inSkip" style="color:var(--ink);height:40px;padding:0 16px;border-radius:20px;background:rgba(243,237,227,.9)">Skip</button>
+    <button class="icon-btn" data-back aria-label="Back" style="background:rgba(248,243,236,.9)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#2A1418" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <button class="mono" id="inSkip" style="color:var(--ink);height:40px;padding:0 16px;border-radius:20px;background:rgba(248,243,236,.9)">Skip</button>
   </div>
   <div id="inTrack" style="position:absolute;inset:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none">
     <div class="inSlide"><div class="inPh aura" data-aura="sunset"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Save what <span class="it">you love</span></div><div class="inSub">Cafés, sunset spots, a massage lady from WhatsApp — every place and experience in one place</div></div></div>
@@ -477,22 +482,22 @@ button:disabled{opacity:.6}
   <div style="position:absolute;left:0;right:0;bottom:0;padding:0 24px calc(16px + var(--bot));display:flex;flex-direction:column;gap:22px;z-index:2">
     <div style="display:flex;flex-direction:column;gap:12px">
       <img src="img/brand/wordmark-light.png" alt="haunts" style="width:62%;max-width:260px;height:auto">
-      <div style="font-size:18px;line-height:1.35;color:rgba(243,237,227,.9)">We bring together more than places</div>
+      <div style="font-size:18px;line-height:1.35;color:rgba(248,243,236,.9)">We bring together more than places</div>
     </div>
     <div style="display:flex;flex-direction:column;gap:6px">
-      <button class="btn" data-auth="up" style="background:#F3EDE3;color:#2A1418;font-weight:600">Create account</button>
-      <button data-auth="in" style="height:48px;color:#F3EDE3;font-size:15px">I already have an account · <b>Log in</b></button>
+      <button class="btn" data-auth="up" style="background:#F8F3EC;color:#2A1418;font-weight:600">Create account</button>
+      <button data-auth="in" style="height:48px;color:#F8F3EC;font-size:15px">I already have an account · <b>Log in</b></button>
     </div>
   </div>
 </section>
 
 <!-- ========== SCENES ========== -->
-<section class="screen" id="s-scenes" data-tabs="scenes" style="background:#0f110f;color:#F3EDE3;padding-bottom:0;scroll-snap-type:y mandatory">
+<section class="screen" id="s-scenes" data-tabs="scenes" style="background:#0f110f;color:#F8F3EC;padding-bottom:0;scroll-snap-type:y mandatory">
   <div id="scList"></div>
   <div id="scEmpty" style="display:none;height:100%;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:40px">
     <div class="serif" style="font-size:40px;line-height:1">No scenes <span class="it">yet</span></div>
-    <div style="font-size:15px;color:rgba(243,237,227,.7);max-width:280px">Short videos of places: the walk in, the view, the vibe. Share the first one</div>
-    <button class="btn" style="background:#F3EDE3;color:var(--ink);font-weight:600" data-newpost="scene">Share a scene</button>
+    <div style="font-size:15px;color:rgba(248,243,236,.7);max-width:280px">Short videos of places: the walk in, the view, the vibe. Share the first one</div>
+    <button class="btn" style="background:#F8F3EC;color:var(--ink);font-weight:600" data-newpost="scene">Share a scene</button>
   </div>
 </section>
 
@@ -522,11 +527,11 @@ button:disabled{opacity:.6}
 <section class="screen" id="s-map" data-tabs="map" style="padding-bottom:0;overflow:hidden">
   <div id="mapBox" style="position:absolute;inset:0;background:rgba(255,255,255,.6)"></div>
   <div style="position:absolute;top:calc(var(--top) + 6px);left:12px;right:12px;display:flex;align-items:center;gap:8px;z-index:500">
-    <div style="margin:0 auto;display:flex;background:rgba(243,237,227,.92);border-radius:22px;padding:3px;box-shadow:0 2px 10px rgba(42,20,24,.15)">
+    <div style="margin:0 auto;display:flex;background:rgba(248,243,236,.92);border-radius:22px;padding:3px;box-shadow:0 2px 10px rgba(42,20,24,.15)">
       <button class="chip" id="mapModeA" style="border:0">Everyone</button><button class="chip on" id="mapModeP" style="border:0">Mine</button><button class="chip" id="mapModeC" style="border:0">Countries</button>
     </div>
   </div>
-  <div style="position:absolute;left:12px;right:12px;bottom:calc(92px + var(--bot));z-index:500;background:rgba(243,237,227,.94);border-radius:22px;padding:14px 18px;display:flex;justify-content:space-around;text-align:center;box-shadow:0 4px 20px rgba(42,20,24,.18)">
+  <div style="position:absolute;left:12px;right:12px;bottom:calc(92px + var(--bot));z-index:500;background:rgba(248,243,236,.94);border-radius:22px;padding:14px 18px;display:flex;justify-content:space-around;text-align:center;box-shadow:0 4px 20px rgba(42,20,24,.18)">
     <div><div class="serif" id="mapNPlaces" style="font-size:26px;line-height:1">0</div><div class="mono" style="margin-top:4px">on the map</div></div>
     <div><div class="serif" id="mapNCountries" style="font-size:26px;line-height:1">0</div><div class="mono" style="margin-top:4px">countries</div></div>
     <div><div class="serif" id="mapPct" style="font-size:26px;line-height:1">0%</div><div class="mono" style="margin-top:4px">of the world</div></div>
@@ -562,11 +567,11 @@ button:disabled{opacity:.6}
 <!-- location picker -->
 <div id="pick" style="position:absolute;inset:0;z-index:60;display:none;background:rgba(255,255,255,.6)">
   <div id="pickBox" style="position:absolute;inset:0"></div>
-  <svg width="36" height="48" viewBox="0 0 36 48" aria-hidden="true" style="position:absolute;left:50%;top:50%;margin:-48px 0 0 -18px;z-index:600;pointer-events:none"><path d="M18 2C9.7 2 3 8.6 3 16.9 3 28 18 46 18 46s15-18 15-29.1C33 8.6 26.3 2 18 2z" fill="#2A1418"/><circle cx="18" cy="17" r="5.5" fill="#F3EDE3"/></svg>
+  <svg width="36" height="48" viewBox="0 0 36 48" aria-hidden="true" style="position:absolute;left:50%;top:50%;margin:-48px 0 0 -18px;z-index:600;pointer-events:none"><path d="M18 2C9.7 2 3 8.6 3 16.9 3 28 18 46 18 46s15-18 15-29.1C33 8.6 26.3 2 18 2z" fill="#2A1418"/><circle cx="18" cy="17" r="5.5" fill="#F8F3EC"/></svg>
   <div style="position:absolute;top:calc(var(--top) + 6px);left:12px;right:12px;z-index:600;display:flex;justify-content:space-between;align-items:center">
-    <button class="icon-btn" id="pickCancel" aria-label="Cancel" style="background:rgba(243,237,227,.92)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#2A1418" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
-    <div class="mono" style="background:rgba(243,237,227,.92);padding:10px 14px;border-radius:18px;color:var(--ink)">Move the map to the spot</div>
-    <button class="icon-btn" id="pickMe" aria-label="My location" style="background:rgba(243,237,227,.92)"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#2A1418" stroke-width="1.5"><circle cx="10" cy="10" r="3"/><path d="M10 1v3M10 16v3M1 10h3M16 10h3"/></svg></button>
+    <button class="icon-btn" id="pickCancel" aria-label="Cancel" style="background:rgba(248,243,236,.92)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#2A1418" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
+    <div class="mono" style="background:rgba(248,243,236,.92);padding:10px 14px;border-radius:18px;color:var(--ink)">Move the map to the spot</div>
+    <button class="icon-btn" id="pickMe" aria-label="My location" style="background:rgba(248,243,236,.92)"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#2A1418" stroke-width="1.5"><circle cx="10" cy="10" r="3"/><path d="M10 1v3M10 16v3M1 10h3M16 10h3"/></svg></button>
   </div>
   <div style="position:absolute;left:16px;right:16px;bottom:calc(20px + var(--bot));z-index:600"><button class="btn dark" id="pickOk" style="width:100%">Use this spot</button></div>
 </div>
@@ -595,20 +600,20 @@ button:disabled{opacity:.6}
 </div>
 
 <!-- postcard viewer -->
-<div id="pcView" style="position:absolute;inset:0;z-index:50;background:#0f110f;display:none;color:#F3EDE3">
+<div id="pcView" style="position:absolute;inset:0;z-index:50;background:#0f110f;display:none;color:#F8F3EC">
   <div id="pcMedia" style="position:absolute;inset:0"></div>
   <div style="position:absolute;left:0;right:0;top:0;height:140px;background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,0));pointer-events:none"></div>
   <div style="position:absolute;left:0;right:0;bottom:0;height:200px;background:linear-gradient(0deg,rgba(0,0,0,.55),rgba(0,0,0,0));pointer-events:none"></div>
   <div id="pcBars" style="position:absolute;top:calc(var(--top) + 6px);left:12px;right:12px;display:flex;gap:4px;z-index:3"></div>
   <div style="position:absolute;top:calc(var(--top) + 18px);left:12px;right:8px;display:flex;align-items:center;gap:10px;z-index:3">
     <img id="pcAva" alt="" style="width:40px;height:40px;border-radius:20px;object-fit:cover;background:#6E1E2A">
-    <div style="flex:1;display:flex;flex-direction:column"><span id="pcUser" style="font-size:15px;font-weight:600"></span><span id="pcTime" class="mono" style="color:rgba(243,237,227,.7)"></span></div>
-    <button id="pcDel" class="mono" style="color:#F3EDE3;padding:12px;display:none">Delete</button>
-    <button class="icon-btn" id="pcClose" aria-label="Close"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#F3EDE3" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
+    <div style="flex:1;display:flex;flex-direction:column"><span id="pcUser" style="font-size:15px;font-weight:600"></span><span id="pcTime" class="mono" style="color:rgba(248,243,236,.7)"></span></div>
+    <button id="pcDel" class="mono" style="color:#F8F3EC;padding:12px;display:none">Delete</button>
+    <button class="icon-btn" id="pcClose" aria-label="Close"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#F8F3EC" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
   </div>
   <div id="pcTap" style="position:absolute;left:0;right:0;top:90px;bottom:120px;z-index:2"></div>
   <div style="position:absolute;left:20px;right:20px;bottom:calc(28px + var(--bot));z-index:3;display:flex;flex-direction:column;gap:6px">
-    <div id="pcPlace" class="mono" style="color:rgba(243,237,227,.85)"></div>
+    <div id="pcPlace" class="mono" style="color:rgba(248,243,236,.85)"></div>
     <div id="pcCap" class="serif" style="font-size:26px;line-height:1.1"></div>
   </div>
 </div>
@@ -805,7 +810,7 @@ $('#top4').innerHTML=['single','amed','kopi','crumb'].map(k=>`<button data-place
 const PT=[
   ()=>`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
     <button data-tab="collection" style="display:flex;flex-direction:column;gap:6px;text-align:left"><div class="grain" style="height:110px;width:100%;border-radius:14px;background:url(img/welcome/s7.jpg) center/cover no-repeat"></div><div class="serif" style="font-size:18px;line-height:1.1"><span class="it">Bali,</span> édition 01</div></button>
-    <button data-go="paywall" style="display:flex;flex-direction:column;gap:6px;text-align:left"><div class="grain" style="height:110px;width:100%;border-radius:14px;background:url(img/welcome/s4.jpg) center/cover no-repeat"><span class="mono" style="position:absolute;top:8px;left:8px;background:rgba(243,237,227,.9);color:var(--ink);padding:3px 7px;border-radius:8px;z-index:2">Paid</span></div><div class="serif" style="font-size:18px;line-height:1.1">Bali <span class="it">for insiders</span></div></button></div>`,
+    <button data-go="paywall" style="display:flex;flex-direction:column;gap:6px;text-align:left"><div class="grain" style="height:110px;width:100%;border-radius:14px;background:url(img/welcome/s4.jpg) center/cover no-repeat"><span class="mono" style="position:absolute;top:8px;left:8px;background:rgba(248,243,236,.9);color:var(--ink);padding:3px 7px;border-radius:8px;z-index:2">Paid</span></div><div class="serif" style="font-size:18px;line-height:1.1">Bali <span class="it">for insiders</span></div></button></div>`,
   ()=>[...MY,'single','kopi','amed','slow'].map(k=>[k,PLACES[k]]).map(([k,p],i)=>`<button class="row" data-place="${k}" ${i===0?'style="border-top:0"':''}><div class="mono" style="width:44px">${p.date||['NOV 12','NOV 09','NOV 02','OCT 28'][(i-MY.length+4)%4]}</div><div style="flex:1"><div class="serif" style="font-size:19px">${p.name}</div><div style="font-size:14px;color:var(--ink2)">★ ${p.rating} · ${p.tag}</div></div></button>`).join(''),
   ()=>(liked.length?liked:['bowl','slow']).map((k,i)=>{const p=PLACES[k];return `<button class="row" data-place="${k}" ${i===0?'style="border-top:0"':''}><div class="thumb" style="width:48px;height:48px;background:${p.bg}"></div><div style="flex:1"><div class="serif" style="font-size:19px">${p.name}</div><div style="font-size:14px;color:var(--ink2)">from swipes</div></div></button>`}).join('')
 ];
@@ -1154,13 +1159,13 @@ function renderScenes(){
   $('#scEmpty').style.display=SCENES.length?'none':'flex';
   list.innerHTML=SCENES.map((x,i)=>`<div class="scene" data-scene="${i}">
     <video src="${x.url}#t=0.1" preload="metadata" muted loop playsinline></video>
-    <button class="icon-btn mute" data-scmute aria-label="Sound" style="background:rgba(15,17,15,.45)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F3EDE3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${muteIcon(scMuted)}</svg></button>
+    <button class="icon-btn mute" data-scmute aria-label="Sound" style="background:rgba(15,17,15,.45)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F8F3EC" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${muteIcon(scMuted)}</svg></button>
     <div class="meta">
-      <div style="display:flex;align-items:center;gap:8px">${x.ava?`<img src="${x.ava}" alt="" style="width:30px;height:30px;border-radius:15px;object-fit:cover">`:''}<span style="font-weight:600;font-size:15px">@${x.user}</span><span class="mono" style="color:rgba(243,237,227,.7)">${ago(x.at)}</span></div>
-      ${x.place?`<div class="mono" style="color:rgba(243,237,227,.85)">${x.place}</div>`:''}
+      <div style="display:flex;align-items:center;gap:8px">${x.ava?`<img src="${x.ava}" alt="" style="width:30px;height:30px;border-radius:15px;object-fit:cover">`:''}<span style="font-weight:600;font-size:15px">@${x.user}</span><span class="mono" style="color:rgba(248,243,236,.7)">${ago(x.at)}</span></div>
+      ${x.place?`<div class="mono" style="color:rgba(248,243,236,.85)">${x.place}</div>`:''}
       ${x.cap?`<div class="serif" style="font-size:24px;line-height:1.1">${x.cap}</div>`:''}
     </div>
-    ${ME&&x.uid===ME.id?`<div class="side"><button class="mono" data-scdel="${i}" style="color:#F3EDE3;padding:10px;background:rgba(15,17,15,.45);border-radius:16px">Delete</button></div>`:''}
+    ${ME&&x.uid===ME.id?`<div class="side"><button class="mono" data-scdel="${i}" style="color:#F8F3EC;padding:10px;background:rgba(15,17,15,.45);border-radius:16px">Delete</button></div>`:''}
   </div>`).join('');
   if(scObs)scObs.disconnect();
   scObs=new IntersectionObserver(es=>es.forEach(en=>{const v=en.target.querySelector('video');if(en.isIntersecting&&en.intersectionRatio>.6&&$('#s-scenes').classList.contains('active')){v.muted=scMuted;v.play().catch(()=>{})}else v.pause()}),{root:$('#s-scenes'),threshold:[0,.6,1]});
@@ -1282,7 +1287,7 @@ function renderCt(){const q=$('#ctQ').value.trim().toLowerCase();
   $('#ctCount').textContent=ctSel.size+' selected';
   const list=ALLC.filter(([c,n])=>!q||n.toLowerCase().includes(q));
   const sel=list.filter(([c])=>ctSel.has(c)),rest=list.filter(([c])=>!ctSel.has(c));
-  $('#ctList').innerHTML=[...sel,...rest].map(([c,n])=>`<button class="ctrow ${ctSel.has(c)?'on':''}" data-ct="${c}"><span>${esc(n)}</span><span class="box">${ctSel.has(c)?'<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#F3EDE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5l2.5 2.5L11 4.5"/></svg>':''}</span></button>`).join('');
+  $('#ctList').innerHTML=[...sel,...rest].map(([c,n])=>`<button class="ctrow ${ctSel.has(c)?'on':''}" data-ct="${c}"><span>${esc(n)}</span><span class="box">${ctSel.has(c)?'<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#F8F3EC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5l2.5 2.5L11 4.5"/></svg>':''}</span></button>`).join('');
 }
 $('#ctQ').addEventListener('input',renderCt);
 document.addEventListener('click',e=>{const b=e.target.closest('[data-ct]');if(b){const c=b.dataset.ct;ctSel.has(c)?ctSel.delete(c):ctSel.add(c);renderCt()}});
@@ -1309,7 +1314,7 @@ async function openMap(){
   const q=($('#q').value||'').trim().toLowerCase();
   const src=mapMode==='places'?myPlaces():mapMode==='all'?Object.entries(PLACES).filter(([k,p])=>[...on].every(t=>(p.has||[]).includes(t))&&(!q||(p.name+p.tags).toLowerCase().includes(q))):[];
   src.forEach(([k,p])=>{if(p.lat==null)return;pts.push([p.lat,p.lng]);
-    L.circleMarker([p.lat,p.lng],{radius:9,color:'#F3EDE3',weight:3,fillColor:'#2A1418',fillOpacity:1}).bindPopup(`<button data-place="${k}" style="font:inherit;text-align:left;display:flex;gap:10px;align-items:center;min-width:200px"><span style="width:52px;height:52px;border-radius:10px;flex:none;background:${p.bg}"></span><span><b class="serif" style="font-size:18px;font-weight:400">${p.name}</b><br><span style="font-size:13px;color:#5E4A4C">${p.tag} · ★ ${p.rating}</span><br><span style="font-size:12px;font-weight:600">Open →</span></span></button>`,{closeButton:false}).addTo(placeLayer)});
+    L.circleMarker([p.lat,p.lng],{radius:9,color:'#F8F3EC',weight:3,fillColor:'#2A1418',fillOpacity:1}).bindPopup(`<button data-place="${k}" style="font:inherit;text-align:left;display:flex;gap:10px;align-items:center;min-width:200px"><span style="width:52px;height:52px;border-radius:10px;flex:none;background:${p.bg}"></span><span><b class="serif" style="font-size:18px;font-weight:400">${p.name}</b><br><span style="font-size:13px;color:#5E4A4C">${p.tag} · ★ ${p.rating}</span><br><span style="font-size:12px;font-weight:600">Open →</span></span></button>`,{closeButton:false}).addTo(placeLayer)});
   if(mapMode!=='countries'&&pts.length)MAP.fitBounds(pts,{padding:[70,70],maxZoom:15});else if(mapMode==='countries'){const vis=GEO.features.filter(f=>cs.has(f.properties.a2));if(vis.length)MAP.fitBounds(L.geoJSON({type:'FeatureCollection',features:vis}).getBounds(),{padding:[40,90]});else MAP.setView([20,20],1.5)}
   $('#mapNPlaces').textContent=mapMode==='countries'?myPlaces().filter(([k,p])=>p.lat!=null).length:pts.length;
   $('#mapNCountries').textContent=cs.size;$('#mapPct').textContent=Math.round(cs.size/195*100)+'%';
@@ -1427,7 +1432,7 @@ function renderMyList(){
   $('#myCount').textContent=mine.length?mine.length+(mine.length===1?' place':' places'):'';
   if(LOADING&&ME&&!mine.length){el.innerHTML=[1,2,3].map(()=>`<div class="row" style="pointer-events:none"><div class="skel" style="width:56px;height:56px"></div><div style="flex:1;display:flex;flex-direction:column;gap:8px"><div class="skel" style="height:16px;width:60%"></div><div class="skel" style="height:12px;width:40%"></div></div></div>`).join('');return}
   if(!mine.length){el.innerHTML=`<div style="margin-top:6px;background:var(--paper2);border-radius:22px;padding:24px 20px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center">
-      <svg width="40" height="52" viewBox="0 0 36 48" aria-hidden="true"><path d="M18 2C9.7 2 3 8.6 3 16.9 3 28 18 46 18 46s15-18 15-29.1C33 8.6 26.3 2 18 2z" fill="#2A1418"/><circle cx="18" cy="17" r="5.5" fill="#F3EDE3"/></svg>
+      <svg width="40" height="52" viewBox="0 0 36 48" aria-hidden="true"><path d="M18 2C9.7 2 3 8.6 3 16.9 3 28 18 46 18 46s15-18 15-29.1C33 8.6 26.3 2 18 2z" fill="#2A1418"/><circle cx="18" cy="17" r="5.5" fill="#F8F3EC"/></svg>
       <div class="serif" style="font-size:24px">Add your first haunt</div>
       <div style="font-size:15px;color:var(--ink2);max-width:270px">A café you keep going back to, a sunset spot, a massage lady from WhatsApp — anything worth remembering</div>
       <button class="btn dark" data-go="add" style="margin-top:6px;width:100%">+ Add a place</button></div>`;return}
@@ -1533,19 +1538,19 @@ const _show7=show;show=function(id,push){if(id==='quiz')openQuiz();if(id==='intr
 
 /* ---------- aura system ---------- */
 function auraBG(name){const P={
-  sunset:['#EFE2D6',[['#6E1E2A','15% 12%'],['#B65A5F','70% 45%'],['#A9B892','25% 85%'],['#F3EDE3','88% 92%']]],
-  dusk:['#E6E4D6',[['#5C6B45','15% 15%'],['#7D4E57','45% 60%'],['#C9D0B4','60% 40%'],['#6E1E2A','90% 85%']]],
-  rose:['#F0E4DA',[['#6E1E2A','8% 8%'],['#A9B892','5% 65%'],['#9C4A55','75% 70%'],['#E8D3C8','40% 45%']]],
-  matcha:['#E4E6D6',[['#5C6B45','10% 10%'],['#A9B892','40% 60%'],['#8C3A4A','85% 35%'],['#4A5239','92% 85%']]],
-  night:['#1E0F12',[['#A9B892','50% 45%'],['#6E1E2A','50% 62%'],['#E8D3C8','50% 70%'],['#1E0F12','90% 10%']]]};
+  sunset:['#F8EEE6',[['#C9707E','12% 10%'],['#F0C9C4','70% 40%'],['#C8D4B8','20% 88%'],['#FBF5EE','88% 92%']]],
+  dusk:['#F3F1E8',[['#A8BC96','12% 14%'],['#E8B9BF','62% 55%'],['#DCE4CF','40% 35%'],['#B5606E','92% 88%']]],
+  rose:['#F8EEE8',[['#9E3445','6% 6%'],['#E6C2C6','45% 45%'],['#C3D1B3','8% 82%'],['#F1D9D2','82% 72%']]],
+  matcha:['#F1F3E8',[['#9DB487','10% 10%'],['#D3DEC4','45% 55%'],['#E3AEB7','88% 30%'],['#7F9A6C','90% 90%']]],
+  night:['#22100F',[['#C5D2B2','50% 42%'],['#8E2A3A','50% 60%'],['#F0D6CF','50% 70%'],['#22100F','90% 10%']]]};
   const [base,bl]=P[name]||P.rose;return bl.map(([c,at])=>`radial-gradient(60% 55% at ${at},${c} 0%,${c}00 70%)`).join(',')+','+base}
 function auraForTags(t){t=t||[];if(t.includes('sunset'))return 'sunset';if(t.some(x=>['work','wifi','sockets','quiet'].includes(x)))return 'dusk';if(t.some(x=>['vegan','protein'].includes(x)))return 'matcha';return 'rose'}
 function tastePalette(ints){const m={coffee:'rose',work:'dusk',sunsets:'sunset',food:'sunset',wellness:'matcha',nature:'matcha',nightlife:'night'};return m[ints[0]]||'dusk'}
 function paintAuras(root){(root||document).querySelectorAll('[data-aura]').forEach(el=>el.style.background=auraBG(el.dataset.aura))}
 paintAuras();
-$('#bgAura').style.background=['radial-gradient(70% 40% at 100% 0%,#8C3A4A70 0%,#8C3A4A00 70%)','radial-gradient(60% 35% at 0% 6%,#B9C2A480 0%,#B9C2A400 70%)','radial-gradient(70% 40% at 0% 100%,#6E7A5555 0%,#6E7A5500 70%)','radial-gradient(60% 40% at 100% 92%,#E3CFC060 0%,#E3CFC000 70%)'].join(',');
+$('#bgAura').style.background=['radial-gradient(70% 40% at 100% 0%,#D99AA560 0%,#8C3A4A00 70%)','radial-gradient(60% 35% at 0% 6%,#E9C9C680 0%,#B9C2A400 70%)','radial-gradient(70% 40% at 0% 100%,#B7C7A455 0%,#6E7A5500 70%)','radial-gradient(60% 40% at 100% 92%,#E3CFC060 0%,#E3CFC000 70%)'].join(',');
 $('#s-quiz').style.background=auraBG('rose')+'';
-(function(){const q=$('#s-quiz');q.style.background='linear-gradient(rgba(243,237,227,.55),rgba(243,237,227,.55)),'+auraBG('dusk')})();
+(function(){const q=$('#s-quiz');q.style.background='linear-gradient(rgba(248,243,236,.55),rgba(248,243,236,.55)),'+auraBG('dusk')})();
 </script>
 </body>
 </html>
