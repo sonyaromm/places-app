@@ -3,7 +3,7 @@
 Read this first before changing anything. Keep it updated: add a line to the changelog for every shipped change, and update the decision sections when something changes.
 
 ## Product
-- **haunts** — a Letterboxd-style app for places & experiences. Tagline: "We bring together / more than places". Subline: "From hidden cafés to sunset rituals — save what you love, rate it honestly and share it with people who get your taste" (no trailing periods).
+- **haunts** — a Letterboxd-style app for places & experiences. Tagline: "We bring together / more than places". Subline: "From hidden cafés to sunset rituals — save what you love, rate it honestly and share it with people who get your taste" (no trailing periods) — shown on the Create account screen, not on welcome.
 - Founder: Sofia (@sonyaromm on Instagram/Telegram), travels a lot, based in Bali. Not a developer; communicates in Russian, casual tone. UI is English for now.
 - Concept: personal diary of places (ratings, notes, photos) + social (friends, profiles, recommendations) + creators (guides that open via web link, paid guides / creator subscriptions).
 - Target: travelers / digital nomads, starting with Bali & SE Asia.
@@ -34,7 +34,7 @@ Read this first before changing anything. Keep it updated: add a line to the cha
 - User-generated text is escaped (`esc`) and media URLs are whitelisted to the project's storage (`safeMedia`) — keep this for anything new.
 
 ## App structure (screens in index.html)
-welcome (slideshow of Sofia's own photos `img/welcome/s1–s10.jpg`, no captions, no progress bars, login gate) → auth → tabs: **Swipe** (demo deck) · **Explore** (Postcards row, search, filters sheet, places list) · **+** (sheet: Postcard / Scene / Place) · **Scenes** (vertical video feed) · **Profile** (avatar, socials, real stats row → Stats screen, My map card, top-4, tabs Collections/Diary/Want/Scenes, edit profile). Other screens: place card (own places: set location), add place (location: my location / pick on map), new post, match, collection, paywall, **map** (modes Mine / Everyone / Countries; pins → popup → place card; Explore has a Map button that opens Everyone with current filters), **stats** (countries, % of world, places, cities, avg rating, scenes, taste tags, top cities, rating distribution), **countries** picker.
+welcome (full-screen slideshow of Sofia's photos `img/welcome/s1–s10.jpg`, dark gradient at bottom, light wordmark + one line "We bring together more than places" in Inter, ivory Create account button + "I already have an account · Log in"; minimal text, one typeface besides the logo) → auth → tabs: **Swipe** (demo deck) · **Explore** (Postcards row, search, filters sheet, places list) · **+** (sheet: Postcard / Scene / Place) · **Scenes** (vertical video feed) · **Profile** (avatar, socials, real stats row → Stats screen, My map card, top-4, tabs Collections/Diary/Want/Scenes, edit profile). Other screens: place card (own places: set location), add place (location: my location / pick on map), new post, match, collection, paywall, **map** (modes Mine / Everyone / Countries; pins → popup → place card; Explore has a Map button that opens Everyone with current filters), **stats** (countries, % of world, places, cities, avg rating, scenes, taste tags, top cities, rating distribution), **countries** picker.
 
 ## Naming
 - Stories = **Postcards** (24h), Reels = **Scenes**. Proposed by Claude, Sofia hasn't objected; alternatives offered: Glimpses/Moments, Walks.
@@ -66,3 +66,4 @@ welcome (slideshow of Sofia's own photos `img/welcome/s1–s10.jpg`, no captions
 - 2026-11-25 — Welcome subline: "From hidden cafés to sunset rituals — …" (chosen by Sofia).
 - 2026-11-26 — QA pass: welcome fits small iPhones (slideshow flexes), Match screen full height, paywall/place hero account for status bar, Swipe has a labeled Match button.
 - 2026-11-26 — Welcome: smaller bottom gap; hidden toast no longer leaves a faint shadow (opacity 0 when hidden).
+- 2026-11-26 — Welcome redesigned (Sofia: too much text, too many fonts): full-bleed photos, light logo, one line, two actions; long subline moved to sign-up screen.

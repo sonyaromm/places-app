@@ -350,6 +350,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   <div class="pad top" style="display:flex;align-items:center"><button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#2B1A14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button></div>
   <div class="pad" style="display:flex;flex-direction:column;gap:16px;margin-top:20px">
     <div class="serif" style="font-size:44px;line-height:1" id="authTitle">Welcome back</div>
+    <div id="authSub" style="font-size:15px;line-height:1.5;color:var(--ink2);margin-top:-6px;display:none">From hidden cafés to sunset rituals — save what you love, rate it honestly and share it with people who get your taste</div>
     <div style="display:flex;gap:8px"><button class="chip on" id="authModeIn">Log in</button><button class="chip" id="authModeUp">Create account</button></div>
     <div class="field" id="authUserField" style="display:none"><label class="mono" for="authUser">Username</label><input class="input" id="authUser" placeholder="yourname" autocapitalize="off" autocorrect="off"></div>
     <div class="field"><label class="mono" for="authEmail">Email</label><input class="input" id="authEmail" type="email" autocomplete="email" placeholder="you@mail.com"></div>
@@ -384,8 +385,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 </section>
 
 <!-- ========== WELCOME ========== -->
-<section class="screen no-tabs" id="s-welcome" style="background:var(--paper);overflow:hidden;padding-bottom:calc(10px + var(--bot))">
-  <div id="wShow" style="position:relative;flex:1 1 auto;min-height:200px;overflow:hidden;background:#2A2E28">
+<section class="screen no-tabs" id="s-welcome" style="background:#2B1A14;overflow:hidden;padding:0">
+  <div id="wShow" style="position:absolute;inset:0;overflow:hidden">
     <div class="wSlide on"><img src="img/welcome/s1.jpg" alt="" ></div>
     <div class="wSlide"><img src="img/welcome/s2.jpg" alt="" loading="lazy" ></div>
     <div class="wSlide"><img src="img/welcome/s3.jpg" alt="" loading="lazy" ></div>
@@ -396,17 +397,17 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     <div class="wSlide"><img src="img/welcome/s8.jpg" alt="" loading="lazy" ></div>
     <div class="wSlide"><img src="img/welcome/s9.jpg" alt="" loading="lazy" ></div>
     <div class="wSlide"><img src="img/welcome/s10.jpg" alt="" loading="lazy" ></div>
-    <div class="wFade"></div>
-    
   </div>
-  <div class="pad" style="flex:none;display:flex;flex-direction:column;gap:10px;margin-top:-28px;position:relative;z-index:2">
-    <div style="display:flex;align-items:flex-end;gap:10px"><img src="img/brand/wordmark.png" alt="haunts" style="height:40px;width:auto"><span class="mono" style="padding-bottom:6px">beta</span></div>
-    <div class="serif" style="font-size:42px;line-height:1.02">We bring together<br><span class="it">more than places</span></div>
-    <div style="font-size:16px;line-height:1.5;color:var(--ink2)">From hidden cafés to sunset rituals — save what you love, rate it honestly and share it with people who get your taste</div>
-  </div>
-  <div class="pad" style="flex:none;padding-top:20px;display:flex;flex-direction:column;gap:10px">
-    <button class="btn dark" data-auth="up">Create account</button>
-    <button class="btn line" data-auth="in">Log in</button>
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(43,26,20,.35) 0%,rgba(43,26,20,0) 22%,rgba(43,26,20,0) 45%,rgba(43,26,20,.78) 78%,rgba(43,26,20,.92) 100%);pointer-events:none"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;padding:0 24px calc(16px + var(--bot));display:flex;flex-direction:column;gap:22px;z-index:2">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <img src="img/brand/wordmark-light.png" alt="haunts" style="width:62%;max-width:260px;height:auto">
+      <div style="font-size:18px;line-height:1.35;color:rgba(241,233,220,.9)">We bring together more than places</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <button class="btn" data-auth="up" style="background:#F1E9DC;color:#2B1A14;font-weight:600">Create account</button>
+      <button data-auth="in" style="height:48px;color:#F1E9DC;font-size:15px">I already have an account · <b>Log in</b></button>
+    </div>
   </div>
 </section>
 
@@ -841,7 +842,7 @@ if(sb){
 let authMode='in';
 function setAuthMode(m){authMode=m;$('#authModeIn').classList.toggle('on',m==='in');$('#authModeUp').classList.toggle('on',m==='up');
   $('#authUserField').style.display=m==='up'?'flex':'none';$('#authGo').textContent=m==='up'?'Create account':'Log in';
-  $('#authTitle').textContent=m==='up'?'New profile':'Welcome back';$('#authMsg').textContent='';
+  $('#authTitle').textContent=m==='up'?'New profile':'Welcome back';$('#authSub').style.display=m==='up'?'block':'none';$('#authMsg').textContent='';
   $('#authPass').autocomplete=m==='up'?'new-password':'current-password'}
 $('#authModeIn').onclick=()=>setAuthMode('in');$('#authModeUp').onclick=()=>setAuthMode('up');
 $('#authGo').onclick=async()=>{
