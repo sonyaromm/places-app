@@ -14,14 +14,19 @@
 <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
 <script src="vendor/leaflet/leaflet.js"></script>
 <meta name="apple-mobile-web-app-title" content="haunts">
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=Inter:wght@400;500;600&display=swap">
 <style>
+@font-face{font-family:'Albert Sans';font-style:normal;font-weight:300;font-display:swap;src:url(fonts/albert-sans-latin-300-normal.woff2) format('woff2')}
+@font-face{font-family:'Albert Sans';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/albert-sans-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Albert Sans';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/albert-sans-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Albert Sans';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/albert-sans-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Newsreader';font-style:italic;font-weight:400;font-display:swap;src:url(fonts/newsreader-latin-400-italic.woff2) format('woff2')}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/newsreader-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/newsreader-latin-600-normal.woff2) format('woff2')}
 :root{
   --paper:#F8F4EF; --paper2:rgba(255,255,255,.6); --line:rgba(20,19,23,.1); --ink:#141317; --ink2:#56545C; --muted:#75737B;
   --moss:#4C6BF0; --blue:#4C6BF0; --coral:#EE7B54; --lav:#C8C2F4; --sage:#E6E3F7; --night:#141317;
-  --serif:'Fraunces', Georgia, serif; --sans:Inter, system-ui, sans-serif; --mono:Inter, system-ui, sans-serif;
+  --serif:'Albert Sans', system-ui, sans-serif; --book:'Newsreader', Georgia, serif; --sans:'Albert Sans', system-ui, sans-serif; --mono:'Albert Sans', system-ui, sans-serif;
   --top: max(env(safe-area-inset-top), 16px); --bot: env(safe-area-inset-bottom);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -37,7 +42,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .screen.no-tabs{padding-bottom:calc(24px + var(--bot))}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .mono{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.serif{font-family:var(--serif);font-weight:400;font-variation-settings:'SOFT' 100,'opsz' 72;letter-spacing:-.01em}
+.serif{font-family:var(--serif);font-weight:300;letter-spacing:-.025em}
+.serif .it,.serif.it{font-family:var(--book);font-weight:400;font-style:italic;letter-spacing:-.01em}
+.book{font-family:var(--book);font-weight:600;letter-spacing:-.01em}
+.row .serif{font-weight:400;letter-spacing:-.01em}
 .it{font-style:italic}
 .pad{padding-left:20px;padding-right:20px}
 .top{padding-top:calc(var(--top) + 8px)}
