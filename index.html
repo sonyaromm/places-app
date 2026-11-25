@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#F2F0E9">
+<title>Места · прототип</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#F2F0E9; --paper2:#E9E6DC; --line:#D8D5CB; --ink:#1A1D19; --ink2:#4A4F45; --muted:#5B5F55;
+  --moss:#4F5A45; --sage:#E2E7D3; --night:#1A1D19;
+  --serif:'Cormorant Garamond', Georgia, serif; --sans:Inter, system-ui, sans-serif; --mono:'JetBrains Mono', ui-monospace, monospace;
+  --top: max(env(safe-area-inset-top), 16px); --bot: env(safe-area-inset-bottom);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:#0f110f;overscroll-behavior:none}
+body{font-family:var(--sans);color:var(--ink);display:flex;justify-content:center}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+#app{position:relative;width:100%;max-width:440px;height:100dvh;overflow:hidden;background:var(--paper)}
+.screen{position:absolute;inset:0;display:none;flex-direction:column;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(88px + var(--bot))}
+.screen.active{display:flex;animation:fade .25s ease}
+.screen.no-tabs{padding-bottom:calc(24px + var(--bot))}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.mono{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.serif{font-family:var(--serif);font-weight:500}
+.it{font-style:italic}
+.pad{padding-left:20px;padding-right:20px}
+.top{padding-top:calc(var(--top) + 8px)}
+.grain{position:relative;overflow:hidden}
+.grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.ph{font-family:var(--mono);font-size:10px;color:rgba(241,239,231,.7)}
+.btn{height:52px;border-radius:26px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;padding:0 20px}
+.btn.dark{background:var(--ink);color:var(--paper)}
+.btn.line{border:1px solid var(--ink)}
+.icon-btn{width:44px;height:44px;border-radius:22px;display:flex;align-items:center;justify-content:center}
+.chip{height:36px;padding:0 14px;border-radius:18px;border:1px solid #C9C5B8;font-size:13px;transition:all .15s}
+.chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.row{display:flex;gap:14px;align-items:center;padding:10px 0;border-top:1px solid var(--line);width:100%;text-align:left}
+.thumb{flex:none;border-radius:12px}
+/* tab bar */
+#tabs{position:absolute;left:12px;right:12px;bottom:calc(12px + var(--bot));height:64px;border-radius:32px;background:rgba(26,29,25,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);display:flex;justify-content:space-around;align-items:center;z-index:20}
+#tabs button{display:flex;flex-direction:column;align-items:center;gap:3px;color:rgba(242,240,233,.55);font-size:10px;min-width:60px;min-height:48px;justify-content:center}
+#tabs button.on{color:var(--paper)}
+#tabs.hide{display:none}
+/* swipe */
+#s-swipe{background:var(--night);color:#F1EFE7;padding-bottom:0}
+.deck{position:absolute;inset:0}
+.card{position:absolute;inset:0;touch-action:none;will-change:transform}
+.card .bg{position:absolute;inset:0}
+.card .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,12,10,.45) 0%,rgba(10,12,10,0) 22%,rgba(10,12,10,0) 45%,rgba(10,12,10,.6) 100%)}
+.glass{position:absolute;left:16px;right:16px;bottom:calc(176px + var(--bot));padding:22px;border-radius:28px;background:rgba(236,233,222,.16);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(241,239,231,.22);display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.pill{padding:4px 12px;border-radius:999px;border:1px solid rgba(241,239,231,.5);font-family:var(--serif);font-style:italic;font-size:13px}
+.stamp{position:absolute;top:calc(var(--top) + 90px);padding:8px 14px;border:2px solid;border-radius:10px;font-family:var(--mono);font-size:14px;letter-spacing:.12em;opacity:0;transform:rotate(-10deg)}
+.stamp.yes{left:24px;color:#C9D3A8;border-color:#C9D3A8}
+.stamp.no{right:24px;color:#F1EFE7;border-color:#F1EFE7;transform:rotate(10deg)}
+.swipe-top{position:absolute;top:calc(var(--top) + 8px);left:20px;right:20px;display:flex;justify-content:space-between;align-items:center;z-index:5}
+.swipe-actions{position:absolute;left:20px;right:20px;bottom:calc(92px + var(--bot));display:flex;align-items:center;justify-content:space-between;z-index:5}
+.round{width:60px;height:60px;border-radius:30px;border:1px solid rgba(241,239,231,.35);background:rgba(20,22,19,.5);display:flex;align-items:center;justify-content:center}
+.want{height:60px;padding:0 28px;border-radius:30px;border:1px solid rgba(255,255,255,.7);background:rgba(236,233,222,.85);color:var(--ink);font-weight:600;letter-spacing:.08em;display:flex;align-items:center;gap:10px}
+.empty-deck{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:40px}
+/* bars */
+.bar{display:flex;gap:4px}.bar span{flex:1;height:6px;border-radius:3px;background:#CFCBBE}.bar span.f{background:var(--moss)}
+.blur{filter:blur(5px);opacity:.6}
+.plan{width:100%;min-height:56px;padding:8px 14px;border-radius:16px;display:flex;align-items:center;justify-content:space-between;color:var(--paper);border:1px solid rgba(242,240,233,.25);text-align:left}
+.plan.on{border:1.5px solid var(--paper)}
+.toast{position:absolute;left:50%;top:calc(var(--top) + 10px);transform:translate(-50%,-80px);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:20px;font-size:13px;z-index:50;transition:transform .3s}
+.toast.show{transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- ========== SWIPE ========== -->
+<section class="screen active" id="s-swipe" data-tabs="swipe">
+  <div class="deck" id="deck"></div>
+  <div class="empty-deck" id="deckEmpty">
+    <div class="serif" style="font-size:40px;line-height:1">Подборка <span class="it">пролистана</span></div>
+    <div style="font-size:14px;color:rgba(241,239,231,.75)">В твоём списке <b id="likedN">0</b>. Посмотри, что совпало с друзьями.</div>
+    <button class="btn" style="background:rgba(236,233,222,.88);color:var(--ink);font-weight:600" data-go="match">Смотреть мэтч</button>
+    <button class="mono" style="color:rgba(241,239,231,.7);padding:12px" id="restart">Листать заново</button>
+  </div>
+  <div class="swipe-top">
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div class="mono" style="color:rgba(241,239,231,.85)">Бали · подборка @masha</div>
+      <div class="mono" style="color:rgba(241,239,231,.85)" id="deckCount">01 / 06</div>
+    </div>
+    <button class="icon-btn" style="background:rgba(20,22,19,.55)" data-go="match" aria-label="Мэтч с друзьями">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#F1EFE7" stroke-width="1.5"><circle cx="7.5" cy="10" r="4.5"/><circle cx="12.5" cy="10" r="4.5"/></svg>
+    </button>
+  </div>
+  <div class="swipe-actions">
+    <button class="round" id="btnNo" aria-label="Пропустить"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#F1EFE7" stroke-width="1.6" stroke-linecap="round"><path d="M4 4l12 12M16 4L4 16"/></svg></button>
+    <div class="mono" style="color:rgba(241,239,231,.75);text-align:center;line-height:1.6">в списке<br><span id="likedTop">0</span></div>
+    <button class="want" id="btnYes"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#1A1D19" stroke-width="1.7" stroke-linejoin="round"><path d="M10 17s-6.5-3.9-6.5-8.6A3.6 3.6 0 0 1 10 6.1a3.6 3.6 0 0 1 6.5 2.3C16.5 13.1 10 17 10 17z"/></svg>ХОЧУ</button>
+  </div>
+</section>
+
+<!-- ========== MATCH ========== -->
+<section class="screen no-tabs grain" id="s-match" style="background:radial-gradient(130% 60% at 50% 0%,#3C4A3A 0%,#222820 55%,#161915 100%);color:#F1EFE7">
+  <div class="pad top" style="display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1">
+    <button class="icon-btn" data-back aria-label="Назад"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#F1EFE7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <div class="mono" style="color:rgba(241,239,231,.7)">Поездка · Бали · 12–19 дек</div>
+    <div style="width:44px"></div>
+  </div>
+  <div class="pad" style="display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;margin-top:10px;position:relative;z-index:1">
+    <div style="display:flex">
+      <div class="serif" style="width:56px;height:56px;border-radius:28px;background:#C9B48F;color:#1A1D19;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #222820">С</div>
+      <div class="serif" style="width:56px;height:56px;border-radius:28px;background:#8FB3AA;color:#1A1D19;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #222820;margin-left:-14px">М</div>
+      <div class="serif" style="width:56px;height:56px;border-radius:28px;background:#D9A877;color:#1A1D19;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #222820;margin-left:-14px">Л</div>
+    </div>
+    <div class="serif" style="font-size:46px;line-height:1">It's a <span class="it">match</span></div>
+    <div style="font-size:14px;line-height:1.45;color:rgba(241,239,231,.8);max-width:290px">Вы втроём свайпнули вправо одни и те же места. Остальное — у каждого своё.</div>
+  </div>
+  <div id="matchList" style="margin:24px 16px 0;padding:6px 16px;border-radius:24px;background:rgba(236,233,222,.1);border:1px solid rgba(241,239,231,.16);position:relative;z-index:1"></div>
+  <div class="pad" style="margin-top:auto;padding-top:24px;display:flex;flex-direction:column;gap:10px;position:relative;z-index:1">
+    <button class="btn" style="background:rgba(236,233,222,.9);color:var(--ink);font-weight:600" data-toast="Маршрут по дням — следующая версия">Собрать маршрут по дням</button>
+  </div>
+</section>
+
+<!-- ========== EXPLORE ========== -->
+<section class="screen" id="s-explore" data-tabs="explore">
+  <div class="pad top" style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;justify-content:space-between">
+      <div class="serif" style="font-size:40px;line-height:1">Чангу, <span class="it">кофе</span></div>
+      <div class="mono" id="exCount"></div>
+    </div>
+    <label style="height:44px;border-radius:22px;background:#E6E3DA;display:flex;align-items:center;gap:8px;padding:0 16px">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#5B5F55" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
+      <input id="q" placeholder="Место, район или вайб" style="flex:1;border:0;background:transparent;font:inherit;font-size:16px;color:var(--ink);outline:none">
+    </label>
+  </div>
+  <div class="pad" style="margin-top:16px;display:flex;flex-direction:column;gap:8px">
+    <div class="mono">Зачем иду</div>
+    <div id="chipsNeed" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+    <div class="mono" style="margin-top:6px">Атмосфера</div>
+    <div id="chipsVibe" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+  </div>
+  <div class="pad" id="exList" style="margin-top:16px"></div>
+</section>
+
+<!-- ========== PLACE ========== -->
+<section class="screen no-tabs" id="s-place">
+  <div class="grain" id="plHero" style="height:280px;flex:none">
+    <button class="icon-btn" data-back aria-label="Назад" style="position:absolute;top:calc(var(--top) + 4px);left:16px;background:rgba(242,240,233,.85);z-index:2"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#1A1D19" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <div class="ph" id="plPh" style="position:absolute;left:20px;bottom:16px"></div>
+  </div>
+  <div class="pad" style="margin-top:18px;display:flex;flex-direction:column;gap:6px">
+    <div class="serif" id="plName" style="font-size:38px;line-height:1"></div>
+    <div class="mono" id="plMeta"></div>
+    <div id="plTags" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px"></div>
+  </div>
+  <div style="margin:16px 20px 0;padding:14px 16px;border-radius:18px;background:var(--paper2);display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <div class="serif it" style="font-size:20px">Как тут на самом деле</div>
+      <div class="mono" id="plVotes"></div>
+    </div>
+    <div id="plBars" style="display:flex;flex-direction:column;gap:12px"></div>
+  </div>
+  <div class="pad" id="plReview" style="margin-top:14px;display:flex;gap:10px;align-items:flex-start"></div>
+  <div class="pad" style="margin-top:auto;padding-top:20px;display:flex;gap:10px">
+    <button class="btn dark" style="flex:1" data-toast="Тут откроется оценка по шкалам">Оценить</button>
+    <button class="btn line" id="plSave">В подборку</button>
+  </div>
+</section>
+
+<!-- ========== COLLECTION ========== -->
+<section class="screen" id="s-collection" data-tabs="collection">
+  <div class="pad top" style="display:flex;align-items:center;justify-content:space-between">
+    <div class="mono">Мои подборки</div>
+    <button class="mono" style="color:var(--ink);padding:12px 0" data-go="paywall">Как видят другие ↗</button>
+  </div>
+  <div class="pad" style="padding-bottom:18px;display:flex;flex-direction:column;gap:6px">
+    <div class="serif" style="font-size:48px;line-height:.95"><span class="it">Бали,</span> édition 01</div>
+    <div class="mono" style="display:flex;gap:14px"><span>Ноябрь 2026</span><span>24 места</span><span>@sofia</span></div>
+  </div>
+  <div class="grain" id="carousel" style="height:260px;flex:none;background:radial-gradient(120% 90% at 30% 30%,#C9B48F 0%,#8C7A5C 30%,#4F5A45 62%,#2A3127 100%);transition:background .4s">
+    <div class="ph" style="position:absolute;top:14px;left:20px" id="carPh">[фото: рисовые террасы, туман]</div>
+    <div class="serif it" id="carTitle" style="position:absolute;left:20px;bottom:18px;font-size:40px;color:#F1EFE7">01 / Закаты</div>
+    <div id="dots" style="position:absolute;right:20px;bottom:26px;display:flex;gap:6px"></div>
+  </div>
+  <div class="pad" id="secList" style="margin-top:6px"></div>
+  <div class="pad" style="margin-top:20px;display:flex;gap:10px">
+    <button class="btn dark" style="flex:1" data-go="swipe">Свайпать подборку</button>
+    <button class="btn line" data-go="match">С друзьями</button>
+  </div>
+</section>
+
+<!-- ========== PAYWALL ========== -->
+<section class="screen no-tabs" id="s-paywall">
+  <div class="grain" style="height:230px;flex:none;background:radial-gradient(120% 90% at 50% 30%,#C9B48F 0%,#8C7A5C 30%,#4F5A45 65%,#222820 100%)">
+    <button class="icon-btn" data-back aria-label="Назад" style="position:absolute;top:calc(var(--top) + 4px);left:16px;background:rgba(242,240,233,.85);z-index:2"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#1A1D19" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <div style="position:absolute;left:20px;right:20px;bottom:18px;color:#F2F0E9;display:flex;flex-direction:column;gap:6px;z-index:2">
+      <div class="mono" style="color:rgba(242,240,233,.85)">Гайд @sofia · 42 места · 7 дней</div>
+      <div class="serif" style="font-size:36px;line-height:1">Бали <span class="it">для своих</span></div>
+    </div>
+  </div>
+  <div class="pad mono" style="margin-top:14px;display:flex;gap:16px"><span>★ 4.9 · 318 покупок</span><span>обновлён 5 дней назад</span></div>
+  <div class="pad" style="margin-top:10px">
+    <div class="mono" style="color:var(--moss);padding:6px 0">Бесплатное превью · 3 из 42</div>
+    <div id="pwFree"></div>
+    <div style="position:relative;border-top:1px solid var(--line)">
+      <div class="blur" aria-hidden="true">
+        <div class="row" style="border:0"><div class="thumb" style="width:48px;height:48px;background:#A9BE8E"></div><div class="serif" style="font-size:19px">Секретный водопад</div></div>
+        <div class="row" style="border:0"><div class="thumb" style="width:48px;height:48px;background:#D9B58A"></div><div class="serif" style="font-size:19px">Массаж у Ибу Ваян</div></div>
+      </div>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;font-weight:500">🔒 Ещё 39 мест, маршрут по дням и контакты</div>
+    </div>
+  </div>
+  <div style="margin:20px 12px 0;padding:12px;border-radius:26px;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;gap:8px">
+    <button class="plan on" data-plan="guide"><span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:14px;font-weight:600">Только этот гайд</span><span style="font-size:11px;opacity:.75">Навсегда, со всеми обновлениями</span></span><span class="serif" style="font-size:22px">[ЦЕНА]</span></button>
+    <button class="plan" data-plan="sub"><span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:14px;font-weight:600">Подписка на @sofia</span><span style="font-size:11px;opacity:.75">Все гайды + закрытые подборки</span></span><span class="serif" style="font-size:22px">[ЦЕНА]/мес</span></button>
+    <button class="btn" id="pwCta" style="background:var(--paper);color:var(--ink);font-weight:600">Купить гайд</button>
+  </div>
+</section>
+
+<!-- ========== PROFILE ========== -->
+<section class="screen" id="s-profile" data-tabs="profile">
+  <div class="pad top" style="display:flex;align-items:center;justify-content:space-between">
+    <div class="mono">@sofia</div>
+    <button class="icon-btn" aria-label="Настройки" style="justify-content:flex-end" data-toast="Настройки профиля"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1A1D19" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+  </div>
+  <div class="pad" style="display:flex;gap:16px;align-items:center">
+    <div class="grain" style="width:84px;height:84px;border-radius:42px;flex:none;background:radial-gradient(90% 90% at 40% 35%,#D9A877,#8C7A5C 50%,#3F3A31)"></div>
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div class="serif" style="font-size:34px;line-height:1">София</div>
+      <div style="font-size:13px;line-height:1.4;color:var(--ink2)">Ищу закаты и кофе без туристов. Делюсь только тем, где была сама.</div>
+    </div>
+  </div>
+  <div class="pad" id="socials" style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px"></div>
+  <div style="margin:18px 20px 0;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);text-align:center">
+    <div><div class="serif" style="font-size:28px;line-height:1">14</div><div class="mono" style="margin-top:4px">стран</div></div>
+    <div><div class="serif" style="font-size:28px;line-height:1">63</div><div class="mono" style="margin-top:4px">места</div></div>
+    <div><div class="serif" style="font-size:28px;line-height:1">6</div><div class="mono" style="margin-top:4px">подборок</div></div>
+    <div><div class="serif" style="font-size:28px;line-height:1">212</div><div class="mono" style="margin-top:4px">друзей</div></div>
+  </div>
+  <div class="pad" style="margin-top:16px;display:flex;flex-direction:column;gap:10px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <div class="serif it" style="font-size:22px">Мой топ-4</div>
+      <div class="mono">Вкус: охотница за закатами</div>
+    </div>
+    <div id="top4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px"></div>
+  </div>
+  <div style="margin:18px 20px 0;display:flex;gap:22px;border-bottom:1px solid var(--line)" id="ptabs">
+    <button data-pt="0" style="padding-bottom:10px;border-bottom:2px solid var(--ink);font-weight:600;font-size:14px">Подборки</button>
+    <button data-pt="1" style="padding-bottom:10px;font-size:14px;color:var(--muted)">Дневник</button>
+    <button data-pt="2" style="padding-bottom:10px;font-size:14px;color:var(--muted)">Хочу</button>
+  </div>
+  <div class="pad" id="ptBody" style="margin-top:14px"></div>
+</section>
+
+<nav id="tabs">
+  <button data-tab="swipe" class="on"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="3" width="12" height="17" rx="2.5"/><path d="M19 6v13a2 2 0 0 1-2 2H8"/></svg>Свайпы</button>
+  <button data-tab="explore"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>Поиск</button>
+  <button data-tab="collection"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 4h14v16l-7-4-7 4z"/></svg>Подборки</button>
+  <button data-tab="profile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c1.2-3.6 4-5.2 7-5.2s5.8 1.6 7 5.2"/></svg>Профиль</button>
+</nav>
+<div class="toast" id="toast"></div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const G={
+  sunset:'radial-gradient(120% 70% at 50% 38%,#D9A877 0%,#A9785A 28%,#5E5A4E 58%,#2A2E28 100%)',
+  coffee:'radial-gradient(110% 80% at 40% 40%,#B9A58A 0%,#7F6B55 35%,#3F3A31 70%,#1F201C 100%)',
+  ocean:'radial-gradient(120% 80% at 50% 35%,#8FB3AA 0%,#5F8A84 32%,#35524F 65%,#182423 100%)',
+  green:'radial-gradient(120% 90% at 30% 30%,#A9BE8E 0%,#6E8458 35%,#3D4C35 70%,#1E251B 100%)',
+  bake:'radial-gradient(110% 90% at 50% 35%,#D9B58A 0%,#A27B55 40%,#6B4E37 75%,#2C2119 100%)',
+  terrace:'radial-gradient(120% 90% at 30% 30%,#C9B48F 0%,#8C7A5C 30%,#4F5A45 62%,#2A3127 100%)',
+  stone:'radial-gradient(120% 90% at 50% 30%,#A9B4BC 0%,#6F7C85 40%,#4A5560 70%,#23292E 100%)'
+};
+
+/* ---------- data ---------- */
+const PLACES={
+  single:{name:'Single Fin, Улувату',tag:'Закат',cat:'опыт',note:'Приходи к 17:30 и бери столик у края скалы. Самый красивый закат на Букит.',author:'@masha',rating:'4.5',bg:G.sunset,ph:'закат над океаном',
+    has:['sunset'],tags:'Закат · терраса · шумно после 17:00',
+    bars:[['Тишина',1,'шумно и весело'],['Персонал',4,'дружелюбные'],['Вид',5,'лучший на Букит'],['Цены',2,'дороговато']],labels:[['Закат',18],['Коктейли',7]]},
+  kopi:{name:'Kopi Pagi, Чангу',tag:'Кофе без туристов',cat:'место',note:'Крошечный варунг в переулке. Местные бобы, хозяйка учит заваривать по-балийски.',author:'@lesha',rating:'4.9',bg:G.coffee,ph:'кофе на деревянном столе',
+    has:['work','decaf','quiet','staff','sockets','wifi'],tags:'Тихо · декаф · розетки у каждого стола',
+    bars:[['Тишина',4,'тихо, можно созвоны'],['Персонал',5,'очень вежливые'],['Wi-Fi',3,'хватает для видео'],['Выпечка',4,'банановый хлеб — да']],labels:[['Поработать',14],['Декаф',9],['Розетки',11]]},
+  amed:{name:'Риф у Амеда',tag:'Океан',cat:'опыт',note:'Снорклинг с берега в 7 утра, пока нет лодок. Маску бери свою.',author:'@masha',rating:'4.8',bg:G.ocean,ph:'бирюзовая вода и риф',
+    has:['sunset'],tags:'Снорклинг · утро · с берега',
+    bars:[['Тишина',5,'утром никого'],['Вода',5,'видимость 20 м'],['Прокат',2,'маски мутные']],labels:[['Снорклинг',12],['Рассвет',6]]},
+  slow:{name:'Slow Hours',tag:'Поработать',cat:'место',note:'Большие столы, кондиционер и круассаны с утра.',author:'@sofia',rating:'4.7',bg:G.terrace,ph:'светлый зал с растениями',
+    has:['work','wifi','sockets','bakery','quiet'],tags:'Wi-Fi 120 Мбит · круассаны с утра',
+    bars:[['Тишина',4,'тихо до обеда'],['Персонал',4,'быстро приносят'],['Wi-Fi',5,'120 Мбит'],['Выпечка',5,'круассаны — топ']],labels:[['Поработать',21],['Выпечка',8]]},
+  bowl:{name:'Green Bowl',tag:'Протеин',cat:'место',note:'Боулы с курицей и темпе, белок указан в меню.',author:'@masha',rating:'4.6',bg:G.green,ph:'боул с зеленью',
+    has:['protein','vegan','breakfast','staff'],tags:'Боулы с 40 г белка · веган-опции',
+    bars:[['Тишина',3,'бывает очередь'],['Персонал',5,'помогают с заказом'],['Белок',5,'до 45 г в боуле']],labels:[['Добрать протеин',16],['Веган',10]]},
+  crumb:{name:'Crumb & Co',tag:'Выпечка',cat:'место',note:'Лучший пан-о-шоколя на острове, декаф на овсяном.',author:'@lesha',rating:'4.8',bg:G.bake,ph:'витрина с выпечкой',
+    has:['bakery','decaf','breakfast','staff'],tags:'Пан-о-шоколя · декаф на овсяном',
+    bars:[['Тишина',3,'уютный гул'],['Персонал',5,'улыбаются'],['Выпечка',5,'с утра всё свежее']],labels:[['Вкусная выпечка',22],['Декаф',7]]}
+};
+const DECK=['single','kopi','amed','slow','bowl','crumb'];
+
+/* ---------- navigation ---------- */
+let stack=['swipe'];
+function show(id,push=true){
+  if(push&&stack[stack.length-1]!==id)stack.push(id);
+  $$('.screen').forEach(s=>s.classList.toggle('active',s.id==='s-'+id));
+  const scr=$('#s-'+id); scr.scrollTop=0;
+  const tab=scr.dataset.tabs;
+  $('#tabs').classList.toggle('hide',!tab);
+  if(tab)$$('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));
+  if(id==='match')renderMatch();
+}
+function back(){if(stack.length>1){stack.pop();show(stack[stack.length-1],false)}}
+document.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]'); if(g){show(g.dataset.go);return}
+  const b=e.target.closest('[data-back]'); if(b){back();return}
+  const t=e.target.closest('[data-tab]'); if(t){stack=[t.dataset.tab];show(t.dataset.tab,false);return}
+  const ts=e.target.closest('[data-toast]'); if(ts){toast(ts.dataset.toast)}
+});
+let tt;function toast(m){const el=$('#toast');el.textContent=m;el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),1800)}
+
+/* ---------- swipe deck ---------- */
+let idx=0, liked=[];
+function cardHTML(k){const p=PLACES[k];return `<div class="bg grain" style="background:${p.bg}"></div><div class="shade"></div>
+<div class="ph" style="position:absolute;top:calc(var(--top) + 64px);left:20px">[фото: ${p.ph}]</div>
+<div class="stamp yes">ХОЧУ</div><div class="stamp no">МИМО</div>
+<div class="glass"><div class="pill">${p.tag}</div><div class="serif" style="font-size:32px;line-height:1.05">${p.name}</div>
+<div style="font-size:13px;line-height:1.45;color:rgba(241,239,231,.88);max-width:290px">${p.note}</div>
+<div style="display:flex;gap:14px;font-family:var(--mono);font-size:11px;color:rgba(241,239,231,.8)"><span>${p.author}</span><span>★ ${p.rating}</span><span>${p.cat}</span></div></div>`}
+function buildDeck(){
+  const d=$('#deck');d.innerHTML='';
+  for(let i=DECK.length-1;i>=idx;i--){const c=document.createElement('div');c.className='card';c.dataset.k=DECK[i];c.innerHTML=cardHTML(DECK[i]);
+    if(i>idx){c.style.transform='scale(.96)';c.style.filter='brightness(.7)'}d.appendChild(c)}
+  updateCount();attach();
+}
+function updateCount(){
+  const done=idx>=DECK.length;
+  $('#deckEmpty').style.display=done?'flex':'none';
+  $('.swipe-actions').style.visibility=done?'hidden':'visible';
+  $('#deckCount').textContent=String(Math.min(idx+1,DECK.length)).padStart(2,'0')+' / '+String(DECK.length).padStart(2,'0');
+  $('#likedTop').textContent=liked.length;$('#likedN').textContent=liked.length;
+}
+function topCard(){return $('#deck').lastElementChild}
+function fling(dir){
+  const c=topCard();if(!c)return;
+  if(dir>0)liked.push(c.dataset.k);
+  c.style.transition='transform .35s ease';c.style.transform=`translateX(${dir*500}px) rotate(${dir*24}deg)`;
+  idx++;setTimeout(()=>{c.remove();const n=topCard();if(n){n.style.transition='transform .25s,filter .25s';n.style.transform='none';n.style.filter='none'}updateCount();attach()},300);
+  if(navigator.vibrate)navigator.vibrate(8);
+}
+function attach(){
+  const c=topCard();if(!c||c.dataset.bound)return;c.dataset.bound=1;
+  let sx=0,sy=0,dx=0,drag=false;
+  const yes=c.querySelector('.stamp.yes'),no=c.querySelector('.stamp.no');
+  c.addEventListener('pointerdown',e=>{drag=true;sx=e.clientX;sy=e.clientY;c.setPointerCapture(e.pointerId);c.style.transition='none'});
+  c.addEventListener('pointermove',e=>{if(!drag)return;dx=e.clientX-sx;const dy=(e.clientY-sy)*.3;
+    c.style.transform=`translate(${dx}px,${dy}px) rotate(${dx/18}deg)`;yes.style.opacity=Math.max(0,dx/100);no.style.opacity=Math.max(0,-dx/100)});
+  const end=()=>{if(!drag)return;drag=false;if(Math.abs(dx)>100)fling(dx>0?1:-1);else{c.style.transition='transform .25s';c.style.transform='none';yes.style.opacity=0;no.style.opacity=0}dx=0};
+  c.addEventListener('pointerup',end);c.addEventListener('pointercancel',end);
+}
+$('#btnYes').onclick=()=>fling(1);$('#btnNo').onclick=()=>fling(-1);
+$('#restart').onclick=()=>{idx=0;liked=[];buildDeck()};
+buildDeck();
+
+/* ---------- match ---------- */
+function renderMatch(){
+  const keys=liked.length?liked:['single','amed','kopi'];
+  $('#matchList').innerHTML=keys.map((k,i)=>{const p=PLACES[k];return `<button class="row" data-place="${k}" style="color:#F1EFE7;${i===0?'border-top:0':'border-top:1px solid rgba(241,239,231,.12)'}">
+  <div class="thumb" style="width:52px;height:52px;background:${p.bg}"></div>
+  <div style="flex:1;display:flex;flex-direction:column;gap:3px"><div class="serif" style="font-size:21px">${p.name}</div><div class="mono" style="color:rgba(241,239,231,.65)">${p.tag} · ${p.cat}</div></div>
+  <div class="mono" style="color:#C9D3A8">3/3</div></button>`}).join('');
+}
+
+/* ---------- explore ---------- */
+const NEEDS=[['work','Поработать'],['decaf','Декаф'],['protein','Добрать протеин'],['bakery','Вкусная выпечка'],['breakfast','Завтраки весь день'],['vegan','Веган']];
+const VIBES=[['quiet','Тихо'],['sockets','Розетки'],['wifi','Быстрый Wi-Fi'],['staff','Вежливый персонал'],['sunset','Вид на закат']];
+const on=new Set(['work']);
+function chips(el,list){el.innerHTML=list.map(([k,l])=>`<button class="chip ${on.has(k)?'on':''}" data-chip="${k}">${l}</button>`).join('')}
+function renderExplore(){
+  chips($('#chipsNeed'),NEEDS);chips($('#chipsVibe'),VIBES);
+  const q=$('#q').value.trim().toLowerCase();
+  const res=Object.entries(PLACES).filter(([k,p])=>[...on].every(t=>p.has.includes(t))&&(!q||(p.name+p.tags).toLowerCase().includes(q)));
+  $('#exCount').textContent=res.length+' мест';
+  $('#exList').innerHTML=res.length?res.map(([k,p])=>`<button class="row" data-place="${k}">
+    <div class="thumb" style="width:64px;height:64px;border-radius:14px;background:${p.bg}"></div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:4px;min-width:0"><div class="serif" style="font-size:21px;line-height:1.1">${p.name}</div>
+    <div style="font-size:12px;color:var(--ink2)">${p.tags}</div><div class="mono">★ ${p.rating} · ${p.author} советует</div></div></button>`).join('')
+    :`<div style="padding:24px 0;font-size:13px;color:var(--ink2);border-top:1px solid var(--line)">Под все фильтры пока ничего. Сними один — или добавь своё место.</div>`;
+}
+document.addEventListener('click',e=>{const c=e.target.closest('[data-chip]');if(c){const k=c.dataset.chip;on.has(k)?on.delete(k):on.add(k);renderExplore()}});
+$('#q').addEventListener('input',renderExplore);
+renderExplore();
+
+/* ---------- place ---------- */
+let curPlace=null;
+function openPlace(k){
+  curPlace=k;const p=PLACES[k];
+  $('#plHero').style.background=p.bg;$('#plPh').textContent='[фото: '+p.ph+']';
+  $('#plName').textContent=p.name;$('#plMeta').textContent=`${p.tag} · ${p.cat} · ★ ${p.rating}`;
+  $('#plTags').innerHTML=p.labels.map(([l,n])=>`<span style="height:28px;padding:0 10px;border-radius:14px;background:var(--sage);display:flex;align-items:center;font-size:12px">${l} · ${n}</span>`).join('')+`<button style="height:28px;padding:0 10px;border-radius:14px;border:1px dashed #9E9A8C;font-size:12px" data-toast="Добавь свой тег: «тут уютно с собакой»">+ тег</button>`;
+  $('#plVotes').textContent=(p.bars.length*6+5)+' оценок';
+  $('#plBars').innerHTML=p.bars.map(([n,v,t])=>`<div style="display:flex;flex-direction:column;gap:5px"><div style="display:flex;justify-content:space-between;font-size:12px"><span>${n}</span><span style="color:var(--ink2)">${t}</span></div><div class="bar">${[1,2,3,4,5].map(i=>`<span class="${i<=v?'f':''}"></span>`).join('')}</div></div>`).join('');
+  $('#plReview').innerHTML=`<div class="serif" style="width:32px;height:32px;border-radius:16px;flex:none;background:#8FB3AA;display:flex;align-items:center;justify-content:center;font-size:16px">${p.author[1].toUpperCase()}</div><div style="font-size:13px;line-height:1.45;color:#2F332C"><b>${p.author}</b> ${p.note}</div>`;
+  show('place');
+}
+document.addEventListener('click',e=>{const r=e.target.closest('[data-place]');if(r)openPlace(r.dataset.place)});
+$('#plSave').onclick=()=>toast('Добавлено в «Бали, édition 01»');
+
+/* ---------- collection ---------- */
+const SECS=[['Закаты',6,G.sunset,'закат над океаном'],['Кофе без туристов',8,G.coffee,'кофе на деревянном столе'],['Океан и рифы',5,G.ocean,'бирюзовая вода'],['Опыты',5,G.terrace,'рисовые террасы, туман']];
+let car=0;
+function renderCar(){const s=SECS[car];$('#carousel').style.background=s[2];$('#carTitle').textContent='0'+(car+1)+' / '+s[0];$('#carPh').textContent='[фото: '+s[3]+']';
+  $('#dots').innerHTML=SECS.map((_,i)=>`<span style="width:${i===car?18:6}px;height:3px;border-radius:2px;background:${i===car?'#F1EFE7':'rgba(241,239,231,.5)'};transition:width .2s"></span>`).join('')}
+$('#secList').innerHTML=SECS.map((s,i)=>`<button class="row" data-sec="${i}" style="justify-content:space-between;${i===0?'border-top:0':''}"><span class="serif" style="font-size:30px"><sup class="mono" style="margin-right:6px;color:var(--ink)">0${i+1}</sup>${i===3?'<span class=it>'+s[0]+'</span>':s[0]}</span><span class="mono">${s[1]} →</span></button>`).join('');
+document.addEventListener('click',e=>{const s=e.target.closest('[data-sec]');if(s){car=+s.dataset.sec;renderCar();$('#s-collection').scrollTo({top:0,behavior:'smooth'})}});
+let cx=0;$('#carousel').addEventListener('touchstart',e=>cx=e.touches[0].clientX,{passive:true});
+$('#carousel').addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-cx;if(Math.abs(d)>40){car=(car+(d<0?1:-1)+SECS.length)%SECS.length;renderCar()}});
+$('#carousel').addEventListener('click',()=>{car=(car+1)%SECS.length;renderCar()});
+renderCar();
+
+/* ---------- paywall ---------- */
+$('#pwFree').innerHTML=['single','kopi','amed'].map(k=>{const p=PLACES[k];return `<button class="row" data-place="${k}"><div class="thumb" style="width:48px;height:48px;border-radius:10px;background:${p.bg}"></div><div style="flex:1"><div class="serif" style="font-size:19px">${p.name}</div><div style="font-size:12px;color:var(--ink2)">${p.tags}</div></div></button>`}).join('');
+$$('.plan').forEach(b=>b.onclick=()=>{$$('.plan').forEach(x=>x.classList.toggle('on',x===b));$('#pwCta').textContent=b.dataset.plan==='guide'?'Купить гайд':'Оформить подписку'});
+$('#pwCta').onclick=()=>toast('Оплата — в следующей версии');
+
+/* ---------- profile ---------- */
+const SOC=[['Instagram','<rect x="2" y="2" width="12" height="12" rx="3.5"/><circle cx="8" cy="8" r="2.8"/>'],['Telegram','<path d="M2 8l12-5-3 11-3.5-3.5L2 8z"/>'],['TikTok','<path d="M10 2v7.5a2.5 2.5 0 1 1-2.5-2.5M10 2c.5 2 2 3 4 3"/>'],['Сайт','<circle cx="8" cy="8" r="6"/><path d="M2 8h12M8 2c2 2 2 10 0 12M8 2c-2 2-2 10 0 12"/>']];
+$('#socials').innerHTML=SOC.map(([n,p])=>`<button style="height:34px;padding:0 12px;border-radius:17px;border:1px solid #C9C5B8;display:flex;align-items:center;gap:6px;font-size:12px" data-toast="Откроется ${n}"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#1A1D19" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${p}</svg>${n}</button>`).join('')+
+`<button aria-label="Добавить соцсеть" style="width:34px;height:34px;border-radius:17px;border:1px dashed #9E9A8C;display:flex;align-items:center;justify-content:center" data-toast="Добавь YouTube, Threads, Pinterest…"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#1A1D19" stroke-width="1.4" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg></button>`;
+$('#top4').innerHTML=['single','amed','kopi','crumb'].map(k=>`<button data-place="${k}" class="grain" style="aspect-ratio:3/4;border-radius:10px;background:${PLACES[k].bg}" aria-label="${PLACES[k].name}"></button>`).join('');
+const PT=[
+  ()=>`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <button data-tab="collection" style="display:flex;flex-direction:column;gap:6px;text-align:left"><div class="grain" style="height:110px;width:100%;border-radius:14px;background:${G.terrace}"></div><div class="serif" style="font-size:18px;line-height:1.1"><span class="it">Бали,</span> édition 01</div></button>
+    <button data-go="paywall" style="display:flex;flex-direction:column;gap:6px;text-align:left"><div class="grain" style="height:110px;width:100%;border-radius:14px;background:${G.stone}"><span class="mono" style="position:absolute;top:8px;left:8px;background:rgba(242,240,233,.9);color:var(--ink);padding:3px 7px;border-radius:8px;z-index:2">Платный</span></div><div class="serif" style="font-size:18px;line-height:1.1">Бали <span class="it">для своих</span></div></button></div>`,
+  ()=>Object.entries(PLACES).slice(0,4).map(([k,p],i)=>`<button class="row" data-place="${k}" ${i===0?'style="border-top:0"':''}><div class="mono" style="width:44px">${['12 НОЯ','09 НОЯ','02 НОЯ','28 ОКТ'][i]}</div><div style="flex:1"><div class="serif" style="font-size:19px">${p.name}</div><div style="font-size:12px;color:var(--ink2)">★ ${p.rating} · ${p.tag}</div></div></button>`).join(''),
+  ()=>(liked.length?liked:['bowl','slow']).map((k,i)=>{const p=PLACES[k];return `<button class="row" data-place="${k}" ${i===0?'style="border-top:0"':''}><div class="thumb" style="width:48px;height:48px;background:${p.bg}"></div><div style="flex:1"><div class="serif" style="font-size:19px">${p.name}</div><div style="font-size:12px;color:var(--ink2)">из свайпов</div></div></button>`}).join('')
+];
+function renderPT(i){$$('#ptabs button').forEach((b,j)=>{b.style.borderBottom=j===i?'2px solid var(--ink)':'0';b.style.fontWeight=j===i?'600':'400';b.style.color=j===i?'var(--ink)':'var(--muted)'});$('#ptBody').innerHTML=PT[i]()}
+$$('#ptabs button').forEach(b=>b.onclick=()=>renderPT(+b.dataset.pt));
+renderPT(0);
+</script>
+</body>
+</html>
