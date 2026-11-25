@@ -27,16 +27,18 @@ Read this first before changing anything. Keep it updated: add a line to the cha
   - SQL lives in `supabase/setup.sql`, `002_postcards_scenes.sql`, `003_countries_map.sql` — Sofia runs them manually in SQL Editor. New schema changes = new numbered file + tell her to run it.
 - Claude's sandbox cannot reach supabase.co, so backend changes can't be tested from here; UI is checked with headless Chrome (playwright).
 - Maps: Leaflet 1.9.4 vendored in `vendor/leaflet/` (sandbox can't reach CDNs), CARTO Voyager raster tiles (sepia-tinted via CSS), country shapes `data/countries.geojson` (Natural Earth 50m via world-atlas, simplified, antimeridian-fixed, Antarctica removed, property `a2`). `countryAt(lat,lng)` = point-in-polygon with nearest-vertex fallback (small islands like Bali).
+- Images are cached hard by iPhone home-screen apps: when replacing an image, give it a NEW filename (that's why welcome photos are `s1…s10`).
+- Toasts appear at the bottom above the tab bar (never at the top — the Dynamic Island hides them).
 - User-generated text is escaped (`esc`) and media URLs are whitelisted to the project's storage (`safeMedia`) — keep this for anything new.
 
 ## App structure (screens in index.html)
-welcome (slideshow of Sofia's own photos `img/welcome/1–10.jpg`, no captions, login gate) → auth → tabs: **Swipe** (demo deck) · **Explore** (Postcards row, search, filters sheet, places list) · **+** (sheet: Postcard / Scene / Place) · **Scenes** (vertical video feed) · **Profile** (avatar, socials, real stats row → Stats screen, My map card, top-4, tabs Collections/Diary/Want/Scenes, edit profile). Other screens: place card (own places: set location), add place (location: my location / pick on map), new post, match, collection, paywall, **map** (modes Mine / Everyone / Countries; pins → popup → place card; Explore has a Map button that opens Everyone with current filters), **stats** (countries, % of world, places, cities, avg rating, scenes, taste tags, top cities, rating distribution), **countries** picker.
+welcome (slideshow of Sofia's own photos `img/welcome/s1–s10.jpg`, no captions, no progress bars, login gate) → auth → tabs: **Swipe** (demo deck) · **Explore** (Postcards row, search, filters sheet, places list) · **+** (sheet: Postcard / Scene / Place) · **Scenes** (vertical video feed) · **Profile** (avatar, socials, real stats row → Stats screen, My map card, top-4, tabs Collections/Diary/Want/Scenes, edit profile). Other screens: place card (own places: set location), add place (location: my location / pick on map), new post, match, collection, paywall, **map** (modes Mine / Everyone / Countries; pins → popup → place card; Explore has a Map button that opens Everyone with current filters), **stats** (countries, % of world, places, cities, avg rating, scenes, taste tags, top cities, rating distribution), **countries** picker.
 
 ## Naming
 - Stories = **Postcards** (24h), Reels = **Scenes**. Proposed by Claude, Sofia hasn't objected; alternatives offered: Glimpses/Moments, Walks.
 
 ## Still demo / not real yet
-- Demo places have Bali coordinates so the Everyone map isn't empty.
+- Demo places have Bali coordinates so the Everyone map isn't empty, and use Sofia's photos (`img/welcome/s*.jpg`) instead of gradients; no "[photo: …]" placeholders anywhere.
 - Swipe deck, Match, Collections ("Bali, édition 01"), Paywall, profile stats/top-4 when logged out, demo places (Single Fin, Kopi Pagi, Amed reef, Slow Hours, Green Bowl, Crumb & Co).
 - No payments, no friends/follow graph, no comments/likes yet.
 
@@ -57,3 +59,4 @@ welcome (slideshow of Sofia's own photos `img/welcome/1–10.jpg`, no captions, 
 - 2026-11-25 — UX pass: Fraunces + Inter, larger text, 44px targets, warm greys, filters bottom sheet, shrinking tab bar.
 - 2026-11-25 — Countries visited, personal stats screen, maps (my places, everyone, countries) with pin → place card; location on add/edit place; `003_countries_map.sql`.
 - 2026-11-25 — Welcome slideshow now uses Sofia's 10 own photos (Bali + Bangkok); Starbucks Reserve photo placed last.
+- 2026-11-25 — UX fixes: removed slideshow progress bars, cache-busted photos, toast moved to bottom, demo content uses real photos, Explore title "Find your next haunt", Postcards add-circle with +.
