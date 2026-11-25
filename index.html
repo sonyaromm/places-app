@@ -15,6 +15,7 @@
 <script src="vendor/leaflet/leaflet.js"></script>
 <meta name="apple-mobile-web-app-title" content="haunts">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>try{document.documentElement.dataset.accent=localStorage.getItem("accent")||"sunset"}catch(e){}</script>
 <style>
 @font-face{font-family:'Albert Sans';font-style:normal;font-weight:300;font-display:swap;src:url(fonts/albert-sans-latin-300-normal.woff2) format('woff2')}
 @font-face{font-family:'Albert Sans';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/albert-sans-latin-400-normal.woff2) format('woff2')}
@@ -242,7 +243,7 @@ button:disabled{opacity:.6}
 #tabs.mini{height:56px!important}#tabs.mini button[data-tab].on{min-height:42px}
 
 /* ===== orb gradient = the one accent (Sofia 2026-11-26): everything else graphite ===== */
-:root{--orb:radial-gradient(130% 130% at 50% 100%,#FFE6D4 0%,#FFB89C 10%,#F79A80 18%,#A796EC 42%,#6078F6 70%,#B7A7D8 100%)}
+
 .orbmark{background:var(--orb);-webkit-mask:url(img/brand/wordmark-light.png) center/contain no-repeat;mask:url(img/brand/wordmark-light.png) center/contain no-repeat}
 #tabs button[data-tab].on{background:var(--orb)!important}
 #tabs .add{background:#fff!important;color:#111216!important}
@@ -250,6 +251,18 @@ button:disabled{opacity:.6}
 #pTaste{background:var(--orb);-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent;font-weight:700}
 #s-intro .btn.dark::after,#s-quiz .btn.dark::after{background-color:transparent;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none' stroke='%23FFFFFF' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 9h12M10 4l5 5-5 5'/%3E%3C/svg%3E"),var(--orb)!important;background-position:center,center!important;background-size:auto,100% 100%!important;background-repeat:no-repeat!important;border:0!important}
 #plusHint{background:#111216!important}
+
+/* ===== accent = warm glow gradient, user-selectable (Sofia 2026-11-26) ===== */
+:root,html[data-accent=sunset]{--orb:radial-gradient(130% 130% at 50% 100%,#FFF0D6 0%,#FFC46E 16%,#FF8A2A 36%,#E85A1C 60%,#A83A14 100%);--acc:#FF7A1F}
+html[data-accent=dusk]{--orb:radial-gradient(130% 130% at 50% 100%,#FFE6D4 0%,#FFB89C 10%,#F79A80 18%,#A796EC 42%,#6078F6 70%,#B7A7D8 100%);--acc:#6078F6}
+html[data-accent=rose]{--orb:radial-gradient(130% 130% at 50% 100%,#FFE8EE 0%,#FFA9BE 18%,#F2668B 40%,#C4467A 66%,#7A2D57 100%);--acc:#E8577F}
+html[data-accent=ocean]{--orb:radial-gradient(130% 130% at 50% 100%,#E6FCFF 0%,#93E3F2 18%,#3FB1D9 40%,#2A6FC4 66%,#1C3D80 100%);--acc:#2F8FD6}
+html[data-accent=matcha]{--orb:radial-gradient(130% 130% at 50% 100%,#F6F9DC 0%,#D6E68E 18%,#9DC05A 40%,#5F8E3A 66%,#2F4C22 100%);--acc:#6FA03F}
+html[data-accent=mono]{--orb:radial-gradient(130% 130% at 50% 100%,#FFFFFF 0%,#E2E2E6 18%,#A5A5AD 42%,#5A5A62 70%,#1E1F24 100%);--acc:#111216}
+html[data-accent=mono] #tabs button[data-tab].on,html[data-accent=mono] #tabs button[data-tab].on svg{color:#111216!important;stroke:#111216!important}
+.accRow{display:flex;gap:12px;flex-wrap:wrap}
+.accSw{width:44px;height:44px;border-radius:22px;position:relative;box-shadow:inset 0 0 0 1px rgba(17,18,22,.08)}
+.accSw.on::after{content:"";position:absolute;inset:-5px;border-radius:27px;border:2px solid #111216}
 </style>
 </head>
 <body>
@@ -528,6 +541,7 @@ button:disabled{opacity:.6}
     <div class="field"><label class="mono" for="epTt">TikTok (handle)</label><input class="input" id="epTt" autocapitalize="off"></div>
     <div class="field"><label class="mono" for="epWeb">Website</label><input class="input" id="epWeb" type="url" autocapitalize="off" placeholder="https://"></div>
     <button class="btn dark" id="epSave">Save</button>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px"><div class="mono">Your accent colour</div><div class="accRow" id="epAcc"></div></div>
     <button class="btn line" id="epQuiz">Retake taste quiz</button>
     <button class="mono" id="epLogout" style="padding:12px;color:#D2553A">Log out</button>
   </div>
@@ -1567,6 +1581,7 @@ function renderQuiz(){
         <div class="serif it" style="font-size:36px;line-height:1">${esc(t)}</div>
         <div style="font-size:15px;opacity:.9">${qz.countries.size} ${qz.countries.size===1?'country':'countries'}${qz.city?' · based in '+esc(qz.city):''}</div>
       </div></div>
+    <div style="display:flex;flex-direction:column;gap:10px"><div class="mono">Pick your colour</div><div class="accRow" id="qzAcc"></div></div>
     <div style="font-size:17px;color:var(--ink2)">We’ll put places that match your taste first. You can change this any time in your profile</div></div>`}
   $('#qzBody').innerHTML=h;
   if(st===1){$('#qzCity').oninput=e=>{qz.city=e.target.value};$('#qzLoc').onclick=()=>locate((la,ln)=>{qz.lat=la;qz.lng=ln;qz.cc=countryAt(la,ln);if(!qz.city&&qz.cc)qz.city=regionName(qz.cc);if(qz.cc)qz.countries.add(qz.cc);renderQuiz()})}
@@ -1630,6 +1645,19 @@ function pcardHTML(k,p){
 renderExplore();
 /* profile cover = latest own photo if any */
 const _rph4=renderProfileHead;renderProfileHead=function(){_rph4();try{const k=MY.find(k=>PLACES[k]&&String(PLACES[k].bg).startsWith('url('));if(k)$('#pCover').style.backgroundImage=PLACES[k].bg.split(' ')[0]}catch(_){}};
+
+/* accent picker */
+const ACCENTS=['sunset','dusk','rose','ocean','matcha','mono'];
+function setAccent(a,save){document.documentElement.dataset.accent=a;try{localStorage.setItem('accent',a)}catch(_){}
+  if(save&&sb&&ME){sb.from('profiles').update({accent:a}).eq('id',ME.id).then(()=>{},()=>{})}
+  renderAcc()}
+function renderAcc(){const cur=document.documentElement.dataset.accent||'sunset';['#epAcc','#qzAcc'].forEach(sel=>{const el=$(sel);if(!el)return;
+  el.innerHTML=ACCENTS.map(a=>`<button class="accSw${a===cur?' on':''}" data-acc="${a}" aria-label="${a} accent" style="background:${getAccentBG(a)}"></button>`).join('')})}
+function getAccentBG(a){const t=document.createElement('div');document.documentElement.appendChild(t);const old=document.documentElement.dataset.accent;document.documentElement.dataset.accent=a;const v=getComputedStyle(document.documentElement).getPropertyValue('--orb');document.documentElement.dataset.accent=old;t.remove();return v}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-acc]');if(b)setAccent(b.dataset.acc,true)});
+const _rq2=renderQuiz;renderQuiz=function(){_rq2();renderAcc()};
+renderAcc();
+const _rph5=renderProfileHead;renderProfileHead=function(){_rph5();try{if(MYPROFILE&&MYPROFILE.accent&&ACCENTS.includes(MYPROFILE.accent)&&MYPROFILE.accent!==document.documentElement.dataset.accent)setAccent(MYPROFILE.accent,false)}catch(_){}};
 </script>
 </body>
 </html>
