@@ -65,3 +65,4 @@ welcome (slideshow of Sofia's own photos `img/welcome/s1–s10.jpg`, no captions
 - 2026-11-25 — Welcome subline now mentions experiences: "Save the places and experiences you love…".
 - 2026-11-25 — Welcome subline: "From hidden cafés to sunset rituals — …" (chosen by Sofia).
 - 2026-11-26 — QA pass: welcome fits small iPhones (slideshow flexes), Match screen full height, paywall/place hero account for status bar, Swipe has a labeled Match button.
+- 2026-11-26 — Welcome: smaller bottom gap; hidden toast no longer leaves a faint shadow (opacity 0 when hidden).

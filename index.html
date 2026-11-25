@@ -120,8 +120,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .statbig>div{background:var(--paper2);border-radius:18px;padding:16px}
 .hbar{height:8px;border-radius:4px;background:var(--line);overflow:hidden}.hbar i{display:block;height:100%;background:var(--ink);border-radius:4px}
 .toast{position:absolute;left:50%;bottom:calc(96px + var(--bot));transform:translate(-50%,160px);max-width:calc(100% - 40px);text-align:center;box-shadow:0 6px 20px rgba(43,26,20,.25);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:20px;font-size:14px;z-index:50;transition:transform .3s}
-.toast.show{transform:translate(-50%,0)}
-.toast{transition:transform .35s cubic-bezier(.2,.9,.3,1.2)}
+.toast{opacity:0;pointer-events:none}
+.toast.show{transform:translate(-50%,0);opacity:1}
+.toast{transition:transform .35s cubic-bezier(.2,.9,.3,1.2),opacity .2s}
 </style>
 </head>
 <body>
@@ -383,7 +384,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 </section>
 
 <!-- ========== WELCOME ========== -->
-<section class="screen no-tabs" id="s-welcome" style="background:var(--paper);overflow:hidden">
+<section class="screen no-tabs" id="s-welcome" style="background:var(--paper);overflow:hidden;padding-bottom:calc(10px + var(--bot))">
   <div id="wShow" style="position:relative;flex:1 1 auto;min-height:200px;overflow:hidden;background:#2A2E28">
     <div class="wSlide on"><img src="img/welcome/s1.jpg" alt="" ></div>
     <div class="wSlide"><img src="img/welcome/s2.jpg" alt="" loading="lazy" ></div>
