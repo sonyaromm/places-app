@@ -68,6 +68,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .blur{filter:blur(5px);opacity:.6}
 .plan{width:100%;min-height:56px;padding:8px 14px;border-radius:16px;display:flex;align-items:center;justify-content:space-between;color:var(--paper);border:1px solid rgba(242,240,233,.25);text-align:left}
 .plan.on{border:1.5px solid var(--paper)}
+.field{display:flex;flex-direction:column;gap:6px}
+.input{border:1px solid #C9C5B8;border-radius:14px;background:#F7F6F1;padding:12px 14px;font:inherit;font-size:16px;color:var(--ink);outline:none;width:100%}
+.star{font-size:30px;line-height:1;color:#CFCBBE;padding:4px}.star.on{color:var(--ink)}
+#tabs .add{width:48px;height:48px;min-width:48px;border-radius:24px;background:var(--paper);color:var(--ink)}
 .toast{position:absolute;left:50%;top:calc(var(--top) + 10px);transform:translate(-50%,-80px);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:20px;font-size:13px;z-index:50;transition:transform .3s}
 .toast.show{transform:translate(-50%,0)}
 </style>
@@ -166,6 +170,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     <button class="btn dark" style="flex:1" data-toast="Тут откроется оценка по шкалам">Оценить</button>
     <button class="btn line" id="plSave">В подборку</button>
   </div>
+  <button id="plDel" class="mono" style="display:none;margin:14px auto 0;padding:12px;color:#8A3B2E">Удалить место</button>
 </section>
 
 <!-- ========== COLLECTION ========== -->
@@ -225,7 +230,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     <button class="icon-btn" aria-label="Настройки" style="justify-content:flex-end" data-toast="Настройки профиля"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1A1D19" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
   </div>
   <div class="pad" style="display:flex;gap:16px;align-items:center">
-    <div class="grain" style="width:84px;height:84px;border-radius:42px;flex:none;background:radial-gradient(90% 90% at 40% 35%,#D9A877,#8C7A5C 50%,#3F3A31)"></div>
+    <img src="img/avatar.jpg" alt="Фото профиля" style="width:84px;height:84px;border-radius:42px;flex:none;object-fit:cover">
     <div style="display:flex;flex-direction:column;gap:4px">
       <div class="serif" style="font-size:34px;line-height:1">София</div>
       <div style="font-size:13px;line-height:1.4;color:var(--ink2)">Ищу закаты и кофе без туристов. Делюсь только тем, где была сама.</div>
@@ -253,9 +258,34 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   <div class="pad" id="ptBody" style="margin-top:14px"></div>
 </section>
 
+<!-- ========== ADD PLACE ========== -->
+<section class="screen no-tabs" id="s-add">
+  <div class="pad top" style="display:flex;align-items:center;justify-content:space-between">
+    <button class="icon-btn" data-back aria-label="Назад" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1A1D19" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <div class="mono">Новое место</div>
+    <div style="width:44px"></div>
+  </div>
+  <div class="pad" style="display:flex;flex-direction:column;gap:16px">
+    <div class="serif" style="font-size:40px;line-height:1">Где ты <span class="it">была?</span></div>
+    <label id="addPhoto" style="position:relative;height:220px;border-radius:20px;border:1px dashed #9E9A8C;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:#ECE9E0 center/cover no-repeat;cursor:pointer">
+      <input type="file" accept="image/*" id="addFile" style="position:absolute;opacity:0;width:1px;height:1px">
+      <svg id="addPhIcon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4A4F45" stroke-width="1.5" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+      <span id="addPhText" style="font-size:13px;color:var(--ink2)">Добавить фото</span>
+    </label>
+    <div class="field"><label class="mono" for="addName">Название</label><input class="input" id="addName" placeholder="Например, Kopi Pagi"></div>
+    <div class="field"><label class="mono" for="addCity">Город или район</label><input class="input" id="addCity" placeholder="Чангу, Бали"></div>
+    <div class="field"><label class="mono" for="addNote">Что тут классного</label><textarea class="input" id="addNote" rows="3" placeholder="Что брать, когда приходить, в чём фишка" style="resize:none"></textarea></div>
+    <div class="field"><div class="mono">Оценка</div><div id="addStars" style="display:flex;gap:2px"></div></div>
+    <div class="field"><div class="mono">Теги</div><div id="addTags" style="display:flex;flex-wrap:wrap;gap:8px"></div></div>
+    <button class="btn dark" id="addSave" style="margin-top:4px">Сохранить место</button>
+    <div style="font-size:11px;color:var(--muted);text-align:center;line-height:1.5">Пока места сохраняются только на этом телефоне.<br>Аккаунты и общий доступ — следующий шаг.</div>
+  </div>
+</section>
+
 <nav id="tabs">
   <button data-tab="swipe" class="on"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="3" width="12" height="17" rx="2.5"/><path d="M19 6v13a2 2 0 0 1-2 2H8"/></svg>Свайпы</button>
   <button data-tab="explore"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>Поиск</button>
+  <button data-go="add" class="add" aria-label="Добавить место"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
   <button data-tab="collection"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 4h14v16l-7-4-7 4z"/></svg>Подборки</button>
   <button data-tab="profile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c1.2-3.6 4-5.2 7-5.2s5.8 1.6 7 5.2"/></svg>Профиль</button>
 </nav>
@@ -397,7 +427,10 @@ function openPlace(k){
   $('#plName').textContent=p.name;$('#plMeta').textContent=`${p.tag} · ${p.cat} · ★ ${p.rating}`;
   $('#plTags').innerHTML=p.labels.map(([l,n])=>`<span style="height:28px;padding:0 10px;border-radius:14px;background:var(--sage);display:flex;align-items:center;font-size:12px">${l} · ${n}</span>`).join('')+`<button style="height:28px;padding:0 10px;border-radius:14px;border:1px dashed #9E9A8C;font-size:12px" data-toast="Добавь свой тег: «тут уютно с собакой»">+ тег</button>`;
   $('#plVotes').textContent=(p.bars.length*6+5)+' оценок';
-  $('#plBars').innerHTML=p.bars.map(([n,v,t])=>`<div style="display:flex;flex-direction:column;gap:5px"><div style="display:flex;justify-content:space-between;font-size:12px"><span>${n}</span><span style="color:var(--ink2)">${t}</span></div><div class="bar">${[1,2,3,4,5].map(i=>`<span class="${i<=v?'f':''}"></span>`).join('')}</div></div>`).join('');
+  $('#plDel').style.display=p.mine?'block':'none';
+  $('#plVotes').style.display=p.mine?'none':'block';
+  $('#plBars').innerHTML=p.bars.length?'':'<div style="font-size:13px;color:var(--ink2)">Пока нет оценок по шкалам. Друзья смогут оценить тишину, персонал и Wi-Fi.</div>';
+  $('#plBars').innerHTML+=p.bars.map(([n,v,t])=>`<div style="display:flex;flex-direction:column;gap:5px"><div style="display:flex;justify-content:space-between;font-size:12px"><span>${n}</span><span style="color:var(--ink2)">${t}</span></div><div class="bar">${[1,2,3,4,5].map(i=>`<span class="${i<=v?'f':''}"></span>`).join('')}</div></div>`).join('');
   $('#plReview').innerHTML=`<div class="serif" style="width:32px;height:32px;border-radius:16px;flex:none;background:#8FB3AA;display:flex;align-items:center;justify-content:center;font-size:16px">${p.author[1].toUpperCase()}</div><div style="font-size:13px;line-height:1.45;color:#2F332C"><b>${p.author}</b> ${p.note}</div>`;
   show('place');
 }
@@ -430,12 +463,55 @@ const PT=[
   ()=>`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
     <button data-tab="collection" style="display:flex;flex-direction:column;gap:6px;text-align:left"><div class="grain" style="height:110px;width:100%;border-radius:14px;background:${G.terrace}"></div><div class="serif" style="font-size:18px;line-height:1.1"><span class="it">Бали,</span> édition 01</div></button>
     <button data-go="paywall" style="display:flex;flex-direction:column;gap:6px;text-align:left"><div class="grain" style="height:110px;width:100%;border-radius:14px;background:${G.stone}"><span class="mono" style="position:absolute;top:8px;left:8px;background:rgba(242,240,233,.9);color:var(--ink);padding:3px 7px;border-radius:8px;z-index:2">Платный</span></div><div class="serif" style="font-size:18px;line-height:1.1">Бали <span class="it">для своих</span></div></button></div>`,
-  ()=>Object.entries(PLACES).slice(0,4).map(([k,p],i)=>`<button class="row" data-place="${k}" ${i===0?'style="border-top:0"':''}><div class="mono" style="width:44px">${['12 НОЯ','09 НОЯ','02 НОЯ','28 ОКТ'][i]}</div><div style="flex:1"><div class="serif" style="font-size:19px">${p.name}</div><div style="font-size:12px;color:var(--ink2)">★ ${p.rating} · ${p.tag}</div></div></button>`).join(''),
+  ()=>[...MY,'single','kopi','amed','slow'].map(k=>[k,PLACES[k]]).map(([k,p],i)=>`<button class="row" data-place="${k}" ${i===0?'style="border-top:0"':''}><div class="mono" style="width:44px">${p.date||['12 НОЯ','09 НОЯ','02 НОЯ','28 ОКТ'][(i-MY.length+4)%4]}</div><div style="flex:1"><div class="serif" style="font-size:19px">${p.name}</div><div style="font-size:12px;color:var(--ink2)">★ ${p.rating} · ${p.tag}</div></div></button>`).join(''),
   ()=>(liked.length?liked:['bowl','slow']).map((k,i)=>{const p=PLACES[k];return `<button class="row" data-place="${k}" ${i===0?'style="border-top:0"':''}><div class="thumb" style="width:48px;height:48px;background:${p.bg}"></div><div style="flex:1"><div class="serif" style="font-size:19px">${p.name}</div><div style="font-size:12px;color:var(--ink2)">из свайпов</div></div></button>`}).join('')
 ];
 function renderPT(i){$$('#ptabs button').forEach((b,j)=>{b.style.borderBottom=j===i?'2px solid var(--ink)':'0';b.style.fontWeight=j===i?'600':'400';b.style.color=j===i?'var(--ink)':'var(--muted)'});$('#ptBody').innerHTML=PT[i]()}
 $$('#ptabs button').forEach(b=>b.onclick=()=>renderPT(+b.dataset.pt));
 renderPT(0);
+
+/* ---------- user places (IndexedDB, on this phone) ---------- */
+let MY=[];
+const TAGS=[...NEEDS,...VIBES], tagLabel=t=>(TAGS.find(x=>x[0]===t)||[0,t])[1];
+function idb(){return new Promise((res,rej)=>{const r=indexedDB.open('places-app',1);r.onupgradeneeded=()=>r.result.createObjectStore('p',{keyPath:'id'});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function dbAll(){const d=await idb();return new Promise(r=>{const q=d.transaction('p').objectStore('p').getAll();q.onsuccess=()=>r(q.result||[])})}
+async function dbPut(o){const d=await idb();return new Promise((r,j)=>{const t=d.transaction('p','readwrite');t.objectStore('p').put(o);t.oncomplete=r;t.onerror=()=>j(t.error)})}
+async function dbDel(id){const d=await idb();return new Promise(r=>{const t=d.transaction('p','readwrite');t.objectStore('p').delete(id);t.oncomplete=r})}
+const MONTHS=['ЯНВ','ФЕВ','МАР','АПР','МАЯ','ИЮН','ИЮЛ','АВГ','СЕН','ОКТ','НОЯ','ДЕК'];
+function toPlace(o){const d=new Date(o.date);return{name:o.name,tag:o.tags.length?tagLabel(o.tags[0]):'Место',cat:o.city||'место',note:o.note||'',author:'@sonyaromm',
+  rating:o.rating?o.rating+'.0':'—',bg:o.photo?`url(${o.photo}) center/cover no-repeat`:G.terrace,ph:'',has:o.tags,
+  tags:[o.city,...o.tags.map(tagLabel)].filter(Boolean).join(' · '),bars:[],labels:o.tags.map(t=>[tagLabel(t),1]),mine:true,
+  date:String(d.getDate()).padStart(2,'0')+' '+MONTHS[d.getMonth()]}}
+async function loadMine(){
+  try{const list=(await dbAll()).sort((a,b)=>b.date-a.date);list.forEach(o=>PLACES[o.id]=toPlace(o));MY=list.map(o=>o.id)}catch(e){}
+  renderExplore();renderPT(0);
+}
+let add={photo:null,rating:0,tags:new Set()};
+function resetAdd(){add={photo:null,rating:0,tags:new Set()};['addName','addCity','addNote'].forEach(i=>$('#'+i).value='');$('#addFile').value='';
+  $('#addPhoto').style.backgroundImage='';$('#addPhIcon').style.display='';$('#addPhText').style.display='';renderAddUI()}
+function renderAddUI(){
+  $('#addStars').innerHTML=[1,2,3,4,5].map(i=>`<button class="star ${i<=add.rating?'on':''}" data-star="${i}" aria-label="${i} из 5">★</button>`).join('');
+  $('#addTags').innerHTML=TAGS.map(([k,l])=>`<button class="chip ${add.tags.has(k)?'on':''}" data-addtag="${k}">${l}</button>`).join('');
+}
+document.addEventListener('click',e=>{
+  const st=e.target.closest('[data-star]');if(st){add.rating=+st.dataset.star;renderAddUI();return}
+  const tg=e.target.closest('[data-addtag]');if(tg){const k=tg.dataset.addtag;add.tags.has(k)?add.tags.delete(k):add.tags.add(k);renderAddUI()}
+});
+function compress(file){return new Promise((res,rej)=>{const img=new Image();img.onload=()=>{const m=1200,k=Math.min(1,m/Math.max(img.width,img.height));const c=document.createElement('canvas');
+  c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);c.getContext('2d').drawImage(img,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.8))};img.onerror=rej;img.src=URL.createObjectURL(file)})}
+$('#addFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;
+  try{add.photo=await compress(f);$('#addPhoto').style.backgroundImage=`url(${add.photo})`;$('#addPhIcon').style.display='none';$('#addPhText').style.display='none'}catch(_){toast('Не получилось открыть фото')}});
+$('#addSave').onclick=async()=>{
+  const name=$('#addName').value.trim();if(!name){toast('Напиши название места');$('#addName').focus();return}
+  const o={id:'u'+Date.now(),name,city:$('#addCity').value.trim(),note:$('#addNote').value.trim(),rating:add.rating,tags:[...add.tags],photo:add.photo,date:Date.now()};
+  try{await dbPut(o)}catch(_){toast('Не удалось сохранить — мало места на телефоне?');return}
+  PLACES[o.id]=toPlace(o);MY.unshift(o.id);renderExplore();
+  stack=['profile'];show('profile',false);renderPT(1);toast('Место сохранено');
+};
+$('#plDel').onclick=async()=>{if(!curPlace||!PLACES[curPlace].mine)return;if(!confirm('Удалить это место?'))return;
+  await dbDel(curPlace);delete PLACES[curPlace];MY=MY.filter(k=>k!==curPlace);renderExplore();renderPT(1);back();toast('Удалено')};
+const _show=show;show=function(id,push){if(id==='add')resetAdd();return _show(id,push)};
+loadMine();
 </script>
 </body>
 </html>
