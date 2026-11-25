@@ -10,7 +10,8 @@ Read this first before changing anything. Keep it updated: add a line to the cha
 
 ## Brand & design system
 - Logo: wordmark `img/brand/wordmark.png` (transparent, espresso) + `wordmark-light.png`; app icon "h with a location pin" `img/brand/apple-touch-icon.png`, `icon-192.png`, `icon-512.png`. Originals were uploaded by Sofia in chat.
-- Colors: ivory `#F1E9DC` (bg), `#E8DFD1` (paper2), line `#DDD3C4`, espresso ink `#2B1A14`, ink2 `#5C4A3F`, muted `#6E5D52`, dashed borders `#857E70`, moss `#4F5A45`. All text passes WCAG contrast on ivory.
+- **Aura system (2026-11-26, Sofia's refs: grainy blurred gradients, glass, SOMA-style):** `auraBG(name)` palettes sunset / dusk / rose / matcha / night (4 radial blobs + base) + `.aura` grain overlay (SVG noise, soft-light). Places without photo get an aura by tags (`auraForTags`), taste card = aura from first interest (`tastePalette`), intro slides = auras, quiz on dusk aura, `#bgAura` soft wash behind all light screens. Glass (white 50% + blur) on tab bar, chips, inputs, sheets; tab bar is now light glass with dark + button. Background lightened to `#F8F4EF`. Sofia will redesign the logo herself.
+- Colors (older, partly replaced): ivory `#F1E9DC` (bg), `#E8DFD1` (paper2), line `#DDD3C4`, espresso ink `#2B1A14`, ink2 `#5C4A3F`, muted `#6E5D52`, dashed borders `#857E70`, moss `#4F5A45`. All text passes WCAG contrast on ivory.
 - Type: **Fraunces** (soft serif, `SOFT` 100) for display/titles, **Inter** for everything else; labels = Inter 11px uppercase +0.08em. Cormorant Garamond and JetBrains Mono were removed on purpose.
 - Scale: display 40–46px, titles ~19–28px serif, body 16px, secondary 14px, nothing below 11px.
 - Touch targets ≥ 44px (chips 40px + invisible hit area). Primary actions in the bottom third; filters live in a bottom sheet; tab bar shrinks on scroll.
@@ -80,3 +81,4 @@ MVP navigation (decided with Sofia 2026-11-26, based on her UX research): **Expl
 - 2026-11-26 — Onboarding: intro slides before sign-up, 3-question taste quiz after sign-up (interests, home city/location, countries), taste card, Explore sorted by interests, taste label in profile, retake from edit profile; `004_onboarding.sql`.
 - 2026-11-26 — Fix: on iPhone home-screen launch the welcome screen stopped ~60pt short (ivory strip at bottom) → #app stretched to screen height in standalone mode + dark html background under welcome.
 - 2026-11-26 — Map tiles: CARTO now requires an API key (tiles showed "API KEY REQUIRED") → switched to OpenStreetMap tiles with a muted sepia filter; "Tap +" hint now hides on every tab except Explore (it covered the map summary card).
+- 2026-11-26 — Visual redesign pass 1 (Sofia: "too template-beige"): aura gradients with grain, glass tab bar/chips/inputs/sheets, lighter background, aura fallback thumbs, aura intro slides, quiz and taste card.

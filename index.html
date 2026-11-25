@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#F1E9DC">
+<meta name="theme-color" content="#F8F4EF">
 <title>haunts</title>
 <link rel="apple-touch-icon" href="img/brand/apple-touch-icon.png">
 <link rel="icon" href="img/brand/icon-192.png">
@@ -19,13 +19,13 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=Inter:wght@400;500;600&display=swap">
 <style>
 :root{
-  --paper:#F1E9DC; --paper2:#E8DFD1; --line:#DDD3C4; --ink:#2B1A14; --ink2:#5C4A3F; --muted:#6E5D52;
+  --paper:#F8F4EF; --paper2:#EFE9E2; --line:rgba(43,26,20,.1); --ink:#2B1A14; --ink2:#5C4A3F; --muted:#6E5D52;
   --moss:#4F5A45; --sage:#E2E7D3; --night:#2B1A14;
   --serif:'Fraunces', Georgia, serif; --sans:Inter, system-ui, sans-serif; --mono:Inter, system-ui, sans-serif;
   --top: max(env(safe-area-inset-top), 16px); --bot: env(safe-area-inset-bottom);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;height:100%;background:#F1E9DC;overscroll-behavior:none}
+html,body{margin:0;height:100%;background:#F8F4EF;overscroll-behavior:none}
 @media (min-width:441px){html,body{background:#0f110f}}
 html.dark,html.dark body{background:#2B1A14}
 html.dark #app{background:#2B1A14}
@@ -41,6 +41,23 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .it{font-style:italic}
 .pad{padding-left:20px;padding-right:20px}
 .top{padding-top:calc(var(--top) + 8px)}
+
+/* ===== aura system ===== */
+.aura{position:relative;overflow:hidden;isolation:isolate}
+.aura::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;opacity:.5;mix-blend-mode:soft-light;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.screen.aura{position:absolute;overflow-y:auto}
+#bgAura{position:absolute;inset:0;z-index:0;pointer-events:none}
+#bgAura::after{content:"";position:absolute;inset:0;opacity:.35;mix-blend-mode:soft-light;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.glass{background:rgba(255,255,255,.5);backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4);border:1px solid rgba(255,255,255,.65)}
+#tabs{background:rgba(255,255,255,.55)!important;backdrop-filter:blur(24px) saturate(1.6)!important;-webkit-backdrop-filter:blur(24px) saturate(1.6)!important;border:1px solid rgba(255,255,255,.7);box-shadow:0 10px 30px rgba(43,26,20,.12)}
+#tabs button{color:rgba(43,26,20,.45)!important}#tabs button.on{color:var(--ink)!important}
+#tabs .add{background:var(--ink)!important;color:#fff!important}
+.chip{background:rgba(255,255,255,.45);border:1px solid rgba(43,26,20,.12);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.chip.on{background:var(--ink);border-color:var(--ink)}
+.input{background:rgba(255,255,255,.55)!important;border:1px solid rgba(43,26,20,.12)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.btn.line{border:1px solid rgba(43,26,20,.25);background:rgba(255,255,255,.4);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.sheet-panel{background:rgba(250,247,243,.82)!important;backdrop-filter:blur(28px) saturate(1.5);-webkit-backdrop-filter:blur(28px) saturate(1.5)}
+.thumb{box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
 .grain{position:relative;overflow:hidden}
 .screen.grain{position:absolute}
 .grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -140,7 +157,7 @@ button:disabled{opacity:.6}
 #app.sheeted .screen.active{transform:scale(.94);border-radius:22px;overflow:hidden}
 #inTrack::-webkit-scrollbar{display:none}
 .inSlide{flex:none;width:100%;height:100%;scroll-snap-align:start;display:flex;flex-direction:column}
-.inPh{flex:1 1 auto;min-height:200px;background-size:cover;background-position:center;border-radius:0 0 28px 28px}
+.inPh{flex:1 1 auto;min-height:200px;border-radius:0 0 32px 32px}
 .inTx{flex:none;padding:24px 24px calc(140px + var(--bot));display:flex;flex-direction:column;gap:12px}
 .inSub{font-size:17px;line-height:1.45;color:var(--ink2)}
 .dot{width:7px;height:7px;border-radius:4px;background:var(--line);transition:width .2s,background .2s}
@@ -154,6 +171,7 @@ button:disabled{opacity:.6}
 </head>
 <body>
 <div id="app">
+<div id="bgAura"></div>
 
 <!-- ========== SWIPE ========== -->
 <section class="screen" id="s-swipe" data-tabs="swipe">
@@ -368,9 +386,9 @@ button:disabled{opacity:.6}
     <button class="mono" id="inSkip" style="color:var(--ink);height:40px;padding:0 16px;border-radius:20px;background:rgba(241,233,220,.9)">Skip</button>
   </div>
   <div id="inTrack" style="position:absolute;inset:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none">
-    <div class="inSlide"><div class="inPh" style="background-image:url(img/welcome/s7.jpg)"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Save what <span class="it">you love</span></div><div class="inSub">Cafés, sunset spots, a massage lady from WhatsApp — every place and experience in one place</div></div></div>
-    <div class="inSlide"><div class="inPh" style="background-image:url(img/welcome/s2.jpg)"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Rate it <span class="it">honestly</span></div><div class="inSub">Not just stars: is it quiet, are the staff kind, is there decaf, can you work there</div></div></div>
-    <div class="inSlide"><div class="inPh" style="background-image:url(img/welcome/s3.jpg)"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Share <span class="it">your taste</span></div><div class="inSub">Your map, your countries, your favourite spots — with people who get it</div></div></div>
+    <div class="inSlide"><div class="inPh aura" data-aura="sunset"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Save what <span class="it">you love</span></div><div class="inSub">Cafés, sunset spots, a massage lady from WhatsApp — every place and experience in one place</div></div></div>
+    <div class="inSlide"><div class="inPh aura" data-aura="dusk"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Rate it <span class="it">honestly</span></div><div class="inSub">Not just stars: is it quiet, are the staff kind, is there decaf, can you work there</div></div></div>
+    <div class="inSlide"><div class="inPh aura" data-aura="matcha"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Share <span class="it">your taste</span></div><div class="inSub">Your map, your countries, your favourite spots — with people who get it</div></div></div>
   </div>
   <div style="position:absolute;left:0;right:0;bottom:0;padding:0 24px calc(16px + var(--bot));display:flex;flex-direction:column;gap:16px;z-index:3">
     <div id="inDots" style="display:flex;gap:6px;justify-content:center"></div>
@@ -379,7 +397,7 @@ button:disabled{opacity:.6}
 </section>
 
 <!-- ========== QUIZ (after sign-up) ========== -->
-<section class="screen no-tabs" id="s-quiz">
+<section class="screen no-tabs aura" id="s-quiz">
   <div class="pad top" style="display:flex;align-items:center;gap:14px">
     <button class="icon-btn" id="qzBack" aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#2B1A14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
     <div id="qzBar" style="flex:1;display:flex;gap:6px"></div>
@@ -792,7 +810,7 @@ async function dbPut(o){const d=await idb();return new Promise((r,j)=>{const t=d
 async function dbDel(id){const d=await idb();return new Promise(r=>{const t=d.transaction('p','readwrite');t.objectStore('p').delete(id);t.oncomplete=r})}
 const MONTHS=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
 function toPlace(o){const d=new Date(o.date);return{name:o.name,tag:o.tags.length?tagLabel(o.tags[0]):'Place',cat:o.city||'place',note:o.note||'',author:'@sonyaromm',
-  rating:o.rating?o.rating+'.0':'—',bg:o.photo?`url(${o.photo}) center/cover no-repeat`:G.terrace,ph:'',has:o.tags,
+  rating:o.rating?o.rating+'.0':'—',bg:o.photo?`url(${o.photo}) center/cover no-repeat`:auraBG(auraForTags(o.tags)),ph:'',has:o.tags,
   tags:[o.city,...o.tags.map(tagLabel)].filter(Boolean).join(' · '),bars:[],labels:o.tags.map(t=>[tagLabel(t),1]),mine:true,
   date:String(d.getDate()).padStart(2,'0')+' '+MONTHS[d.getMonth()]}}
 async function loadMine(){
@@ -1459,9 +1477,9 @@ function renderQuiz(){
     <div style="display:flex;flex-wrap:wrap;gap:8px">${[...extra,...list].map(([c,n])=>`<button class="chip${qz.countries.has(c)?' on':''}" data-qc="${c}">${esc(n)}</button>`).join('')}</div>`}
   if(st===3){const t=tasteLabel([...qz.ints]);h=`<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px">
     <div class="mono">Your travel taste</div>
-    <div style="border-radius:26px;overflow:hidden;position:relative;height:300px;background:url(img/welcome/s3.jpg) center/cover">
-      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(43,26,20,0) 30%,rgba(43,26,20,.85) 100%)"></div>
-      <div style="position:absolute;left:20px;right:20px;bottom:18px;color:#F1E9DC;display:flex;flex-direction:column;gap:8px">
+    <div class="aura" style="border-radius:28px;height:340px;background:${auraBG(tastePalette([...qz.ints]))};box-shadow:0 20px 50px rgba(43,26,20,.15)">
+      <div class="mono" style="position:absolute;left:20px;top:18px;color:rgba(43,26,20,.6)">haunts · taste</div>
+      <div style="position:absolute;left:20px;right:20px;bottom:20px;color:var(--ink);display:flex;flex-direction:column;gap:8px">
         <div class="serif it" style="font-size:36px;line-height:1">${esc(t)}</div>
         <div style="font-size:15px;opacity:.9">${qz.countries.size} ${qz.countries.size===1?'country':'countries'}${qz.city?' · based in '+esc(qz.city):''}</div>
       </div></div>
@@ -1500,6 +1518,22 @@ const _show7=show;show=function(id,push){if(id==='quiz')openQuiz();if(id==='intr
   const _s=show;show=function(id,push){document.documentElement.classList.toggle('dark',id==='welcome');return _s(id,push)};
   const cur=$('.screen.active');if(cur)document.documentElement.classList.toggle('dark',cur.id==='s-welcome');
 })();
+
+/* ---------- aura system ---------- */
+function auraBG(name){const P={
+  sunset:['#F9DCC0',[['#F07F6A','20% 12%'],['#F6C463','72% 42%'],['#F39A9A','28% 82%'],['#FCE9D6','88% 92%']]],
+  dusk:['#DFE5F4',[['#C3B1E8','18% 18%'],['#EBA2C4','38% 58%'],['#F6D6A6','58% 48%'],['#86A6EE','88% 78%']]],
+  rose:['#F7E3CA',[['#D66E80','8% 8%'],['#C6CEC0','4% 66%'],['#F3AE94','76% 70%'],['#E9B5C2','42% 44%']]],
+  matcha:['#E6E7D2',[['#A6CFAE','10% 10%'],['#B8D46E','40% 60%'],['#E2B0CE','82% 36%'],['#86B596','92% 84%']]],
+  night:['#2A2238',[['#E07A5F','50% 62%'],['#6E62C8','20% 20%'],['#F2B880','52% 72%'],['#3B2E58','90% 90%']]]};
+  const [base,bl]=P[name]||P.rose;return bl.map(([c,at])=>`radial-gradient(60% 55% at ${at},${c} 0%,${c}00 70%)`).join(',')+','+base}
+function auraForTags(t){t=t||[];if(t.includes('sunset'))return 'sunset';if(t.some(x=>['work','wifi','sockets','quiet'].includes(x)))return 'dusk';if(t.some(x=>['vegan','protein'].includes(x)))return 'matcha';return 'rose'}
+function tastePalette(ints){const m={coffee:'rose',work:'dusk',sunsets:'sunset',food:'sunset',wellness:'matcha',nature:'matcha',nightlife:'night'};return m[ints[0]]||'dusk'}
+function paintAuras(root){(root||document).querySelectorAll('[data-aura]').forEach(el=>el.style.background=auraBG(el.dataset.aura))}
+paintAuras();
+$('#bgAura').style.background=['radial-gradient(70% 40% at 100% 0%,#F3B49E66 0%,#F3B49E00 70%)','radial-gradient(60% 35% at 0% 8%,#C9B8EA55 0%,#C9B8EA00 70%)','radial-gradient(70% 40% at 0% 100%,#BFD9B44d 0%,#BFD9B400 70%)','radial-gradient(60% 40% at 100% 90%,#F6D3A655 0%,#F6D3A600 70%)'].join(',');
+$('#s-quiz').style.background=auraBG('rose')+'';
+(function(){const q=$('#s-quiz');q.style.background='linear-gradient(rgba(248,244,239,.55),rgba(248,244,239,.55)),'+auraBG('dusk')})();
 </script>
 </body>
 </html>
