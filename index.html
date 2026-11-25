@@ -9,6 +9,7 @@
 <meta name="theme-color" content="#F2F0E9">
 <title>Места · прототип</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 :root{
@@ -226,20 +227,21 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 <!-- ========== PROFILE ========== -->
 <section class="screen" id="s-profile" data-tabs="profile">
   <div class="pad top" style="display:flex;align-items:center;justify-content:space-between">
-    <div class="mono">@sonyaromm</div>
-    <button class="icon-btn" aria-label="Настройки" style="justify-content:flex-end" data-toast="Настройки профиля"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1A1D19" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    <div class="mono" id="pHandle">@sonyaromm</div>
+    <button class="icon-btn" aria-label="Редактировать профиль" style="justify-content:flex-end" id="pMenu"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1A1D19" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
   </div>
   <div class="pad" style="display:flex;gap:16px;align-items:center">
-    <img src="img/avatar.jpg" alt="Фото профиля" style="width:84px;height:84px;border-radius:42px;flex:none;object-fit:cover">
+    <img id="pAvatar" src="img/avatar.jpg" alt="Фото профиля" style="width:84px;height:84px;border-radius:42px;flex:none;object-fit:cover">
     <div style="display:flex;flex-direction:column;gap:4px">
-      <div class="serif" style="font-size:34px;line-height:1">София</div>
-      <div style="font-size:13px;line-height:1.4;color:var(--ink2)">Ищу закаты и кофе без туристов. Делюсь только тем, где была сама.</div>
+      <div class="serif" id="pName" style="font-size:34px;line-height:1">София</div>
+      <div id="pBio" style="font-size:13px;line-height:1.4;color:var(--ink2)">Ищу закаты и кофе без туристов. Делюсь только тем, где была сама.</div>
     </div>
   </div>
   <div class="pad" id="socials" style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px"></div>
+  <div class="pad" id="authBanner" style="margin-top:14px;display:none"><button class="btn dark" style="width:100%" data-go="auth">Войти или создать аккаунт</button></div>
   <div style="margin:18px 20px 0;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);text-align:center">
-    <div><div class="serif" style="font-size:28px;line-height:1">14</div><div class="mono" style="margin-top:4px">стран</div></div>
-    <div><div class="serif" style="font-size:28px;line-height:1">63</div><div class="mono" style="margin-top:4px">места</div></div>
+    <div><div class="serif" id="stCities" style="font-size:28px;line-height:1">14</div><div class="mono" style="margin-top:4px">городов</div></div>
+    <div><div class="serif" id="stPlaces" style="font-size:28px;line-height:1">63</div><div class="mono" style="margin-top:4px">места</div></div>
     <div><div class="serif" style="font-size:28px;line-height:1">6</div><div class="mono" style="margin-top:4px">подборок</div></div>
     <div><div class="serif" style="font-size:28px;line-height:1">212</div><div class="mono" style="margin-top:4px">друзей</div></div>
   </div>
@@ -278,7 +280,45 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     <div class="field"><div class="mono">Оценка</div><div id="addStars" style="display:flex;gap:2px"></div></div>
     <div class="field"><div class="mono">Теги</div><div id="addTags" style="display:flex;flex-wrap:wrap;gap:8px"></div></div>
     <button class="btn dark" id="addSave" style="margin-top:4px">Сохранить место</button>
-    <div style="font-size:11px;color:var(--muted);text-align:center;line-height:1.5">Пока места сохраняются только на этом телефоне.<br>Аккаунты и общий доступ — следующий шаг.</div>
+    <div style="font-size:11px;color:var(--muted);text-align:center;line-height:1.5"><span id="addHint">Войди в аккаунт, чтобы место увидели все.<br>Без входа оно сохранится только на этом телефоне.</span></div>
+  </div>
+</section>
+
+<!-- ========== AUTH ========== -->
+<section class="screen no-tabs" id="s-auth">
+  <div class="pad top" style="display:flex;align-items:center"><button class="icon-btn" data-back aria-label="Назад" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1A1D19" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button></div>
+  <div class="pad" style="display:flex;flex-direction:column;gap:16px;margin-top:20px">
+    <div class="serif" style="font-size:44px;line-height:1" id="authTitle">С возвращением</div>
+    <div style="display:flex;gap:8px"><button class="chip on" id="authModeIn">Войти</button><button class="chip" id="authModeUp">Создать аккаунт</button></div>
+    <div class="field" id="authUserField" style="display:none"><label class="mono" for="authUser">Ник</label><input class="input" id="authUser" placeholder="sonyaromm" autocapitalize="off" autocorrect="off"></div>
+    <div class="field"><label class="mono" for="authEmail">Почта</label><input class="input" id="authEmail" type="email" autocomplete="email" placeholder="you@mail.com"></div>
+    <div class="field"><label class="mono" for="authPass">Пароль</label><input class="input" id="authPass" type="password" autocomplete="current-password" placeholder="минимум 6 символов"></div>
+    <button class="btn dark" id="authGo">Войти</button>
+    <div id="authMsg" style="font-size:13px;color:var(--ink2);text-align:center;min-height:18px"></div>
+  </div>
+</section>
+
+<!-- ========== EDIT PROFILE ========== -->
+<section class="screen no-tabs" id="s-editprofile">
+  <div class="pad top" style="display:flex;align-items:center;justify-content:space-between">
+    <button class="icon-btn" data-back aria-label="Назад" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1A1D19" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <div class="mono">Профиль</div><div style="width:44px"></div>
+  </div>
+  <div class="pad" style="display:flex;flex-direction:column;gap:14px">
+    <label style="display:flex;align-items:center;gap:14px;cursor:pointer">
+      <img id="epAvatar" src="img/avatar.jpg" alt="" style="width:72px;height:72px;border-radius:36px;object-fit:cover;background:#E6E3DA">
+      <span style="font-size:14px;text-decoration:underline">Сменить фото</span>
+      <input type="file" accept="image/*" id="epFile" style="position:absolute;opacity:0;width:1px;height:1px">
+    </label>
+    <div class="field"><label class="mono" for="epName">Имя</label><input class="input" id="epName"></div>
+    <div class="field"><label class="mono" for="epUser">Ник</label><input class="input" id="epUser" autocapitalize="off" autocorrect="off"></div>
+    <div class="field"><label class="mono" for="epBio">О себе</label><textarea class="input" id="epBio" rows="2" style="resize:none"></textarea></div>
+    <div class="field"><label class="mono" for="epIg">Instagram (ник)</label><input class="input" id="epIg" autocapitalize="off"></div>
+    <div class="field"><label class="mono" for="epTg">Telegram (ник)</label><input class="input" id="epTg" autocapitalize="off"></div>
+    <div class="field"><label class="mono" for="epTt">TikTok (ник)</label><input class="input" id="epTt" autocapitalize="off"></div>
+    <div class="field"><label class="mono" for="epWeb">Сайт</label><input class="input" id="epWeb" type="url" autocapitalize="off" placeholder="https://"></div>
+    <button class="btn dark" id="epSave">Сохранить</button>
+    <button class="mono" id="epLogout" style="padding:12px;color:#8A3B2E">Выйти из аккаунта</button>
   </div>
 </section>
 
@@ -402,7 +442,7 @@ function renderMatch(){
 /* ---------- explore ---------- */
 const NEEDS=[['work','Поработать'],['decaf','Декаф'],['protein','Добрать протеин'],['bakery','Вкусная выпечка'],['breakfast','Завтраки весь день'],['vegan','Веган']];
 const VIBES=[['quiet','Тихо'],['sockets','Розетки'],['wifi','Быстрый Wi-Fi'],['staff','Вежливый персонал'],['sunset','Вид на закат']];
-const on=new Set(['work']);
+const on=new Set();
 function chips(el,list){el.innerHTML=list.map(([k,l])=>`<button class="chip ${on.has(k)?'on':''}" data-chip="${k}">${l}</button>`).join('')}
 function renderExplore(){
   chips($('#chipsNeed'),NEEDS);chips($('#chipsVibe'),VIBES);
@@ -424,7 +464,7 @@ let curPlace=null;
 function openPlace(k){
   curPlace=k;const p=PLACES[k];
   $('#plHero').style.background=p.bg;$('#plPh').textContent='[фото: '+p.ph+']';
-  $('#plName').textContent=p.name;$('#plMeta').textContent=`${p.tag} · ${p.cat} · ★ ${p.rating}`;
+  $('#plName').innerHTML=p.name;$('#plMeta').innerHTML=`${p.tag} · ${p.cat} · ★ ${p.rating}`;
   $('#plTags').innerHTML=p.labels.map(([l,n])=>`<span style="height:28px;padding:0 10px;border-radius:14px;background:var(--sage);display:flex;align-items:center;font-size:12px">${l} · ${n}</span>`).join('')+`<button style="height:28px;padding:0 10px;border-radius:14px;border:1px dashed #9E9A8C;font-size:12px" data-toast="Добавь свой тег: «тут уютно с собакой»">+ тег</button>`;
   $('#plVotes').textContent=(p.bars.length*6+5)+' оценок';
   $('#plDel').style.display=p.mine?'block':'none';
@@ -483,7 +523,7 @@ function toPlace(o){const d=new Date(o.date);return{name:o.name,tag:o.tags.lengt
   tags:[o.city,...o.tags.map(tagLabel)].filter(Boolean).join(' · '),bars:[],labels:o.tags.map(t=>[tagLabel(t),1]),mine:true,
   date:String(d.getDate()).padStart(2,'0')+' '+MONTHS[d.getMonth()]}}
 async function loadMine(){
-  try{const list=(await dbAll()).sort((a,b)=>b.date-a.date);list.forEach(o=>PLACES[o.id]=toPlace(o));MY=list.map(o=>o.id)}catch(e){}
+  try{const list=(await dbAll()).sort((a,b)=>b.date-a.date);list.forEach(o=>PLACES[o.id]=toPlace(o));MY=[...MY.filter(k=>k.startsWith('r')),...list.map(o=>o.id)]}catch(e){}
   renderExplore();renderPT(0);
 }
 let add={photo:null,rating:0,tags:new Set()};
@@ -512,6 +552,146 @@ $('#plDel').onclick=async()=>{if(!curPlace||!PLACES[curPlace].mine)return;if(!co
   await dbDel(curPlace);delete PLACES[curPlace];MY=MY.filter(k=>k!==curPlace);renderExplore();renderPT(1);back();toast('Удалено')};
 const _show=show;show=function(id,push){if(id==='add')resetAdd();return _show(id,push)};
 loadMine();
+
+/* ---------- Supabase: accounts, profiles, shared places ---------- */
+const SB_URL='https://uaorlwqiarejbemexhte.supabase.co', SB_KEY='sb_publishable_O1S8HwdylhsveeKXbVX3aQ_HRlvuq2R';
+const sb=window.supabase?window.supabase.createClient(SB_URL,SB_KEY):null;
+let ME=null, MYPROFILE=null;
+const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const clean=h=>String(h||'').trim().replace(/^@/,'').replace(/^https?:\/\/(www\.)?(instagram\.com|t\.me|tiktok\.com\/@?)\//,'').replace(/\/$/,'');
+
+function renderSocials(p){
+  const items=[];
+  if(p.instagram)items.push(['Instagram','https://instagram.com/'+encodeURIComponent(clean(p.instagram)),SOC[0][2]]);
+  if(p.telegram)items.push(['Telegram','https://t.me/'+encodeURIComponent(clean(p.telegram)),SOC[1][2]]);
+  if(p.tiktok)items.push(['TikTok','https://www.tiktok.com/@'+encodeURIComponent(clean(p.tiktok)),'<path d="M10 2v7.5a2.5 2.5 0 1 1-2.5-2.5M10 2c.5 2 2 3 4 3"/>']);
+  if(p.website&&/^https?:\/\//.test(p.website))items.push(['Сайт',p.website,'<circle cx="8" cy="8" r="6"/><path d="M2 8h12M8 2c2 2 2 10 0 12M8 2c-2 2-2 10 0 12"/>']);
+  $('#socials').innerHTML=items.map(([n,u,ic])=>`<a href="${esc(u)}" target="_blank" rel="noopener" style="height:34px;padding:0 12px;border-radius:17px;border:1px solid #C9C5B8;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink);text-decoration:none"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#1A1D19" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${ic}</svg>${n}</a>`).join('')+
+    `<button aria-label="Добавить соцсеть" data-go="editprofile" style="width:34px;height:34px;border-radius:17px;border:1px dashed #9E9A8C;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#1A1D19" stroke-width="1.4" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg></button>`;
+}
+function renderProfileHead(){
+  $('#authBanner').style.display=ME?'none':'block';
+  if(!ME||!MYPROFILE)return;
+  const p=MYPROFILE;
+  $('#pHandle').textContent='@'+(p.username||'');
+  $('#pName').textContent=p.name||p.username||'Без имени';
+  $('#pBio').textContent=p.bio||'Добавь пару слов о себе';
+  if(p.avatar_url)$('#pAvatar').src=p.avatar_url;
+  renderSocials(p);
+  const mine=Object.values(PLACES).filter(x=>x.mine&&x.remote);
+  $('#stPlaces').textContent=mine.length;
+  $('#stCities').textContent=new Set(mine.map(x=>x.city).filter(Boolean)).size;
+}
+function remoteToPlace(r){
+  const safeUrl=u=>u&&/^https:\/\/uaorlwqiarejbemexhte\.supabase\.co\/storage\/v1\/object\/public\/photos\/[\w\-\/.%]+$/.test(u)?u:null;
+  const o={id:'r'+r.id,name:esc(r.name),city:esc(r.city),note:esc(r.note),rating:Number(r.rating)||0,tags:(r.tags||[]).map(esc),photo:safeUrl(r.photo_url),date:new Date(r.created_at).getTime()};
+  const p=toPlace(o);p.remote=true;p.rid=r.id;p.city=r.city;p.photoUrl=r.photo_url;
+  p.mine=!!(ME&&r.user_id===ME.id);p.author='@'+esc((r.profiles&&r.profiles.username)||'гость');
+  return p;
+}
+async function loadRemote(){
+  if(!sb)return;
+  const {data,error}=await sb.from('places').select('*, profiles(username,name,avatar_url)').order('created_at',{ascending:false}).limit(300);
+  if(error){console.warn(error);return}
+  Object.keys(PLACES).filter(k=>PLACES[k].remote).forEach(k=>delete PLACES[k]);
+  const remoteMine=[];
+  data.forEach(r=>{const p=remoteToPlace(r);PLACES['r'+r.id]=p;if(p.mine)remoteMine.push('r'+r.id)});
+  MY=[...remoteMine,...MY.filter(k=>k.startsWith('u'))];
+  renderExplore();renderPT(0);renderProfileHead();
+}
+async function loadProfile(){
+  if(!sb||!ME){MYPROFILE=null;renderProfileHead();return}
+  let {data}=await sb.from('profiles').select('*').eq('id',ME.id).maybeSingle();
+  if(!data){
+    const uname=(ME.user_metadata&&ME.user_metadata.username)||ME.email.split('@')[0];
+    const ins=await sb.from('profiles').insert({id:ME.id,username:uname,name:uname}).select().maybeSingle();
+    data=ins.data||{id:ME.id,username:uname,name:uname};
+  }
+  MYPROFILE=data;renderProfileHead();
+}
+async function onAuth(session){
+  ME=session?session.user:null;
+  $('#addHint').innerHTML=ME?'Место увидят все, кто открывает приложение.':'Войди в аккаунт, чтобы место увидели все.<br>Без входа оно сохранится только на этом телефоне.';
+  await loadProfile();await loadRemote();
+}
+if(sb){
+  sb.auth.getSession().then(({data})=>onAuth(data.session));
+  sb.auth.onAuthStateChange((ev,session)=>{if(ev==='SIGNED_IN'||ev==='SIGNED_OUT')onAuth(session)});
+}else{renderProfileHead()}
+
+/* auth screen */
+let authMode='in';
+function setAuthMode(m){authMode=m;$('#authModeIn').classList.toggle('on',m==='in');$('#authModeUp').classList.toggle('on',m==='up');
+  $('#authUserField').style.display=m==='up'?'flex':'none';$('#authGo').textContent=m==='up'?'Создать аккаунт':'Войти';
+  $('#authTitle').textContent=m==='up'?'Новый профиль':'С возвращением';$('#authMsg').textContent='';
+  $('#authPass').autocomplete=m==='up'?'new-password':'current-password'}
+$('#authModeIn').onclick=()=>setAuthMode('in');$('#authModeUp').onclick=()=>setAuthMode('up');
+$('#authGo').onclick=async()=>{
+  if(!sb){$('#authMsg').textContent='Нет связи с сервером';return}
+  const email=$('#authEmail').value.trim(),password=$('#authPass').value,username=clean($('#authUser').value).toLowerCase();
+  if(!email||password.length<6){$('#authMsg').textContent='Нужны почта и пароль от 6 символов';return}
+  if(authMode==='up'&&!/^[a-z0-9_.]{3,30}$/.test(username)){$('#authMsg').textContent='Ник: 3–30 символов, латиница, цифры, _ и .';return}
+  $('#authGo').disabled=true;$('#authMsg').textContent='Секунду…';
+  const res=authMode==='up'?await sb.auth.signUp({email,password,options:{data:{username}}}):await sb.auth.signInWithPassword({email,password});
+  $('#authGo').disabled=false;
+  if(res.error){$('#authMsg').textContent=res.error.message.includes('Invalid login')?'Неверная почта или пароль':res.error.message;return}
+  if(!res.data.session){$('#authMsg').textContent='Проверь почту и подтверди аккаунт, потом войди';return}
+  stack=['profile'];show('profile',false);toast(authMode==='up'?'Аккаунт создан':'Ты вошла');
+};
+
+/* edit profile */
+let epPhoto=null;
+$('#pMenu').onclick=()=>{if(!ME){show('auth');return}show('editprofile')};
+function fillEdit(){const p=MYPROFILE||{};epPhoto=null;$('#epAvatar').src=p.avatar_url||'img/avatar.jpg';
+  $('#epName').value=p.name||'';$('#epUser').value=p.username||'';$('#epBio').value=p.bio||'';$('#epIg').value=p.instagram||'';$('#epTg').value=p.telegram||'';$('#epTt').value=p.tiktok||'';$('#epWeb').value=p.website||''}
+$('#epFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;epPhoto=await compress(f);$('#epAvatar').src=epPhoto});
+function dataUrlToBlob(u){const [h,b]=u.split(',');const bin=atob(b);const a=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i);return new Blob([a],{type:h.slice(5).split(';')[0]})}
+async function uploadPhoto(dataUrl,prefix){
+  const path=`${ME.id}/${prefix}-${Date.now()}.jpg`;
+  const {error}=await sb.storage.from('photos').upload(path,dataUrlToBlob(dataUrl),{contentType:'image/jpeg',upsert:false});
+  if(error)throw error;
+  return sb.storage.from('photos').getPublicUrl(path).data.publicUrl;
+}
+$('#epSave').onclick=async()=>{
+  if(!ME)return;
+  const username=clean($('#epUser').value).toLowerCase();
+  if(!/^[a-z0-9_.]{3,30}$/.test(username)){toast('Ник: латиница, цифры, _ и .');return}
+  $('#epSave').disabled=true;
+  try{
+    const upd={id:ME.id,username,name:$('#epName').value.trim(),bio:$('#epBio').value.trim(),instagram:clean($('#epIg').value),telegram:clean($('#epTg').value),tiktok:clean($('#epTt').value),website:$('#epWeb').value.trim()};
+    if(epPhoto)upd.avatar_url=await uploadPhoto(epPhoto,'avatar');
+    const {data,error}=await sb.from('profiles').upsert(upd).select().maybeSingle();
+    if(error)throw error;
+    MYPROFILE=data;renderProfileHead();back();toast('Профиль сохранён');
+  }catch(e){toast(e.message&&e.message.includes('duplicate')?'Такой ник уже занят':'Не получилось сохранить')}
+  $('#epSave').disabled=false;
+};
+$('#epLogout').onclick=async()=>{await sb.auth.signOut();stack=['profile'];show('profile',false);toast('Ты вышла')};
+
+/* publish places when signed in */
+const _localSave=$('#addSave').onclick;
+$('#addSave').onclick=async()=>{
+  if(!ME||!sb)return _localSave();
+  const name=$('#addName').value.trim();if(!name){toast('Напиши название места');$('#addName').focus();return}
+  $('#addSave').disabled=true;$('#addSave').textContent='Публикую…';
+  try{
+    const photo_url=add.photo?await uploadPhoto(add.photo,'place'):null;
+    const {error}=await sb.from('places').insert({user_id:ME.id,name,city:$('#addCity').value.trim()||null,note:$('#addNote').value.trim()||null,rating:add.rating||null,tags:[...add.tags],photo_url});
+    if(error)throw error;
+    await loadRemote();stack=['profile'];show('profile',false);renderPT(1);toast('Место опубликовано');
+  }catch(e){console.warn(e);toast('Не получилось опубликовать: '+(e.message||'ошибка'))}
+  $('#addSave').disabled=false;$('#addSave').textContent='Сохранить место';
+};
+const _localDel=$('#plDel').onclick;
+$('#plDel').onclick=async()=>{
+  const p=PLACES[curPlace];if(!p||!p.remote)return _localDel();
+  if(!confirm('Удалить это место?'))return;
+  const {error}=await sb.from('places').delete().eq('id',p.rid);
+  if(error){toast('Не получилось удалить');return}
+  if(p.photoUrl){const m=p.photoUrl.split('/object/public/photos/')[1];if(m)sb.storage.from('photos').remove([decodeURIComponent(m)])}
+  delete PLACES[curPlace];MY=MY.filter(k=>k!==curPlace);renderExplore();renderPT(1);renderProfileHead();back();toast('Удалено');
+};
+const _show2=show;show=function(id,push){if(id==='editprofile')fillEdit();if(id==='auth')setAuthMode(ME?'in':'up');return _show2(id,push)};
 </script>
 </body>
 </html>
