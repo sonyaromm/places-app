@@ -136,6 +136,14 @@ button:disabled{opacity:.6}
 #app.sheeted{background:#1a120e}
 .screen{z-index:1;transition:transform .32s cubic-bezier(.2,.9,.3,1),border-radius .32s}
 #app.sheeted .screen.active{transform:scale(.94);border-radius:22px;overflow:hidden}
+#inTrack::-webkit-scrollbar{display:none}
+.inSlide{flex:none;width:100%;height:100%;scroll-snap-align:start;display:flex;flex-direction:column}
+.inPh{flex:1 1 auto;min-height:200px;background-size:cover;background-position:center;border-radius:0 0 28px 28px}
+.inTx{flex:none;padding:24px 24px calc(140px + var(--bot));display:flex;flex-direction:column;gap:12px}
+.inSub{font-size:17px;line-height:1.45;color:var(--ink2)}
+.dot{width:7px;height:7px;border-radius:4px;background:var(--line);transition:width .2s,background .2s}
+.dot.on{width:22px;background:var(--ink)}
+.qzseg{flex:1;height:4px;border-radius:2px;background:var(--line)}.qzseg.on{background:var(--ink)}
 .toast{position:absolute;left:50%;bottom:calc(96px + var(--bot));transform:translate(-50%,160px);max-width:calc(100% - 40px);text-align:center;box-shadow:0 6px 20px rgba(43,26,20,.25);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:20px;font-size:14px;z-index:50;transition:transform .3s}
 .toast{opacity:0;pointer-events:none}
 .toast.show{transform:translate(-50%,0);opacity:1}
@@ -301,6 +309,7 @@ button:disabled{opacity:.6}
     <img id="pAvatar" src="img/avatar.jpg" alt="Profile photo" style="width:84px;height:84px;border-radius:42px;flex:none;object-fit:cover">
     <div style="display:flex;flex-direction:column;gap:4px">
       <div class="serif" id="pName" style="font-size:34px;line-height:1">Sofia</div>
+      <div id="pTaste" class="mono" style="display:none;color:var(--moss)"></div>
       <div id="pBio" style="font-size:14px;line-height:1.4;color:var(--ink2)">Chasing sunsets and coffee without tourists. I only share places I’ve been to.</div>
     </div>
   </div>
@@ -350,6 +359,34 @@ button:disabled{opacity:.6}
   </div>
 </section>
 
+<!-- ========== INTRO (what is haunts) ========== -->
+<section class="screen no-tabs" id="s-intro" style="padding:0;overflow:hidden">
+  <div class="pad top" style="position:absolute;left:0;right:0;top:0;z-index:3;display:flex;justify-content:space-between;align-items:center">
+    <button class="icon-btn" data-back aria-label="Back" style="background:rgba(241,233,220,.9)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#2B1A14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <button class="mono" id="inSkip" style="color:var(--ink);height:40px;padding:0 16px;border-radius:20px;background:rgba(241,233,220,.9)">Skip</button>
+  </div>
+  <div id="inTrack" style="position:absolute;inset:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none">
+    <div class="inSlide"><div class="inPh" style="background-image:url(img/welcome/s7.jpg)"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Save what <span class="it">you love</span></div><div class="inSub">Cafés, sunset spots, a massage lady from WhatsApp — every place and experience in one place</div></div></div>
+    <div class="inSlide"><div class="inPh" style="background-image:url(img/welcome/s2.jpg)"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Rate it <span class="it">honestly</span></div><div class="inSub">Not just stars: is it quiet, are the staff kind, is there decaf, can you work there</div></div></div>
+    <div class="inSlide"><div class="inPh" style="background-image:url(img/welcome/s3.jpg)"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Share <span class="it">your taste</span></div><div class="inSub">Your map, your countries, your favourite spots — with people who get it</div></div></div>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:0;padding:0 24px calc(16px + var(--bot));display:flex;flex-direction:column;gap:16px;z-index:3">
+    <div id="inDots" style="display:flex;gap:6px;justify-content:center"></div>
+    <button class="btn dark" id="inNext">Next</button>
+  </div>
+</section>
+
+<!-- ========== QUIZ (after sign-up) ========== -->
+<section class="screen no-tabs" id="s-quiz">
+  <div class="pad top" style="display:flex;align-items:center;gap:14px">
+    <button class="icon-btn" id="qzBack" aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#2B1A14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <div id="qzBar" style="flex:1;display:flex;gap:6px"></div>
+    <button class="mono" id="qzSkip" style="color:var(--ink);padding:12px 0">Skip</button>
+  </div>
+  <div class="pad" id="qzBody" style="flex:1;display:flex;flex-direction:column;gap:16px;margin-top:10px"></div>
+  <div class="pad" style="flex:none;padding-top:16px"><button class="btn dark" id="qzNext" style="width:100%">Continue</button></div>
+</section>
+
 <!-- ========== AUTH ========== -->
 <section class="screen no-tabs" id="s-auth">
   <div class="pad top" style="display:flex;align-items:center"><button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#2B1A14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button></div>
@@ -385,6 +422,7 @@ button:disabled{opacity:.6}
     <div class="field"><label class="mono" for="epTt">TikTok (handle)</label><input class="input" id="epTt" autocapitalize="off"></div>
     <div class="field"><label class="mono" for="epWeb">Website</label><input class="input" id="epWeb" type="url" autocapitalize="off" placeholder="https://"></div>
     <button class="btn dark" id="epSave">Save</button>
+    <button class="btn line" id="epQuiz">Retake taste quiz</button>
     <button class="mono" id="epLogout" style="padding:12px;color:#8A3B2E">Log out</button>
   </div>
 </section>
@@ -675,7 +713,7 @@ function chips(el,list){el.innerHTML=list.map(([k,l])=>`<button class="chip ${on
 function renderExplore(){
   chips($('#chipsNeed'),NEEDS);chips($('#chipsVibe'),VIBES);
   const q=$('#q').value.trim().toLowerCase();
-  const res=Object.entries(PLACES).filter(([k,p])=>[...on].every(t=>p.has.includes(t))&&(!q||(p.name+p.tags).toLowerCase().includes(q)));
+  const res=Object.entries(PLACES).filter(([k,p])=>[...on].every(t=>p.has.includes(t))&&(!q||(p.name+p.tags).toLowerCase().includes(q))).sort((a,b)=>tasteScore(b[1])-tasteScore(a[1]));
   $('#exCount').textContent=res.length+' places';
   $('#exList').innerHTML=res.length?res.map(([k,p])=>`<button class="row" data-place="${k}">
     <div class="thumb" style="width:64px;height:64px;border-radius:14px;background:${p.bg}"></div>
@@ -865,7 +903,7 @@ $('#authGo').onclick=async()=>{
   const email=$('#authEmail').value.trim(),password=$('#authPass').value,username=clean($('#authUser').value).toLowerCase();
   if(!email||password.length<6){$('#authMsg').textContent='Email and a 6+ character password needed';return}
   if(authMode==='up'&&!/^[a-z0-9_.]{3,30}$/.test(username)){$('#authMsg').textContent='Username: 3–30 chars, latin letters, digits, _ and .';return}
-  $('#authGo').disabled=true;$('#authMsg').textContent='One sec…';justAuthed=true;
+  $('#authGo').disabled=true;$('#authMsg').textContent='One sec…';justAuthed=true;newSignup=authMode==='up';
   const res=authMode==='up'?await sb.auth.signUp({email,password,options:{data:{username}}}):await sb.auth.signInWithPassword({email,password});
   $('#authGo').disabled=false;
   if(res.error){justAuthed=false;$('#authMsg').textContent=niceErr(res.error);return}
@@ -928,12 +966,12 @@ $('#plDel').onclick=async()=>{
 const _show2=show;show=function(id,push){if(id==='editprofile')fillEdit();if(id==='auth')setAuthMode(ME?'in':'up');return _show2(id,push)};
 
 /* ---------- welcome gate ---------- */
-let firstRoute=true, justAuthed=false;
-document.addEventListener('click',e=>{const a=e.target.closest('[data-auth]');if(a){stack=['welcome'];show('auth');setAuthMode(a.dataset.auth)}});
+let firstRoute=true, justAuthed=false, newSignup=false;
+document.addEventListener('click',e=>{const a=e.target.closest('[data-auth]');if(a){if(a.dataset.auth==='up'){stack=['welcome'];show('intro')}else{stack=['welcome'];show('auth');setAuthMode('in')}}});
 function route(){
   const cur=stack[stack.length-1];
   if(!ME){stack=['welcome'];show('welcome',false)}
-  else if(firstRoute||cur==='welcome'||cur==='auth'){const to=justAuthed?'profile':'explore';stack=[to];show(to,false)}
+  else if(firstRoute||cur==='welcome'||cur==='auth'||cur==='intro'){const to=justAuthed&&newSignup?'quiz':justAuthed?'profile':'explore';stack=[to];show(to,false)}
   firstRoute=false;justAuthed=false;
 }
 
@@ -1380,6 +1418,78 @@ function busy(btn,on){if(btn)btn.classList.toggle('loading',on)}
 ['#addSave','#postGo','#epSave','#authGo','#ctSave'].forEach(id=>{const b=$(id);if(!b)return;const h=b.onclick;if(!h)return;b.onclick=async function(ev){busy(b,true);try{return await h.call(this,ev)}finally{busy(b,false)}}});
 
 const _show6=show;show=function(id,push){$('#qa').style.display='none';['#sheet','#fSheet'].forEach(x=>{const el=$(x);if(el.style.display==='block')closeSheet(el)});const r=_show6(id,push);if(id!=='explore'&&id!=='profile'&&id!=='map')$('#plusHint').style.display='none';else maybeHint();return r};
+
+/* ---------- intro + onboarding quiz ---------- */
+const INTERESTS=[['coffee','Coffee',['decaf','bakery','breakfast','quiet']],['work','Work spots',['work','wifi','sockets','quiet']],['sunsets','Sunsets',['sunset']],['food','Food',['protein','vegan','breakfast','bakery']],['wellness','Wellness',['quiet','vegan','staff']],['nature','Nature',['sunset','quiet']],['nightlife','Nightlife',[]]];
+const TASTE={coffee:'Slow coffee',work:'Laptop nomad',sunsets:'Sunset chaser',food:'Food hunter',wellness:'Wellness seeker',nature:'Nature lover',nightlife:'Night owl'};
+function myInterests(){try{if(MYPROFILE&&MYPROFILE.interests&&MYPROFILE.interests.length)return MYPROFILE.interests}catch(_){}try{return JSON.parse(localStorage.getItem('interests')||'[]')}catch(_){return []}}
+function tasteScore(p){const want=new Set();myInterests().forEach(i=>{const x=INTERESTS.find(z=>z[0]===i);if(x)x[2].forEach(t=>want.add(t))});return (p.has||[]).filter(t=>want.has(t)).length}
+function tasteLabel(ints){const n=ints.map(i=>TASTE[i]).filter(Boolean).slice(0,2);return n.length?n.map((x,i)=>i?x.toLowerCase():x).join(' & '):'Curious explorer'}
+
+/* intro slides */
+const inT=$('#inTrack'),inN=inT.children.length;
+$('#inDots').innerHTML=[...Array(inN)].map((_,i)=>`<span class="dot${i?'':' on'}"></span>`).join('');
+function inIdx(){return Math.round(inT.scrollLeft/inT.clientWidth)}
+inT.addEventListener('scroll',()=>{const i=inIdx();[...$('#inDots').children].forEach((d,j)=>d.classList.toggle('on',i===j));$('#inNext').textContent=i===inN-1?'Create account':'Next'},{passive:true});
+function toSignup(){show('auth');setAuthMode('up')}
+$('#inNext').onclick=()=>{const i=inIdx();if(i<inN-1)inT.scrollTo({left:(i+1)*inT.clientWidth,behavior:'smooth'});else toSignup()};
+$('#inSkip').onclick=toSignup;
+
+/* quiz */
+let qz={step:0,ints:new Set(),city:'',lat:null,lng:null,countries:new Set(),q:''};
+const POPULAR=['ID','TH','VN','MY','SG','PH','JP','LK','IN','AE','GE','TR','FR','IT','ES','PT','US','MX'];
+function openQuiz(){qz={step:0,ints:new Set(myInterests()),city:(MYPROFILE&&MYPROFILE.home_city)||'',lat:null,lng:null,countries:new Set((MYPROFILE&&MYPROFILE.countries)||[]),q:''};renderQuiz()}
+function renderQuiz(){
+  const st=qz.step;$('#qzBar').innerHTML=[0,1,2].map(i=>`<span class="qzseg${i<=st?' on':''}"></span>`).join('');
+  $('#qzBar').style.visibility=st>2?'hidden':'visible';$('#qzSkip').style.visibility=st>2?'hidden':'visible';
+  $('#qzNext').textContent=st===3?'Start exploring':'Continue';
+  let h='';
+  if(st===0)h=`<div class="serif" style="font-size:38px;line-height:1">What are you <span class="it">into?</span></div><div style="font-size:17px;color:var(--ink2)">Pick as many as you like — we’ll show these first</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:4px">${INTERESTS.map(([k,l])=>`<button class="chip${qz.ints.has(k)?' on':''}" data-qi="${k}" style="height:48px;padding:0 20px;font-size:17px">${l}</button>`).join('')}</div>`;
+  if(st===1)h=`<div class="serif" style="font-size:38px;line-height:1">Where are you <span class="it">now?</span></div><div style="font-size:17px;color:var(--ink2)">So the map and Explore start around you</div>
+    <button class="btn line" id="qzLoc" style="margin-top:4px">${qz.lat!=null?'📍 Location set'+(qz.cc?' · '+esc(regionName(qz.cc)):''):'Use my location'}</button>
+    <div class="mono" style="text-align:center">or type a city</div>
+    <input class="input" id="qzCity" placeholder="e.g. Canggu, Bali" value="${esc(qz.city)}">`;
+  if(st===2){const q=qz.q.toLowerCase();const list=q?ALLC.filter(([c,n])=>n.toLowerCase().includes(q)).slice(0,12):POPULAR.map(c=>[c,regionName(c)]);
+    const extra=[...qz.countries].filter(c=>!list.some(([x])=>x===c)).map(c=>[c,regionName(c)]);
+    h=`<div class="serif" style="font-size:38px;line-height:1">Where have you <span class="it">been?</span></div><div style="font-size:17px;color:var(--ink2)">${qz.countries.size?qz.countries.size+(qz.countries.size===1?' country':' countries')+' so far':'Tap the countries you’ve visited'}</div>
+    <input class="input" id="qzQ" placeholder="Search countries" value="${esc(qz.q)}">
+    <div style="display:flex;flex-wrap:wrap;gap:8px">${[...extra,...list].map(([c,n])=>`<button class="chip${qz.countries.has(c)?' on':''}" data-qc="${c}">${esc(n)}</button>`).join('')}</div>`}
+  if(st===3){const t=tasteLabel([...qz.ints]);h=`<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px">
+    <div class="mono">Your travel taste</div>
+    <div style="border-radius:26px;overflow:hidden;position:relative;height:300px;background:url(img/welcome/s3.jpg) center/cover">
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(43,26,20,0) 30%,rgba(43,26,20,.85) 100%)"></div>
+      <div style="position:absolute;left:20px;right:20px;bottom:18px;color:#F1E9DC;display:flex;flex-direction:column;gap:8px">
+        <div class="serif it" style="font-size:36px;line-height:1">${esc(t)}</div>
+        <div style="font-size:15px;opacity:.9">${qz.countries.size} ${qz.countries.size===1?'country':'countries'}${qz.city?' · based in '+esc(qz.city):''}</div>
+      </div></div>
+    <div style="font-size:17px;color:var(--ink2)">We’ll put places that match your taste first. You can change this any time in your profile</div></div>`}
+  $('#qzBody').innerHTML=h;
+  if(st===1){$('#qzCity').oninput=e=>{qz.city=e.target.value};$('#qzLoc').onclick=()=>locate((la,ln)=>{qz.lat=la;qz.lng=ln;qz.cc=countryAt(la,ln);if(!qz.city&&qz.cc)qz.city=regionName(qz.cc);if(qz.cc)qz.countries.add(qz.cc);renderQuiz()})}
+  if(st===2){const i=$('#qzQ');i.oninput=e=>{qz.q=e.target.value;const pos=i.selectionStart;renderQuiz();const n=$('#qzQ');n.focus();n.setSelectionRange(pos,pos)}}
+}
+document.addEventListener('click',e=>{
+  const a=e.target.closest('[data-qi]');if(a){const k=a.dataset.qi;qz.ints.has(k)?qz.ints.delete(k):qz.ints.add(k);renderQuiz();return}
+  const c=e.target.closest('[data-qc]');if(c){const k=c.dataset.qc;qz.countries.has(k)?qz.countries.delete(k):qz.countries.add(k);renderQuiz()}
+});
+$('#qzBack').onclick=()=>{if(qz.step>0){qz.step--;renderQuiz()}else finishQuiz(true)};
+$('#qzSkip').onclick=()=>finishQuiz(true);
+$('#qzNext').onclick=async()=>{if(qz.step<3){qz.step++;renderQuiz();$('#s-quiz').scrollTop=0;return}await finishQuiz(false)};
+async function finishQuiz(skipped){
+  const ints=[...qz.ints];try{localStorage.setItem('interests',JSON.stringify(ints))}catch(_){}
+  if(!skipped||ints.length||qz.countries.size){
+    const upd={interests:ints,countries:[...qz.countries],home_city:qz.city.trim()||null,taste:tasteLabel(ints),onboarded:true};
+    if(qz.lat!=null){upd.home_lat=qz.lat;upd.home_lng=qz.lng}
+    if(MYPROFILE)Object.assign(MYPROFILE,upd);
+    if(sb&&ME){const {error}=await sb.from('profiles').update(upd).eq('id',ME.id);
+      if(error){const base={countries:upd.countries};await sb.from('profiles').update(base).eq('id',ME.id);console.warn(error)}}
+  }
+  renderProfileHead();renderExplore();stack=['explore'];show('explore',false);
+  if(!skipped)toast('Explore is tuned to your taste');
+}
+const _rph3=renderProfileHead;renderProfileHead=function(){_rph3();const t=MYPROFILE&&MYPROFILE.taste;$('#pTaste').style.display=t?'block':'none';$('#pTaste').textContent=t?'Taste: '+t:''};
+$('#epQuiz').onclick=()=>{show('quiz')};
+const _show7=show;show=function(id,push){if(id==='quiz')openQuiz();if(id==='intro'){inT.scrollLeft=0;$('#inNext').textContent='Next';[...$('#inDots').children].forEach((d,j)=>d.classList.toggle('on',j===0))}return _show7(id,push)};
 </script>
 </body>
 </html>

@@ -24,7 +24,7 @@ Read this first before changing anything. Keep it updated: add a line to the cha
   - Auth: email + password, email confirmation OFF, Site URL = the Pages URL.
   - Tables: `profiles` (id, username, name, bio, avatar_url, instagram, telegram, tiktok, website, countries[] ISO alpha-2), `places` (user_id, name, city, note, rating, tags[], photo_url, lat, lng, country), `postcards` (24h stories: media_url, media_type image|video, caption, place, expires_at), `scenes` (short videos: video_url, caption, place). RLS: everyone reads, users write only their own rows.
   - Storage: public bucket `photos`, each user writes only into `<uid>/…`; 50 MB file limit.
-  - SQL lives in `supabase/setup.sql`, `002_postcards_scenes.sql`, `003_countries_map.sql` — Sofia runs them manually in SQL Editor. New schema changes = new numbered file + tell her to run it.
+  - SQL lives in `supabase/setup.sql`, `002_postcards_scenes.sql`, `003_countries_map.sql`, `004_onboarding.sql` (profiles: interests[], home_city, home_lat, home_lng, taste, onboarded) — Sofia runs them manually in SQL Editor. New schema changes = new numbered file + tell her to run it.
 - Claude's sandbox cannot reach supabase.co, so backend changes can't be tested from here; UI is checked with headless Chrome (playwright).
 - Maps: Leaflet 1.9.4 vendored in `vendor/leaflet/` (sandbox can't reach CDNs), CARTO Voyager raster tiles (sepia-tinted via CSS), country shapes `data/countries.geojson` (Natural Earth 50m via world-atlas, simplified, antimeridian-fixed, Antarctica removed, property `a2`). `countryAt(lat,lng)` = point-in-polygon with nearest-vertex fallback (small islands like Bali).
 - Images are cached hard by iPhone home-screen apps: when replacing an image, give it a NEW filename (that's why welcome photos are `s1…s10`).
@@ -35,7 +35,7 @@ Read this first before changing anything. Keep it updated: add a line to the cha
 
 ## App structure (screens in index.html)
 MVP navigation (decided with Sofia 2026-11-26, based on her UX research): **Explore · Map · + · Profile** (4 tabs, + in the middle).
-- welcome (full-screen slideshow of Sofia's photos `img/welcome/s1–s10.jpg`, dark gradient, light wordmark + "We bring together more than places", Create account + "I already have an account · Log in") → auth (sign-up shows the long subline) → lands on **Explore** (or Profile right after sign-up).
+- welcome (full-screen slideshow of Sofia's photos `img/welcome/s1–s10.jpg`, dark gradient, light wordmark + "We bring together more than places", Create account + "I already have an account · Log in") → Create account opens **intro** (3 swipeable slides: Save what you love / Rate it honestly / Share your taste, Skip + Next) → sign-up → **quiz** (3 steps + taste card: interests chips · where are you now (location or city) · countries visited (popular chips + search) → "Your travel taste" card, e.g. "Slow coffee & sunset chaser") → Explore sorted by taste. "Log in" goes straight to auth → Explore. Quiz can be retaken from Edit profile; taste shows under the name in Profile.
 - **Explore**: Postcards row, title "Find your next haunt", search, Filters (bottom sheet) + Map chip, places list; empty search = icon + "No haunts for …" + Clear search / Clear filters / + Add a place. First-run hint bubble above + ("Tap + to add your first haunt", once, Explore only).
 - **Map** tab: modes Everyone / Mine / Countries; pins → popup → place card; summary card sits above the tab bar.
 - **+** sheet: Postcard (24h photo/video) · Place. Scenes removed from the sheet for MVP.
@@ -77,3 +77,4 @@ MVP navigation (decided with Sofia 2026-11-26, based on her UX research): **Expl
 - 2026-11-26 — Welcome: smaller bottom gap; hidden toast no longer leaves a faint shadow (opacity 0 when hidden).
 - 2026-11-26 — Welcome redesigned (Sofia: too much text, too many fonts): full-bleed photos, light logo, one line, two actions; long subline moved to sign-up screen.
 - 2026-11-26 — MVP simplification + UX patterns from Sofia's research (infogra guide + mobile UI video): 4-tab nav Explore·Map·+·Profile, Explore landing, Profile = My haunts, empty states, first-run + hint, sheet animations/drag-to-close, edge-swipe back, long-press quick actions, pressed states, loading bars, skeletons, human error messages, 17px body.
+- 2026-11-26 — Onboarding: intro slides before sign-up, 3-question taste quiz after sign-up (interests, home city/location, countries), taste card, Explore sorted by interests, taste label in profile, retake from edit profile; `004_onboarding.sql`.
