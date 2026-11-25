@@ -8,8 +8,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#FFFFFF">
 <title>haunts</title>
-<link rel="apple-touch-icon" href="img/brand/apple-touch-icon.png">
-<link rel="icon" href="img/brand/icon-192.png">
+<link rel="apple-touch-icon" href="img/brand/icon-v2-180.png">
+<link rel="icon" href="img/brand/icon-v2-192.png">
 <link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
 <script src="vendor/leaflet/leaflet.js"></script>
@@ -242,7 +242,8 @@ button:disabled{opacity:.6}
 #tabs.mini{height:56px!important}#tabs.mini button[data-tab].on{min-height:42px}
 
 /* ===== orb gradient = the one accent (Sofia 2026-11-26): everything else graphite ===== */
-:root{--orb:radial-gradient(130% 130% at 50% 100%,#FFE6D4 0%,#FFB89C 10%,#F79A80 18%,#A796EC 42%,#6078F6 70%,#B7A7D8 100%)}
+:root{--orb:radial-gradient(70% 60% at 85% 85%,#C9DBB6 0%,#C9DBB600 70%),radial-gradient(55% 55% at 70% 45%,#8DB36C 0%,#8DB36C00 70%),radial-gradient(50% 60% at 10% 85%,#A93A35 0%,#A93A3500 70%),radial-gradient(60% 50% at 15% 30%,#B9A3A8 0%,#B9A3A800 70%),linear-gradient(160deg,#5A2333 0%,#6B2A35 40%,#7E8F5E 75%,#D7D9C2 100%)}
+[data-auth=up]{background:var(--orb)!important;color:#fff!important;font-weight:600!important;border:0!important}
 .orbmark{background:var(--orb);-webkit-mask:url(img/brand/wordmark-light.png) center/contain no-repeat;mask:url(img/brand/wordmark-light.png) center/contain no-repeat}
 #tabs button[data-tab].on{background:var(--orb)!important}
 #tabs .add{background:#fff!important;color:#111216!important}
