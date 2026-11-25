@@ -84,6 +84,18 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .wBar i{display:block;height:100%;width:0;background:#F2F0E9}
 .wBar.done i{width:100%}
 .wBar.run i{width:100%;transition:width 4.5s linear}
+#pcRow::-webkit-scrollbar{display:none}
+.pc{flex:none;display:flex;flex-direction:column;align-items:center;gap:6px;width:72px}
+.pc .ring{width:68px;height:68px;border-radius:34px;padding:3px;background:conic-gradient(#D9A877,#4F5A45,#8FB3AA,#D9A877)}
+.pc .ring.seen{background:#C9C5B8}
+.pc .ring.add{background:transparent;border:1px dashed #9E9A8C}
+.pc img,.pc .ph0{width:100%;height:100%;border-radius:50%;object-fit:cover;border:2px solid var(--paper);background:#E6E3DA;display:flex;align-items:center;justify-content:center}
+.pc span{font-size:11px;max-width:72px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink2)}
+.scene{position:relative;height:100dvh;scroll-snap-align:start;overflow:hidden;background:#000}
+.scene video{width:100%;height:100%;object-fit:cover}
+.scene .meta{position:absolute;left:16px;right:70px;bottom:calc(104px + var(--bot));display:flex;flex-direction:column;gap:6px;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+.scene .side{position:absolute;right:12px;bottom:calc(110px + var(--bot));display:flex;flex-direction:column;gap:14px;align-items:center}
+.scene .mute{position:absolute;top:calc(var(--top) + 8px);right:12px}
 .toast{position:absolute;left:50%;top:calc(var(--top) + 10px);transform:translate(-50%,-80px);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:20px;font-size:13px;z-index:50;transition:transform .3s}
 .toast.show{transform:translate(-50%,0)}
 </style>
@@ -140,7 +152,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 
 <!-- ========== EXPLORE ========== -->
 <section class="screen" id="s-explore" data-tabs="explore">
-  <div class="pad top" style="display:flex;flex-direction:column;gap:12px">
+  <div class="top" style="padding-left:16px;padding-right:16px">
+    <div class="mono" style="padding:0 4px 8px">Postcards · last 24h</div>
+    <div id="pcRow" style="display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;padding:2px 4px 4px"></div>
+  </div>
+  <div class="pad" style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
     <div style="display:flex;align-items:baseline;justify-content:space-between">
       <div class="serif" style="font-size:40px;line-height:1">Canggu, <span class="it">coffee</span></div>
       <div class="mono" id="exCount"></div>
@@ -267,6 +283,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     <button data-pt="0" style="padding-bottom:10px;border-bottom:2px solid var(--ink);font-weight:600;font-size:14px">Collections</button>
     <button data-pt="1" style="padding-bottom:10px;font-size:14px;color:var(--muted)">Diary</button>
     <button data-pt="2" style="padding-bottom:10px;font-size:14px;color:var(--muted)">Want</button>
+    <button data-pt="3" style="padding-bottom:10px;font-size:14px;color:var(--muted)">Scenes</button>
   </div>
   <div class="pad" id="ptBody" style="margin-top:14px"></div>
 </section>
@@ -356,11 +373,72 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   </div>
 </section>
 
+<!-- ========== SCENES ========== -->
+<section class="screen" id="s-scenes" data-tabs="scenes" style="background:#0f110f;color:#F2F0E9;padding-bottom:0;scroll-snap-type:y mandatory">
+  <div id="scList"></div>
+  <div id="scEmpty" style="display:none;height:100%;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:40px">
+    <div class="serif" style="font-size:40px;line-height:1">No scenes <span class="it">yet</span></div>
+    <div style="font-size:14px;color:rgba(242,240,233,.7);max-width:280px">Short videos of places: the walk in, the view, the vibe. Share the first one</div>
+    <button class="btn" style="background:#F2F0E9;color:var(--ink);font-weight:600" data-newpost="scene">Share a scene</button>
+  </div>
+</section>
+
+<!-- ========== NEW POSTCARD / SCENE ========== -->
+<section class="screen no-tabs" id="s-post">
+  <div class="pad top" style="display:flex;align-items:center;justify-content:space-between">
+    <button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1A1D19" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <div class="mono" id="postKind">New postcard</div><div style="width:44px"></div>
+  </div>
+  <div class="pad" style="display:flex;flex-direction:column;gap:16px">
+    <div class="serif" style="font-size:38px;line-height:1" id="postTitle">Send a <span class="it">postcard</span></div>
+    <div style="font-size:13px;color:var(--ink2);margin-top:-8px" id="postHint">A photo or short video. Disappears in 24 hours</div>
+    <label id="postPick" style="position:relative;height:380px;border-radius:20px;border:1px dashed #9E9A8C;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:#ECE9E0;overflow:hidden;cursor:pointer">
+      <input type="file" id="postFile" style="position:absolute;opacity:0;width:1px;height:1px">
+      <svg id="postIcon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4A4F45" stroke-width="1.5" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+      <span id="postPickText" style="font-size:13px;color:var(--ink2)">Choose photo or video</span>
+      <div id="postPreview" style="position:absolute;inset:0;display:none"></div>
+    </label>
+    <div class="field"><label class="mono" for="postPlace">Where</label><input class="input" id="postPlace" placeholder="e.g. Single Fin, Uluwatu"></div>
+    <div class="field"><label class="mono" for="postCaption">Caption</label><input class="input" id="postCaption" placeholder="One line about it"></div>
+    <button class="btn dark" id="postGo">Share</button>
+    <div id="postMsg" style="font-size:12px;color:var(--muted);text-align:center;min-height:16px"></div>
+  </div>
+</section>
+
+<!-- create sheet -->
+<div id="sheet" style="position:absolute;inset:0;z-index:40;display:none">
+  <div data-sheetclose style="position:absolute;inset:0;background:rgba(15,17,15,.45)"></div>
+  <div style="position:absolute;left:12px;right:12px;bottom:calc(12px + var(--bot));background:var(--paper);border-radius:28px;padding:10px;display:flex;flex-direction:column;gap:6px">
+    <button class="row" style="border:0;padding:12px" data-newpost="postcard"><div class="thumb" style="width:44px;height:44px;border-radius:22px;background:radial-gradient(90% 90% at 50% 40%,#D9A877,#5E5A4E)"></div><div><div style="font-weight:600;font-size:15px">Postcard</div><div style="font-size:12px;color:var(--ink2)">Photo or video, gone in 24h</div></div></button>
+    <button class="row" style="padding:12px" data-newpost="scene"><div class="thumb" style="width:44px;height:44px;border-radius:12px;background:radial-gradient(90% 90% at 50% 40%,#8FB3AA,#35524F)"></div><div><div style="font-weight:600;font-size:15px">Scene</div><div style="font-size:12px;color:var(--ink2)">Short vertical video of a place</div></div></button>
+    <button class="row" style="padding:12px" data-sheetplace><div class="thumb" style="width:44px;height:44px;border-radius:12px;background:radial-gradient(90% 90% at 50% 40%,#B9A58A,#3F3A31)"></div><div><div style="font-weight:600;font-size:15px">Place</div><div style="font-size:12px;color:var(--ink2)">Add to your diary with rating and tags</div></div></button>
+  </div>
+</div>
+
+<!-- postcard viewer -->
+<div id="pcView" style="position:absolute;inset:0;z-index:50;background:#0f110f;display:none;color:#F2F0E9">
+  <div id="pcMedia" style="position:absolute;inset:0"></div>
+  <div style="position:absolute;left:0;right:0;top:0;height:140px;background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,0));pointer-events:none"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:200px;background:linear-gradient(0deg,rgba(0,0,0,.55),rgba(0,0,0,0));pointer-events:none"></div>
+  <div id="pcBars" style="position:absolute;top:calc(var(--top) + 6px);left:12px;right:12px;display:flex;gap:4px;z-index:3"></div>
+  <div style="position:absolute;top:calc(var(--top) + 18px);left:12px;right:8px;display:flex;align-items:center;gap:10px;z-index:3">
+    <img id="pcAva" alt="" style="width:34px;height:34px;border-radius:17px;object-fit:cover;background:#4F5A45">
+    <div style="flex:1;display:flex;flex-direction:column"><span id="pcUser" style="font-size:14px;font-weight:600"></span><span id="pcTime" class="mono" style="color:rgba(242,240,233,.7)"></span></div>
+    <button id="pcDel" class="mono" style="color:#F2F0E9;padding:12px;display:none">Delete</button>
+    <button class="icon-btn" id="pcClose" aria-label="Close"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#F2F0E9" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
+  </div>
+  <div id="pcTap" style="position:absolute;left:0;right:0;top:90px;bottom:120px;z-index:2"></div>
+  <div style="position:absolute;left:20px;right:20px;bottom:calc(28px + var(--bot));z-index:3;display:flex;flex-direction:column;gap:6px">
+    <div id="pcPlace" class="mono" style="color:rgba(242,240,233,.85)"></div>
+    <div id="pcCap" class="serif" style="font-size:26px;line-height:1.1"></div>
+  </div>
+</div>
+
 <nav id="tabs" class="hide">
   <button data-tab="swipe" class="on"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="3" width="12" height="17" rx="2.5"/><path d="M19 6v13a2 2 0 0 1-2 2H8"/></svg>Swipe</button>
   <button data-tab="explore"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>Explore</button>
-  <button data-go="add" class="add" aria-label="Add place"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
-  <button data-tab="collection"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 4h14v16l-7-4-7 4z"/></svg>Collections</button>
+  <button data-sheet class="add" aria-label="Create"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+  <button data-tab="scenes"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M10 9.5v5l4.5-2.5z"/></svg>Scenes</button>
   <button data-tab="profile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c1.2-3.6 4-5.2 7-5.2s5.8 1.6 7 5.2"/></svg>Profile</button>
 </nav>
 <div class="toast" id="toast"></div>
@@ -754,6 +832,181 @@ function route(){
   $('#wShow').addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>40){e.preventDefault();go(i+(d<0?1:-1))}});
   go(0);
 })();
+
+/* ---------- Postcards (24h stories) & Scenes (short videos) ---------- */
+const MEDIA_RE=/^https:\/\/uaorlwqiarejbemexhte\.supabase\.co\/storage\/v1\/object\/public\/photos\/[\w\-\/.%]+$/;
+const safeMedia=u=>u&&MEDIA_RE.test(u)?u:null;
+const ago=t=>{const m=Math.max(1,Math.round((Date.now()-new Date(t))/60000));return m<60?m+'m':Math.round(m/60)+'h'};
+function storagePath(u){const m=(u||'').split('/object/public/photos/')[1];return m?decodeURIComponent(m):null}
+async function uploadFile(file,prefix){
+  const ext=((file.name||'').split('.').pop()||'mp4').toLowerCase().replace(/[^a-z0-9]/g,'')||'mp4';
+  const path=`${ME.id}/${prefix}-${Date.now()}.${ext}`;
+  const {error}=await sb.storage.from('photos').upload(path,file,{contentType:file.type||'video/mp4',upsert:false});
+  if(error)throw error;
+  return sb.storage.from('photos').getPublicUrl(path).data.publicUrl;
+}
+
+/* sheet */
+const sheet=$('#sheet');
+document.addEventListener('click',e=>{
+  if(e.target.closest('[data-sheet]')){sheet.style.display='block';return}
+  if(e.target.closest('[data-sheetclose]')){sheet.style.display='none';return}
+  if(e.target.closest('[data-sheetplace]')){sheet.style.display='none';show('add');return}
+  const np=e.target.closest('[data-newpost]');if(np){sheet.style.display='none';openPost(np.dataset.newpost)}
+});
+
+/* new post screen */
+let post={kind:'postcard',file:null,dataUrl:null,isVideo:false};
+function openPost(kind){
+  post={kind,file:null,dataUrl:null,isVideo:false};
+  const pc=kind==='postcard';
+  $('#postKind').textContent=pc?'New postcard':'New scene';
+  $('#postTitle').innerHTML=pc?'Send a <span class="it">postcard</span>':'Share a <span class="it">scene</span>';
+  $('#postHint').textContent=pc?'A photo or short video. Disappears in 24 hours':'A short vertical video of a place, up to 50 MB';
+  $('#postPickText').textContent=pc?'Choose photo or video':'Choose a video';
+  $('#postFile').accept=pc?'image/*,video/*':'video/*';$('#postFile').value='';
+  $('#postPreview').innerHTML='';$('#postPreview').style.display='none';$('#postIcon').style.display='';$('#postPickText').style.display='';
+  $('#postPlace').value='';$('#postCaption').value='';$('#postMsg').textContent='';
+  show('post');
+}
+$('#postFile').addEventListener('change',async e=>{
+  const f=e.target.files[0];if(!f)return;
+  const isVideo=(f.type||'').startsWith('video');
+  if(post.kind==='scene'&&!isVideo){toast('Scenes are videos — pick a video');return}
+  if(isVideo&&f.size>50*1024*1024){toast('Video is over 50 MB — trim it a bit');return}
+  post.file=f;post.isVideo=isVideo;post.dataUrl=null;
+  const pv=$('#postPreview');pv.style.display='block';$('#postIcon').style.display='none';$('#postPickText').style.display='none';
+  if(isVideo){pv.innerHTML='';const v=document.createElement('video');v.src=URL.createObjectURL(f);v.muted=true;v.loop=true;v.autoplay=true;v.playsInline=true;v.setAttribute('playsinline','');v.style.cssText='width:100%;height:100%;object-fit:cover';pv.appendChild(v);v.play().catch(()=>{})}
+  else{try{post.dataUrl=await compress(f);pv.innerHTML=`<img src="${post.dataUrl}" alt="" style="width:100%;height:100%;object-fit:cover">`}catch(_){toast('Couldn’t open the photo')}}
+});
+$('#postGo').onclick=async()=>{
+  if(!ME||!sb){toast('Log in first');return}
+  if(!post.file){toast(post.kind==='scene'?'Pick a video':'Pick a photo or video');return}
+  const btn=$('#postGo');btn.disabled=true;btn.textContent='Uploading…';$('#postMsg').textContent=post.isVideo?'Videos can take a minute on mobile data':'';
+  try{
+    const url=post.isVideo?await uploadFile(post.file,post.kind):await uploadPhoto(post.dataUrl,post.kind);
+    const place=$('#postPlace').value.trim()||null, caption=$('#postCaption').value.trim()||null;
+    const {error}=post.kind==='postcard'
+      ?await sb.from('postcards').insert({user_id:ME.id,media_url:url,media_type:post.isVideo?'video':'image',caption,place})
+      :await sb.from('scenes').insert({user_id:ME.id,video_url:url,caption,place});
+    if(error)throw error;
+    if(post.kind==='postcard'){await loadPostcards();stack=['explore'];show('explore',false);toast('Postcard sent')}
+    else{await loadScenes();stack=['scenes'];show('scenes',false);toast('Scene shared')}
+  }catch(err){console.warn(err);toast('Couldn’t share: '+(err.message||'error'))}
+  btn.disabled=false;btn.textContent='Share';$('#postMsg').textContent='';
+};
+
+/* postcards row + viewer */
+let PCG=[];
+const seenPc=new Set(JSON.parse(localStorage.getItem('pcSeen')||'[]'));
+function markSeen(id){seenPc.add(id);try{localStorage.setItem('pcSeen',JSON.stringify([...seenPc].slice(-500)))}catch(_){}}
+async function loadPostcards(){
+  if(!sb)return renderPcRow();
+  const {data,error}=await sb.from('postcards').select('*, profiles(username,avatar_url)').gt('expires_at',new Date().toISOString()).order('created_at',{ascending:true});
+  if(error){console.warn(error);return renderPcRow()}
+  const by={};
+  data.forEach(r=>{const url=safeMedia(r.media_url);if(!url)return;
+    (by[r.user_id]=by[r.user_id]||{uid:r.user_id,user:esc(r.profiles&&r.profiles.username||'guest'),ava:safeMedia(r.profiles&&r.profiles.avatar_url),items:[]}).items.push({id:r.id,url,type:r.media_type,cap:esc(r.caption),place:esc(r.place),at:r.created_at})});
+  PCG=Object.values(by).sort((a,b)=>(b.uid===(ME&&ME.id))-(a.uid===(ME&&ME.id))||new Date(b.items[b.items.length-1].at)-new Date(a.items[a.items.length-1].at));
+  renderPcRow();
+}
+function renderPcRow(){
+  const me=MYPROFILE&&MYPROFILE.avatar_url?safeMedia(MYPROFILE.avatar_url):null;
+  const add=`<button class="pc" data-newpost="postcard"><div class="ring add">${me?`<img src="${me}" alt="">`:'<div class="ph0"></div>'}</div><span>+ Add yours</span></button>`;
+  $('#pcRow').innerHTML=add+PCG.map((g,i)=>{const seen=g.items.every(x=>seenPc.has(x.id));
+    return `<button class="pc" data-pcg="${i}"><div class="ring ${seen?'seen':''}">${g.ava?`<img src="${g.ava}" alt="">`:`<div class="ph0 serif" style="font-size:22px">${g.user[0]||'?'}</div>`}</div><span>${ME&&g.uid===ME.id?'You':'@'+g.user}</span></button>`}).join('');
+}
+document.addEventListener('click',e=>{const g=e.target.closest('[data-pcg]');if(g)openPc(+g.dataset.pcg,0)});
+let pcG=0,pcI=0,pcTimer=null,pcVid=null;
+function openPc(gi,ii){pcG=gi;pcI=ii;$('#pcView').style.display='block';renderPc()}
+function closePc(){clearTimeout(pcTimer);if(pcVid){pcVid.pause();pcVid=null}$('#pcView').style.display='none';$('#pcMedia').innerHTML='';renderPcRow()}
+function renderPc(){
+  clearTimeout(pcTimer);if(pcVid){pcVid.pause();pcVid=null}
+  const g=PCG[pcG];if(!g)return closePc();const it=g.items[pcI];markSeen(it.id);
+  $('#pcAva').src=g.ava||'';$('#pcUser').textContent='';$('#pcUser').innerHTML=ME&&g.uid===ME.id?'You':'@'+g.user;$('#pcTime').textContent=ago(it.at);
+  $('#pcPlace').innerHTML=it.place||'';$('#pcCap').innerHTML=it.cap||'';
+  $('#pcDel').style.display=ME&&g.uid===ME.id?'block':'none';
+  $('#pcBars').innerHTML=g.items.map((_,j)=>`<div class="wBar ${j<pcI?'done':''}"><i></i></div>`).join('');
+  const bar=$('#pcBars').children[pcI].firstElementChild, m=$('#pcMedia');
+  if(it.type==='video'){
+    m.innerHTML='';const v=document.createElement('video');v.src=it.url;v.playsInline=true;v.setAttribute('playsinline','');v.style.cssText='width:100%;height:100%;object-fit:cover';
+    m.appendChild(v);pcVid=v;
+    v.play().catch(()=>{v.muted=true;v.play().catch(()=>{})});
+    v.ontimeupdate=()=>{if(v.duration)bar.style.width=(v.currentTime/v.duration*100)+'%'};
+    v.onended=nextPc;
+  }else{
+    m.innerHTML=`<img src="${it.url}" alt="" style="width:100%;height:100%;object-fit:cover">`;
+    requestAnimationFrame(()=>{bar.style.transition='width 5s linear';bar.style.width='100%'});
+    pcTimer=setTimeout(nextPc,5000);
+  }
+}
+function nextPc(){const g=PCG[pcG];if(pcI<g.items.length-1){pcI++;renderPc()}else if(pcG<PCG.length-1){pcG++;pcI=0;renderPc()}else closePc()}
+function prevPc(){if(pcI>0){pcI--;renderPc()}else if(pcG>0){pcG--;pcI=PCG[pcG].items.length-1;renderPc()}else renderPc()}
+$('#pcTap').addEventListener('click',e=>{const r=e.currentTarget.getBoundingClientRect();(e.clientX-r.left<r.width/3)?prevPc():nextPc()});
+$('#pcClose').onclick=closePc;
+$('#pcDel').onclick=async()=>{
+  const it=PCG[pcG].items[pcI];if(!confirm('Delete this postcard?'))return;
+  const {error}=await sb.from('postcards').delete().eq('id',it.id);if(error){toast('Couldn’t delete');return}
+  const p=storagePath(it.url);if(p)sb.storage.from('photos').remove([p]);
+  closePc();await loadPostcards();toast('Postcard deleted');
+};
+
+/* scenes feed */
+let SCENES=[],scMuted=true,scObs=null;
+async function loadScenes(){
+  if(!sb){renderScenes();return}
+  const {data,error}=await sb.from('scenes').select('*, profiles(username,avatar_url)').order('created_at',{ascending:false}).limit(60);
+  if(error){console.warn(error);renderScenes();return}
+  SCENES=data.map(r=>({id:r.id,uid:r.user_id,url:safeMedia(r.video_url),user:esc(r.profiles&&r.profiles.username||'guest'),ava:safeMedia(r.profiles&&r.profiles.avatar_url),cap:esc(r.caption),place:esc(r.place),at:r.created_at})).filter(x=>x.url);
+  renderScenes();if(curPT===3)renderPT(3);
+}
+const muteIcon=m=>m?'<path d="M4 9h3l4-3v12l-4-3H4z"/><path d="M16 9l5 5M21 9l-5 5"/>':'<path d="M4 9h3l4-3v12l-4-3H4z"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/>';
+function renderScenes(){
+  const list=$('#scList');
+  $('#scEmpty').style.display=SCENES.length?'none':'flex';
+  list.innerHTML=SCENES.map((x,i)=>`<div class="scene" data-scene="${i}">
+    <video src="${x.url}#t=0.1" preload="metadata" muted loop playsinline></video>
+    <button class="icon-btn mute" data-scmute aria-label="Sound" style="background:rgba(15,17,15,.45)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F2F0E9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${muteIcon(scMuted)}</svg></button>
+    <div class="meta">
+      <div style="display:flex;align-items:center;gap:8px">${x.ava?`<img src="${x.ava}" alt="" style="width:30px;height:30px;border-radius:15px;object-fit:cover">`:''}<span style="font-weight:600;font-size:14px">@${x.user}</span><span class="mono" style="color:rgba(242,240,233,.7)">${ago(x.at)}</span></div>
+      ${x.place?`<div class="mono" style="color:rgba(242,240,233,.85)">${x.place}</div>`:''}
+      ${x.cap?`<div class="serif" style="font-size:24px;line-height:1.1">${x.cap}</div>`:''}
+    </div>
+    ${ME&&x.uid===ME.id?`<div class="side"><button class="mono" data-scdel="${i}" style="color:#F2F0E9;padding:10px;background:rgba(15,17,15,.45);border-radius:16px">Delete</button></div>`:''}
+  </div>`).join('');
+  if(scObs)scObs.disconnect();
+  scObs=new IntersectionObserver(es=>es.forEach(en=>{const v=en.target.querySelector('video');if(en.isIntersecting&&en.intersectionRatio>.6&&$('#s-scenes').classList.contains('active')){v.muted=scMuted;v.play().catch(()=>{})}else v.pause()}),{root:$('#s-scenes'),threshold:[0,.6,1]});
+  $$('.scene').forEach(el=>scObs.observe(el));
+}
+document.addEventListener('click',e=>{
+  if(e.target.closest('[data-scmute]')||e.target.closest('.scene video')){scMuted=!scMuted;$$('.scene video').forEach(v=>v.muted=scMuted);$$('[data-scmute] svg').forEach(s=>s.innerHTML=muteIcon(scMuted));return}
+  const d=e.target.closest('[data-scdel]');if(d){delScene(+d.dataset.scdel)}
+  const o=e.target.closest('[data-openscene]');if(o){stack=['scenes'];show('scenes',false);const el=$$('.scene')[+o.dataset.openscene];if(el)el.scrollIntoView()}
+});
+async function delScene(i){const x=SCENES[i];if(!x||!confirm('Delete this scene?'))return;
+  const {error}=await sb.from('scenes').delete().eq('id',x.id);if(error){toast('Couldn’t delete');return}
+  const p=storagePath(x.url);if(p)sb.storage.from('photos').remove([p]);await loadScenes();toast('Scene deleted')}
+function pauseScenes(){$$('.scene video').forEach(v=>v.pause())}
+function playVisibleScene(){const box=$('#s-scenes').getBoundingClientRect();$$('.scene').forEach(el=>{const r=el.getBoundingClientRect(),v=el.querySelector('video');if(Math.abs(r.top-box.top)<box.height/2){v.muted=scMuted;v.play().catch(()=>{})}else v.pause()})}
+
+/* profile: my scenes tab */
+let curPT=0;
+PT[3]=()=>{const mine=SCENES.map((x,i)=>[x,i]).filter(([x])=>ME&&x.uid===ME.id);
+  return mine.length?`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px">${mine.map(([x,i])=>`<button data-openscene="${i}" style="aspect-ratio:9/16;border-radius:8px;overflow:hidden;background:#222"><video src="${x.url}#t=0.1" preload="metadata" muted playsinline style="width:100%;height:100%;object-fit:cover;pointer-events:none"></video></button>`).join('')}</div>`
+  :`<div style="font-size:13px;color:var(--ink2);padding:8px 0 20px">No scenes yet. Tap + to share a short video of a place</div>`};
+const _renderPT=renderPT;renderPT=function(i){curPT=i;return _renderPT(i)};
+$$('#ptabs button').forEach(b=>b.onclick=()=>renderPT(+b.dataset.pt));
+
+/* hooks */
+const _show3=show;show=function(id,push){
+  if(id!=='scenes')pauseScenes();
+  const r=_show3(id,push);
+  if(id==='scenes'){if(!SCENES.length)loadScenes();setTimeout(playVisibleScene,50)}
+  if(id==='explore')loadPostcards();
+  return r;
+};
+const _onAuth=onAuth;onAuth=async function(session){await _onAuth(session);if(ME){loadPostcards();loadScenes()}};
+renderPcRow();
 </script>
 </body>
 </html>
