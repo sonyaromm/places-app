@@ -34,14 +34,23 @@ Read this first before changing anything. Keep it updated: add a line to the cha
 - User-generated text is escaped (`esc`) and media URLs are whitelisted to the project's storage (`safeMedia`) — keep this for anything new.
 
 ## App structure (screens in index.html)
-welcome (full-screen slideshow of Sofia's photos `img/welcome/s1–s10.jpg`, dark gradient at bottom, light wordmark + one line "We bring together more than places" in Inter, ivory Create account button + "I already have an account · Log in"; minimal text, one typeface besides the logo) → auth → tabs: **Swipe** (demo deck) · **Explore** (Postcards row, search, filters sheet, places list) · **+** (sheet: Postcard / Scene / Place) · **Scenes** (vertical video feed) · **Profile** (avatar, socials, real stats row → Stats screen, My map card, top-4, tabs Collections/Diary/Want/Scenes, edit profile). Other screens: place card (own places: set location), add place (location: my location / pick on map), new post, match, collection, paywall, **map** (modes Mine / Everyone / Countries; pins → popup → place card; Explore has a Map button that opens Everyone with current filters), **stats** (countries, % of world, places, cities, avg rating, scenes, taste tags, top cities, rating distribution), **countries** picker.
+MVP navigation (decided with Sofia 2026-11-26, based on her UX research): **Explore · Map · + · Profile** (4 tabs, + in the middle).
+- welcome (full-screen slideshow of Sofia's photos `img/welcome/s1–s10.jpg`, dark gradient, light wordmark + "We bring together more than places", Create account + "I already have an account · Log in") → auth (sign-up shows the long subline) → lands on **Explore** (or Profile right after sign-up).
+- **Explore**: Postcards row, title "Find your next haunt", search, Filters (bottom sheet) + Map chip, places list; empty search = icon + "No haunts for …" + Clear search / Clear filters / + Add a place. First-run hint bubble above + ("Tap + to add your first haunt", once, Explore only).
+- **Map** tab: modes Everyone / Mine / Countries; pins → popup → place card; summary card sits above the tab bar.
+- **+** sheet: Postcard (24h photo/video) · Place. Scenes removed from the sheet for MVP.
+- **Profile** (one job): avatar, name, bio, socials, stats row (countries · places · cities → Stats screen), My map card (→ Map tab, Mine), **My haunts** list of own places; empty state "Add your first haunt" with button; skeleton rows while loading.
+- Other screens: place card (own places: set location), add place, new post, stats, countries picker, edit profile.
+- Hidden for MVP (code kept, unreachable): Swipe deck, Match, Scenes feed/tab, Collections, Paywall, profile top-4 and Collections/Diary/Want/Scenes tabs (hidden stubs `#top4 #ptabs #ptBody` remain so old code doesn't crash).
+- Interaction patterns: bottom sheets slide up, background scales down, drag down to close; swipe from the left edge = back on non-tab screens; long-press a place row = quick actions (Open / Show on map / Share) over a blurred background; buttons scale on press; long actions show a moving bar on the button (`.btn.loading`); errors go through `niceErr()` (human messages, never raw server text); body text 17px.
+- `.screen` has z-index:1 so overlays (#qa, sheets, toasts) always sit above screen content like Leaflet panes.
 
 ## Naming
 - Stories = **Postcards** (24h), Reels = **Scenes**. Proposed by Claude, Sofia hasn't objected; alternatives offered: Glimpses/Moments, Walks.
 
 ## Still demo / not real yet
 - Demo places have Bali coordinates so the Everyone map isn't empty, and use Sofia's photos (`img/welcome/s*.jpg`) instead of gradients; no "[photo: …]" placeholders anywhere.
-- Swipe deck, Match, Collections ("Bali, édition 01"), Paywall, profile stats/top-4 when logged out, demo places (Single Fin, Kopi Pagi, Amed reef, Slow Hours, Green Bowl, Crumb & Co).
+- Hidden for MVP: Swipe deck, Match, Collections ("Bali, édition 01"), Paywall, Scenes. Still visible demo: demo places (Single Fin, Kopi Pagi, Amed reef, Slow Hours, Green Bowl, Crumb & Co).
 - No payments, no friends/follow graph, no comments/likes yet.
 
 ## Open decisions / next ideas
@@ -67,3 +76,4 @@ welcome (full-screen slideshow of Sofia's photos `img/welcome/s1–s10.jpg`, dar
 - 2026-11-26 — QA pass: welcome fits small iPhones (slideshow flexes), Match screen full height, paywall/place hero account for status bar, Swipe has a labeled Match button.
 - 2026-11-26 — Welcome: smaller bottom gap; hidden toast no longer leaves a faint shadow (opacity 0 when hidden).
 - 2026-11-26 — Welcome redesigned (Sofia: too much text, too many fonts): full-bleed photos, light logo, one line, two actions; long subline moved to sign-up screen.
+- 2026-11-26 — MVP simplification + UX patterns from Sofia's research (infogra guide + mobile UI video): 4-tab nav Explore·Map·+·Profile, Explore landing, Profile = My haunts, empty states, first-run + hint, sheet animations/drag-to-close, edge-swipe back, long-press quick actions, pressed states, loading bars, skeletons, human error messages, 17px body.
