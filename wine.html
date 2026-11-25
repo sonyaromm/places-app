@@ -25,7 +25,7 @@
 @font-face{font-family:'Newsreader';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/newsreader-latin-600-normal.woff2) format('woff2')}
 :root{
   --paper:#F8F3EC; --paper2:rgba(255,255,255,.6); --line:rgba(42,20,24,.1); --ink:#2A1418; --ink2:#5E4A4C; --muted:#7C6C69;
-  --moss:#6E1E2A; --blue:#6E1E2A; --coral:#5C6B45; --lav:#B9C2A4; --sage:#DDE2CF; --night:#2A1418;
+  --moss:#4A121C; --blue:#4A121C; --coral:#5C6B45; --lav:#B9C2A4; --sage:#DDE2CF; --night:#2A1418;
   --serif:'Albert Sans', system-ui, sans-serif; --book:'Newsreader', Georgia, serif; --sans:'Albert Sans', system-ui, sans-serif; --mono:'Albert Sans', system-ui, sans-serif;
   --top: max(env(safe-area-inset-top), 16px); --bot: env(safe-area-inset-bottom);
 }
@@ -129,7 +129,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .wBar.run i{width:100%;transition:width 4.5s linear}
 #pcRow::-webkit-scrollbar{display:none}
 .pc{flex:none;display:flex;flex-direction:column;align-items:center;gap:6px;width:72px}
-.pc .ring{width:68px;height:68px;border-radius:34px;padding:3px;background:conic-gradient(#D9A877,#6E1E2A,#8FB3AA,#D9A877)}
+.pc .ring{width:68px;height:68px;border-radius:34px;padding:3px;background:conic-gradient(#D9A877,#4A121C,#8FB3AA,#D9A877)}
 .pc .ring.seen{background:#D9CFC4}
 .pc .ring.add{background:transparent;border:1px dashed #958781}
 .pc img,.pc .ph0{width:100%;height:100%;border-radius:50%;object-fit:cover;border:2px solid var(--paper);background:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center}
@@ -181,9 +181,9 @@ button:disabled{opacity:.6}
 .toast{transition:transform .35s cubic-bezier(.2,.9,.3,1.2),opacity .2s}
 
 /* wine preview: burgundy primary buttons */
-.btn.dark{background:#6E1E2A!important;color:#F8F3EC!important;border:0!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:0 10px 24px rgba(110,30,42,.25)!important}
-#tabs .add{background:#6E1E2A!important}
-.chip.on{background:#6E1E2A!important;border-color:#6E1E2A!important;color:#F8F3EC!important}
+.btn.dark{background:#4A121C!important;color:#F8F3EC!important;border:0!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:0 10px 24px rgba(74,18,28,.25)!important}
+#tabs .add{background:#4A121C!important}
+.chip.on{background:#4A121C!important;border-color:#4A121C!important;color:#F8F3EC!important}
 </style>
 </head>
 <body>
@@ -606,7 +606,7 @@ button:disabled{opacity:.6}
   <div style="position:absolute;left:0;right:0;bottom:0;height:200px;background:linear-gradient(0deg,rgba(0,0,0,.55),rgba(0,0,0,0));pointer-events:none"></div>
   <div id="pcBars" style="position:absolute;top:calc(var(--top) + 6px);left:12px;right:12px;display:flex;gap:4px;z-index:3"></div>
   <div style="position:absolute;top:calc(var(--top) + 18px);left:12px;right:8px;display:flex;align-items:center;gap:10px;z-index:3">
-    <img id="pcAva" alt="" style="width:40px;height:40px;border-radius:20px;object-fit:cover;background:#6E1E2A">
+    <img id="pcAva" alt="" style="width:40px;height:40px;border-radius:20px;object-fit:cover;background:#4A121C">
     <div style="flex:1;display:flex;flex-direction:column"><span id="pcUser" style="font-size:15px;font-weight:600"></span><span id="pcTime" class="mono" style="color:rgba(248,243,236,.7)"></span></div>
     <button id="pcDel" class="mono" style="color:#F8F3EC;padding:12px;display:none">Delete</button>
     <button class="icon-btn" id="pcClose" aria-label="Close"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#F8F3EC" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
@@ -643,7 +643,7 @@ const G={
   ocean:'radial-gradient(120% 80% at 50% 35%,#8FB3AA 0%,#5F8A84 32%,#35524F 65%,#182423 100%)',
   green:'radial-gradient(120% 90% at 30% 30%,#A9BE8E 0%,#6E8458 35%,#3D4C35 70%,#1E251B 100%)',
   bake:'radial-gradient(110% 90% at 50% 35%,#D9B58A 0%,#A27B55 40%,#6B4E37 75%,#2C2119 100%)',
-  terrace:'radial-gradient(120% 90% at 30% 30%,#C9B48F 0%,#8C7A5C 30%,#6E1E2A 62%,#2A3127 100%)',
+  terrace:'radial-gradient(120% 90% at 30% 30%,#C9B48F 0%,#8C7A5C 30%,#4A121C 62%,#2A3127 100%)',
   stone:'radial-gradient(120% 90% at 50% 30%,#A9B4BC 0%,#6F7C85 40%,#4A5560 70%,#23292E 100%)'
 };
 

@@ -89,4 +89,4 @@ MVP navigation (decided with Sofia 2026-11-26, based on her UX research): **Expl
 - 2026-11-26 — Fonts: Fraunces+Inter → Albert Sans (light titles) + Newsreader (italic accents), self-hosted in fonts/.
 - 2026-11-26 — Primary buttons → frosted white glass (Sofia's choice).
 - 2026-11-26 — Preview `wine.html`: same app in olive green + burgundy + cream (Sofia's emerald-wine refs) for side-by-side comparison.
-- 2026-11-26 — wine.html: burgundy #6E1E2A primary buttons/+/selected chips, cleaner lighter auras (burgundy and olive kept apart so they don't mix into brown), bg #F8F3EC, softer grain.
+- 2026-11-26 — wine.html: burgundy primary (darkened to #4A121C per Sofia) buttons/+/selected chips, cleaner lighter auras (burgundy and olive kept apart so they don't mix into brown), bg #F8F3EC, softer grain.
