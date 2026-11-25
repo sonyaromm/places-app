@@ -434,9 +434,9 @@ button:disabled{opacity:.6}
     <button class="mono" id="inSkip" style="color:var(--ink);height:40px;padding:0 16px;border-radius:20px;background:rgba(245,241,236,.9)">Skip</button>
   </div>
   <div id="inTrack" style="position:absolute;inset:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none">
-    <div class="inSlide"><div class="inPh aura" data-aura="night"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Save what <span class="it">you love</span></div><div class="inSub">Cafés, sunset spots, a massage lady from WhatsApp — every place and experience in one place</div></div></div>
-    <div class="inSlide"><div class="inPh aura" data-aura="night"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Rate it <span class="it">honestly</span></div><div class="inSub">Not just stars: is it quiet, are the staff kind, is there decaf, can you work there</div></div></div>
-    <div class="inSlide"><div class="inPh aura" data-aura="night"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Share <span class="it">your taste</span></div><div class="inSub">Your map, your countries, your favourite spots — with people who get it</div></div></div>
+    <div class="inSlide"><div class="inPh aura" data-aura="night" data-img="img/intro/intro-1.jpg"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Save what <span class="it">you love</span></div><div class="inSub">Cafés, sunset spots, a massage lady from WhatsApp — every place and experience in one place</div></div></div>
+    <div class="inSlide"><div class="inPh aura" data-aura="night" data-img="img/intro/intro-2.jpg"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Rate it <span class="it">honestly</span></div><div class="inSub">Not just stars: is it quiet, are the staff kind, is there decaf, can you work there</div></div></div>
+    <div class="inSlide"><div class="inPh aura" data-aura="night" data-img="img/intro/intro-3.jpg"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Share <span class="it">your taste</span></div><div class="inSub">Your map, your countries, your favourite spots — with people who get it</div></div></div>
   </div>
   <div style="position:absolute;left:0;right:0;bottom:0;padding:0 24px calc(16px + var(--bot));display:flex;flex-direction:column;gap:16px;z-index:3">
     <div id="inDots" style="display:flex;gap:6px;justify-content:center"></div>
@@ -1525,7 +1525,7 @@ function renderQuiz(){
     <div style="display:flex;flex-wrap:wrap;gap:8px">${[...extra,...list].map(([c,n])=>`<button class="chip${qz.countries.has(c)?' on':''}" data-qc="${c}">${esc(n)}</button>`).join('')}</div>`}
   if(st===3){const t=tasteLabel([...qz.ints]);h=`<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px">
     <div class="mono">Your travel taste</div>
-    <div class="aura" style="border-radius:28px;height:340px;background:${auraBG(tastePalette([...qz.ints]))};box-shadow:0 20px 50px rgba(17,18,22,.15)">
+    <div class="aura" style="border-radius:28px;height:340px;background:url(img/taste/taste-1.jpg) center/cover no-repeat,${auraBG(tastePalette([...qz.ints]))};box-shadow:0 20px 50px rgba(17,18,22,.15)">
       <div class="mono" style="position:absolute;left:20px;top:18px;color:rgba(17,18,22,.6)">haunts · taste</div>
       <div style="position:absolute;left:20px;right:20px;bottom:20px;color:var(--ink);display:flex;flex-direction:column;gap:8px">
         <div class="serif it" style="font-size:36px;line-height:1">${esc(t)}</div>
@@ -1577,7 +1577,7 @@ function auraBG(name){const P={
   const [base,bl]=P[name]||P.rose;const sz=name==='night'?['18% 14%','32% 26%','46% 38%','52% 44%']:['60% 55%','60% 55%','60% 55%','60% 55%'];return bl.map(([c,at],i)=>`radial-gradient(${sz[i]} at ${at},${c} 0%,${c}00 ${name==='night'?'100%':'70%'})`).join(',')+','+base}
 function auraForTags(t){t=t||[];if(t.includes('sunset'))return 'sunset';if(t.some(x=>['work','wifi','sockets','quiet'].includes(x)))return 'dusk';if(t.some(x=>['vegan','protein'].includes(x)))return 'matcha';return 'rose'}
 function tastePalette(ints){return 'night';const m={coffee:'rose',work:'dusk',sunsets:'sunset',food:'sunset',wellness:'matcha',nature:'matcha',nightlife:'night'};return m[ints[0]]||'dusk'}
-function paintAuras(root){(root||document).querySelectorAll('[data-aura]').forEach(el=>el.style.background=auraBG(el.dataset.aura))}
+function paintAuras(root){(root||document).querySelectorAll('[data-aura]').forEach(el=>{const img=el.dataset.img;el.style.background=(img?`url(${img}) center/cover no-repeat,`:'')+auraBG(el.dataset.aura)})}
 paintAuras();
 $('#bgAura').style.background=['radial-gradient(70% 40% at 100% 0%,#FF765440 0%,#F4B39A00 70%)','radial-gradient(60% 35% at 0% 6%,#B7A7D880 0%,#B7A7D800 70%)','radial-gradient(70% 40% at 0% 100%,#6078F640 0%,#9DB2F600 70%)','radial-gradient(60% 40% at 100% 92%,#FFC2A860 0%,#F7D3B000 70%)'].join(',');
 $('#s-quiz').style.background=auraBG('rose')+'';
