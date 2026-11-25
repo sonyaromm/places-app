@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#F8F4EF">
+<meta name="theme-color" content="#FFFFFF">
 <title>haunts</title>
 <link rel="apple-touch-icon" href="img/brand/apple-touch-icon.png">
 <link rel="icon" href="img/brand/icon-192.png">
@@ -24,16 +24,16 @@
 @font-face{font-family:'Newsreader';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/newsreader-latin-500-normal.woff2) format('woff2')}
 @font-face{font-family:'Newsreader';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/newsreader-latin-600-normal.woff2) format('woff2')}
 :root{
-  --paper:#F8F4EF; --paper2:rgba(255,255,255,.6); --line:rgba(20,19,23,.1); --ink:#141317; --ink2:#56545C; --muted:#75737B;
-  --moss:#4C6BF0; --blue:#4C6BF0; --coral:#EE7B54; --lav:#C8C2F4; --sage:#E6E3F7; --night:#141317;
+  --paper:#FFFFFF; --paper2:#F4F3F1; --line:rgba(17,18,22,.08); --ink:#111216; --ink2:#56545C; --muted:#75737B;
+  --moss:#6078F6; --blue:#6078F6; --coral:#FF7654; --lav:#B7A7D8; --sage:#E6E3F7; --night:#111216;
   --serif:'Albert Sans', system-ui, sans-serif; --book:'Newsreader', Georgia, serif; --sans:'Albert Sans', system-ui, sans-serif; --mono:'Albert Sans', system-ui, sans-serif;
   --top: max(env(safe-area-inset-top), 16px); --bot: env(safe-area-inset-bottom);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;height:100%;background:#F8F4EF;overscroll-behavior:none}
+html,body{margin:0;height:100%;background:#FFFFFF;overscroll-behavior:none}
 @media (min-width:441px){html,body{background:#0f110f}}
-html.dark,html.dark body{background:#141317}
-html.dark #app{background:#141317}
+html.dark,html.dark body{background:#111216}
+html.dark #app{background:#111216}
 body{font-family:var(--sans);color:var(--ink);display:flex;justify-content:center}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
 #app{position:fixed;top:0;bottom:0;left:0;right:0;margin:0 auto;width:100%;max-width:440px;overflow:hidden;background:var(--paper)}
@@ -57,16 +57,16 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 #bgAura{position:absolute;inset:0;z-index:0;pointer-events:none}
 #bgAura::after{content:"";position:absolute;inset:0;opacity:.35;mix-blend-mode:soft-light;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .glass{background:rgba(255,255,255,.5);backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4);border:1px solid rgba(255,255,255,.65)}
-#tabs{background:rgba(255,255,255,.55)!important;backdrop-filter:blur(24px) saturate(1.6)!important;-webkit-backdrop-filter:blur(24px) saturate(1.6)!important;border:1px solid rgba(255,255,255,.7);box-shadow:0 10px 30px rgba(20,19,23,.12)}
-#tabs button{color:rgba(20,19,23,.45)!important}#tabs button.on{color:var(--ink)!important}
+#tabs{background:rgba(255,255,255,.55)!important;backdrop-filter:blur(24px) saturate(1.6)!important;-webkit-backdrop-filter:blur(24px) saturate(1.6)!important;border:1px solid rgba(255,255,255,.7);box-shadow:0 10px 30px rgba(17,18,22,.12)}
+#tabs button{color:rgba(17,18,22,.45)!important}#tabs button.on{color:var(--ink)!important}
 #tabs button.on svg{color:var(--blue);stroke:var(--blue)}
 .chip.on{background:var(--ink)}
 .leaflet-tile{filter:grayscale(.75) brightness(1.06) contrast(.9)!important}
 #tabs .add{background:var(--ink)!important;color:#fff!important}
-.chip{background:rgba(255,255,255,.45);border:1px solid rgba(20,19,23,.12);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.chip{background:rgba(255,255,255,.45);border:1px solid rgba(17,18,22,.12);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .chip.on{background:var(--ink);border-color:var(--ink)}
-.input{background:rgba(255,255,255,.55)!important;border:1px solid rgba(20,19,23,.12)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.btn.line{border:1px solid rgba(20,19,23,.25);background:rgba(255,255,255,.4);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.input{background:rgba(255,255,255,.55)!important;border:1px solid rgba(17,18,22,.12)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.btn.line{border:1px solid rgba(17,18,22,.25);background:rgba(255,255,255,.4);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .sheet-panel{background:rgba(250,247,243,.82)!important;backdrop-filter:blur(28px) saturate(1.5);-webkit-backdrop-filter:blur(28px) saturate(1.5)}
 .thumb{box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
 .grain{position:relative;overflow:hidden}
@@ -74,7 +74,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .ph{font-family:var(--mono);font-size:11px;color:rgba(241,239,231,.7)}
 .btn{height:52px;border-radius:26px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;padding:0 20px}
-.btn.dark{background:linear-gradient(180deg,rgba(255,255,255,.78),rgba(255,255,255,.5));color:var(--ink);border:1px solid rgba(255,255,255,.9);backdrop-filter:blur(24px) saturate(1.6);-webkit-backdrop-filter:blur(24px) saturate(1.6);box-shadow:0 10px 30px rgba(20,19,23,.10),inset 0 1px 0 rgba(255,255,255,.9);font-weight:600;font-size:16px}
+.btn.dark{background:linear-gradient(180deg,rgba(255,255,255,.78),rgba(255,255,255,.5));color:var(--ink);border:1px solid rgba(255,255,255,.9);backdrop-filter:blur(24px) saturate(1.6);-webkit-backdrop-filter:blur(24px) saturate(1.6);box-shadow:0 10px 30px rgba(17,18,22,.10),inset 0 1px 0 rgba(255,255,255,.9);font-weight:600;font-size:16px}
 .btn.dark:disabled{opacity:.5}
 .btn.line{border:1px solid var(--ink)}
 .icon-btn{width:44px;height:44px;border-radius:22px;display:flex;align-items:center;justify-content:center}
@@ -84,8 +84,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .row{display:flex;gap:14px;align-items:center;padding:10px 0;border-top:1px solid var(--line);width:100%;text-align:left}
 .thumb{flex:none;border-radius:12px}
 /* tab bar */
-#tabs{position:absolute;left:12px;right:12px;bottom:calc(12px + var(--bot));height:64px;border-radius:32px;background:rgba(20,19,23,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);display:flex;justify-content:space-around;align-items:center;z-index:20}
-#tabs button{display:flex;flex-direction:column;align-items:center;gap:3px;color:rgba(247,244,240,.55);font-size:11px;min-width:60px;min-height:48px;justify-content:center}
+#tabs{position:absolute;left:12px;right:12px;bottom:calc(12px + var(--bot));height:64px;border-radius:32px;background:rgba(17,18,22,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);display:flex;justify-content:space-around;align-items:center;z-index:20}
+#tabs button{display:flex;flex-direction:column;align-items:center;gap:3px;color:rgba(245,241,236,.55);font-size:11px;min-width:60px;min-height:48px;justify-content:center}
 #tabs button.on{color:var(--paper)}
 #tabs.hide{display:none}
 #tabs{transition:height .25s ease,bottom .25s ease}
@@ -111,7 +111,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* bars */
 .bar{display:flex;gap:4px}.bar span{flex:1;height:6px;border-radius:3px;background:#CFCBBE}.bar span.f{background:var(--moss)}
 .blur{filter:blur(5px);opacity:.6}
-.plan{width:100%;min-height:56px;padding:8px 14px;border-radius:16px;display:flex;align-items:center;justify-content:space-between;color:var(--paper);border:1px solid rgba(247,244,240,.25);text-align:left}
+.plan{width:100%;min-height:56px;padding:8px 14px;border-radius:16px;display:flex;align-items:center;justify-content:space-between;color:var(--paper);border:1px solid rgba(245,241,236,.25);text-align:left}
 .plan.on{border:1.5px solid var(--paper)}
 .field{display:flex;flex-direction:column;gap:6px}
 .input{border:1px solid #D6D3D9;border-radius:14px;background:#FFFFFF;padding:12px 14px;font:inherit;font-size:17px;color:var(--ink);outline:none;width:100%}
@@ -121,27 +121,27 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .wSlide.on{opacity:1}
 .wSlide img{width:100%;height:100%;object-fit:cover;transform:scale(1.02);transition:transform 6s ease-out}
 .wSlide.on img{transform:scale(1.1)}
-.wSlide span{position:absolute;left:20px;bottom:110px;color:rgba(247,244,240,.92);text-shadow:0 1px 8px rgba(0,0,0,.4);z-index:2}
-.wFade{position:absolute;left:0;right:0;bottom:0;height:45%;background:linear-gradient(180deg,rgba(247,244,240,0) 0%,rgba(247,244,240,.55) 60%,#F7F4F0 100%);pointer-events:none;z-index:1}
-.wBar{flex:1;height:2px;border-radius:1px;background:rgba(247,244,240,.35);overflow:hidden}
-.wBar i{display:block;height:100%;width:0;background:#F7F4F0}
+.wSlide span{position:absolute;left:20px;bottom:110px;color:rgba(245,241,236,.92);text-shadow:0 1px 8px rgba(0,0,0,.4);z-index:2}
+.wFade{position:absolute;left:0;right:0;bottom:0;height:45%;background:linear-gradient(180deg,rgba(245,241,236,0) 0%,rgba(245,241,236,.55) 60%,#F5F1EC 100%);pointer-events:none;z-index:1}
+.wBar{flex:1;height:2px;border-radius:1px;background:rgba(245,241,236,.35);overflow:hidden}
+.wBar i{display:block;height:100%;width:0;background:#F5F1EC}
 .wBar.done i{width:100%}
 .wBar.run i{width:100%;transition:width 4.5s linear}
 #pcRow::-webkit-scrollbar{display:none}
 .pc{flex:none;display:flex;flex-direction:column;align-items:center;gap:6px;width:72px}
-.pc .ring{width:68px;height:68px;border-radius:34px;padding:3px;background:conic-gradient(#D9A877,#4C6BF0,#8FB3AA,#D9A877)}
+.pc .ring{width:68px;height:68px;border-radius:34px;padding:3px;background:conic-gradient(#D9A877,#6078F6,#8FB3AA,#D9A877)}
 .pc .ring.seen{background:#D6D3D9}
 .pc .ring.add{background:transparent;border:1px dashed #8E8B93}
-.pc img,.pc .ph0{width:100%;height:100%;border-radius:50%;object-fit:cover;border:2px solid var(--paper);background:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center}
+.pc img,.pc .ph0{width:100%;height:100%;border-radius:50%;object-fit:cover;border:2px solid var(--paper);background:#F4F3F1;display:flex;align-items:center;justify-content:center}
 .pc span{font-size:12px;max-width:72px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink2)}
 .scene{position:relative;height:100dvh;scroll-snap-align:start;overflow:hidden;background:#000}
 .scene video{width:100%;height:100%;object-fit:cover}
 .scene .meta{position:absolute;left:16px;right:70px;bottom:calc(104px + var(--bot));display:flex;flex-direction:column;gap:6px;text-shadow:0 1px 8px rgba(0,0,0,.4)}
 .scene .side{position:absolute;right:12px;bottom:calc(110px + var(--bot));display:flex;flex-direction:column;gap:14px;align-items:center}
 .scene .mute{position:absolute;top:calc(var(--top) + 8px);right:12px}
-.leaflet-container{font-family:var(--sans);background:rgba(255,255,255,.6)}
+.leaflet-container{font-family:var(--sans);background:#F4F3F1}
 .leaflet-tile{filter:grayscale(.55) sepia(.35) saturate(.8) brightness(1.04) contrast(.92)}
-.leaflet-control-attribution{font-size:10px;background:rgba(247,244,240,.8)!important}
+.leaflet-control-attribution{font-size:10px;background:rgba(245,241,236,.8)!important}
 .leaflet-popup-content-wrapper{border-radius:14px;background:var(--paper);color:var(--ink)}
 .leaflet-popup-tip{background:var(--paper)}
 .ctrow{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:48px;border-bottom:1px solid var(--line);font-size:17px;text-align:left}
@@ -158,7 +158,7 @@ button:disabled{opacity:.6}
 .btn.loading{position:relative;overflow:hidden;pointer-events:none}
 .btn.loading::after{content:'';position:absolute;left:0;bottom:0;height:3px;width:40%;background:currentColor;opacity:.6;animation:ld 1.1s ease-in-out infinite}
 @keyframes ld{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
-.skel{background:linear-gradient(90deg,#ECE8E3 0%,#F7F4F0 50%,#ECE8E3 100%);background-size:200% 100%;animation:sk 1.2s linear infinite;border-radius:10px}
+.skel{background:linear-gradient(90deg,#ECE8E3 0%,#F5F1EC 50%,#ECE8E3 100%);background-size:200% 100%;animation:sk 1.2s linear infinite;border-radius:10px}
 @keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .sheet-panel{transform:translateY(110%);transition:transform .32s cubic-bezier(.2,.9,.3,1)}
 .open>.sheet-panel{transform:none}
@@ -175,10 +175,46 @@ button:disabled{opacity:.6}
 .dot{width:7px;height:7px;border-radius:4px;background:var(--line);transition:width .2s,background .2s}
 .dot.on{width:22px;background:var(--ink)}
 .qzseg{flex:1;height:4px;border-radius:2px;background:var(--line)}.qzseg.on{background:var(--ink)}
-.toast{position:absolute;left:50%;bottom:calc(96px + var(--bot));transform:translate(-50%,160px);max-width:calc(100% - 40px);text-align:center;box-shadow:0 6px 20px rgba(20,19,23,.25);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:20px;font-size:14px;z-index:50;transition:transform .3s}
+.toast{position:absolute;left:50%;bottom:calc(96px + var(--bot));transform:translate(-50%,160px);max-width:calc(100% - 40px);text-align:center;box-shadow:0 6px 20px rgba(17,18,22,.25);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:20px;font-size:14px;z-index:50;transition:transform .3s}
 .toast{opacity:0;pointer-events:none}
 .toast.show{transform:translate(-50%,0);opacity:1}
 .toast{transition:transform .35s cubic-bezier(.2,.9,.3,1.2),opacity .2s}
+
+/* ===== neutral system (2026-11-26): content screens neutral, colour only in brand moments ===== */
+#bgAura{display:none}
+/* content-screen controls: flat, no glass */
+.chip{background:#fff!important;border:1px solid rgba(17,18,22,.14)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;color:#111216}
+.chip.on{background:#111216!important;border-color:#111216!important;color:#fff!important}
+.input{background:#F4F3F1!important;border:1px solid transparent!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.input:focus{border-color:rgba(17,18,22,.25)!important;background:#fff!important}
+.btn.line{background:#fff!important;border:1px solid rgba(17,18,22,.18)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.btn.dark{background:#111216!important;color:#fff!important;border:0!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:none!important;font-weight:600!important;font-size:16px!important}
+.btn.dark:disabled{opacity:.4}
+/* tab bar: light glass (temporary-feeling layer), coral + is the one accent */
+#tabs{background:rgba(255,255,255,.88)!important;backdrop-filter:blur(24px) saturate(1.8)!important;-webkit-backdrop-filter:blur(24px) saturate(1.8)!important;border:1px solid rgba(17,18,22,.06)!important;box-shadow:0 8px 28px rgba(17,18,22,.10)!important}
+#tabs button{color:rgba(17,18,22,.4)!important}#tabs button.on{color:#111216!important}
+#tabs button.on svg{color:#111216!important;stroke:#111216!important}
+#tabs .add{background:#FF7654!important;color:#fff!important}
+.sheet-panel{background:rgba(255,255,255,.92)!important}
+#pTaste{color:#FF7654!important}
+.thumb{box-shadow:inset 0 0 0 1px rgba(17,18,22,.06)}
+
+/* ===== brand moments: onboarding (dark orb intro, aura quiz, night taste card) ===== */
+#s-intro{background:#111216!important;color:#F5F1EC}
+#s-intro .inSub{color:rgba(245,241,236,.72)}
+#s-intro .inPh{border-radius:0;position:relative}
+#s-intro .inPh::before{content:"";position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 600' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%23F5F1EC' stroke-opacity='.55' stroke-width='1.2'%3E%3Cpath d='M60 -10 C 20 160, 140 260, -10 420'/%3E%3Cpath d='M180 -10 C 120 120, 30 230, -20 260'/%3E%3Cpath d='M-10 470 C 120 520, 260 430, 410 300'/%3E%3Cpath d='M240 610 C 260 470, 380 420, 410 380'/%3E%3C/g%3E%3C/svg%3E");background-size:100% 100%;z-index:1;pointer-events:none}
+#s-intro .dot{background:rgba(245,241,236,.25)}#s-intro .dot.on{background:#F5F1EC}
+#s-intro .icon-btn,#inSkip{background:rgba(245,241,236,.12)!important;color:#F5F1EC!important}
+#s-intro .icon-btn svg{stroke:#F5F1EC}
+#s-intro .btn.dark,#s-quiz .btn.dark{justify-content:flex-start!important;padding:0 6px 0 26px!important;position:relative;font-weight:500!important}
+#s-intro .btn.dark::after,#s-quiz .btn.dark::after{content:"";position:absolute;right:6px;top:6px;width:40px;height:40px;border-radius:20px;border:1.2px solid rgba(245,241,236,.8);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none' stroke='%23F5F1EC' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 9h12M10 4l5 5-5 5'/%3E%3C/svg%3E") center no-repeat}
+#s-intro .btn.dark{background:transparent!important;border:1.2px solid rgba(245,241,236,.8)!important}
+#s-quiz .chip{background:rgba(255,255,255,.55)!important;border-color:rgba(17,18,22,.1)!important;backdrop-filter:blur(14px)!important;-webkit-backdrop-filter:blur(14px)!important}
+#s-quiz .chip.on{background:#111216!important;color:#fff!important}
+#s-quiz .input{background:rgba(255,255,255,.6)!important}
+#qzBody .aura div{color:#F5F1EC!important}
+#qzBody .aura .mono{color:rgba(245,241,236,.6)!important}
 </style>
 </head>
 <body>
@@ -204,7 +240,7 @@ button:disabled{opacity:.6}
   <div class="swipe-actions">
     <button class="round" id="btnNo" aria-label="Skip"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#F1EFE7" stroke-width="1.6" stroke-linecap="round"><path d="M4 4l12 12M16 4L4 16"/></svg></button>
     <div class="mono" style="color:rgba(241,239,231,.75);text-align:center;line-height:1.6">saved<br><span id="likedTop">0</span></div>
-    <button class="want" id="btnYes"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#141317" stroke-width="1.7" stroke-linejoin="round"><path d="M10 17s-6.5-3.9-6.5-8.6A3.6 3.6 0 0 1 10 6.1a3.6 3.6 0 0 1 6.5 2.3C16.5 13.1 10 17 10 17z"/></svg>WANT</button>
+    <button class="want" id="btnYes"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#111216" stroke-width="1.7" stroke-linejoin="round"><path d="M10 17s-6.5-3.9-6.5-8.6A3.6 3.6 0 0 1 10 6.1a3.6 3.6 0 0 1 6.5 2.3C16.5 13.1 10 17 10 17z"/></svg>WANT</button>
   </div>
 </section>
 
@@ -217,9 +253,9 @@ button:disabled{opacity:.6}
   </div>
   <div class="pad" style="display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;margin-top:10px;position:relative;z-index:1">
     <div style="display:flex">
-      <div class="serif" style="width:56px;height:56px;border-radius:28px;background:#C9B48F;color:#141317;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #222820">S</div>
-      <div class="serif" style="width:56px;height:56px;border-radius:28px;background:#8FB3AA;color:#141317;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #222820;margin-left:-14px">M</div>
-      <div class="serif" style="width:56px;height:56px;border-radius:28px;background:#D9A877;color:#141317;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #222820;margin-left:-14px">L</div>
+      <div class="serif" style="width:56px;height:56px;border-radius:28px;background:#C9B48F;color:#111216;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #222820">S</div>
+      <div class="serif" style="width:56px;height:56px;border-radius:28px;background:#8FB3AA;color:#111216;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #222820;margin-left:-14px">M</div>
+      <div class="serif" style="width:56px;height:56px;border-radius:28px;background:#D9A877;color:#111216;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #222820;margin-left:-14px">L</div>
     </div>
     <div class="serif" style="font-size:46px;line-height:1">It's a <span class="it">match</span></div>
     <div style="font-size:15px;line-height:1.45;color:rgba(241,239,231,.8);max-width:290px">All three of you swiped right on the same places. The rest is up to each of you.</div>
@@ -241,7 +277,7 @@ button:disabled{opacity:.6}
       <div class="serif" style="font-size:38px;line-height:1">Find your <span class="it">next haunt</span></div>
       <div class="mono" id="exCount"></div>
     </div>
-    <label style="height:44px;border-radius:22px;background:rgba(255,255,255,.6);display:flex;align-items:center;gap:8px;padding:0 16px">
+    <label style="height:44px;border-radius:22px;background:#F4F3F1;display:flex;align-items:center;gap:8px;padding:0 16px">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#75737B" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
       <input id="q" placeholder="Place, area or vibe" style="flex:1;border:0;background:transparent;font:inherit;font-size:17px;color:var(--ink);outline:none">
     </label>
@@ -257,7 +293,7 @@ button:disabled{opacity:.6}
 <!-- ========== PLACE ========== -->
 <section class="screen no-tabs" id="s-place">
   <div class="grain" id="plHero" style="height:calc(250px + var(--top));flex:none">
-    <button class="icon-btn" data-back aria-label="Back" style="position:absolute;top:calc(var(--top) + 4px);left:16px;background:rgba(247,244,240,.85);z-index:2"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#141317" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <button class="icon-btn" data-back aria-label="Back" style="position:absolute;top:calc(var(--top) + 4px);left:16px;background:rgba(245,241,236,.85);z-index:2"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#111216" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
     <div class="ph" id="plPh" style="position:absolute;left:20px;bottom:16px"></div>
   </div>
   <div class="pad" style="margin-top:18px;display:flex;flex-direction:column;gap:6px">
@@ -306,9 +342,9 @@ button:disabled{opacity:.6}
 <!-- ========== PAYWALL ========== -->
 <section class="screen no-tabs" id="s-paywall">
   <div class="grain" style="height:calc(230px + var(--top));flex:none;background:url(img/welcome/s4.jpg) center/cover no-repeat">
-    <button class="icon-btn" data-back aria-label="Back" style="position:absolute;top:calc(var(--top) + 4px);left:16px;background:rgba(247,244,240,.85);z-index:2"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#141317" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
-    <div style="position:absolute;left:20px;right:20px;bottom:18px;color:#F7F4F0;display:flex;flex-direction:column;gap:6px;z-index:2">
-      <div class="mono" style="color:rgba(247,244,240,.85)">Guide by @sonyaromm · 42 places · 7 days</div>
+    <button class="icon-btn" data-back aria-label="Back" style="position:absolute;top:calc(var(--top) + 4px);left:16px;background:rgba(245,241,236,.85);z-index:2"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#111216" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <div style="position:absolute;left:20px;right:20px;bottom:18px;color:#F5F1EC;display:flex;flex-direction:column;gap:6px;z-index:2">
+      <div class="mono" style="color:rgba(245,241,236,.85)">Guide by @sonyaromm · 42 places · 7 days</div>
       <div class="serif" style="font-size:36px;line-height:1">Bali <span class="it">for insiders</span></div>
     </div>
   </div>
@@ -335,7 +371,7 @@ button:disabled{opacity:.6}
 <section class="screen" id="s-profile" data-tabs="profile">
   <div class="pad top" style="display:flex;align-items:center;justify-content:space-between">
     <div class="mono" id="pHandle">@sonyaromm</div>
-    <button class="icon-btn" aria-label="Edit profile" style="justify-content:flex-end" id="pMenu"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#141317" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    <button class="icon-btn" aria-label="Edit profile" style="justify-content:flex-end" id="pMenu"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#111216" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
   </div>
   <div class="pad" style="display:flex;gap:16px;align-items:center">
     <img id="pAvatar" src="img/avatar.jpg" alt="Profile photo" style="width:84px;height:84px;border-radius:42px;flex:none;object-fit:cover">
@@ -367,13 +403,13 @@ button:disabled{opacity:.6}
 <!-- ========== ADD PLACE ========== -->
 <section class="screen no-tabs" id="s-add">
   <div class="pad top" style="display:flex;align-items:center;justify-content:space-between">
-    <button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#141317" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#111216" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
     <div class="mono">New place</div>
     <div style="width:44px"></div>
   </div>
   <div class="pad" style="display:flex;flex-direction:column;gap:16px">
     <div class="serif" style="font-size:40px;line-height:1">Where have you <span class="it">been?</span></div>
-    <label id="addPhoto" style="position:relative;height:220px;border-radius:20px;border:1px dashed #8E8B93;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:rgba(255,255,255,.6) center/cover no-repeat;cursor:pointer">
+    <label id="addPhoto" style="position:relative;height:220px;border-radius:20px;border:1px dashed #8E8B93;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:#F4F3F1 center/cover no-repeat;cursor:pointer">
       <input type="file" accept="image/*" id="addFile" style="position:absolute;opacity:0;width:1px;height:1px">
       <svg id="addPhIcon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#56545C" stroke-width="1.5" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
       <span id="addPhText" style="font-size:14px;color:var(--ink2)">Add photo</span>
@@ -394,13 +430,13 @@ button:disabled{opacity:.6}
 <!-- ========== INTRO (what is haunts) ========== -->
 <section class="screen no-tabs" id="s-intro" style="padding:0;overflow:hidden">
   <div class="pad top" style="position:absolute;left:0;right:0;top:0;z-index:3;display:flex;justify-content:space-between;align-items:center">
-    <button class="icon-btn" data-back aria-label="Back" style="background:rgba(247,244,240,.9)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#141317" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
-    <button class="mono" id="inSkip" style="color:var(--ink);height:40px;padding:0 16px;border-radius:20px;background:rgba(247,244,240,.9)">Skip</button>
+    <button class="icon-btn" data-back aria-label="Back" style="background:rgba(245,241,236,.9)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#111216" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <button class="mono" id="inSkip" style="color:var(--ink);height:40px;padding:0 16px;border-radius:20px;background:rgba(245,241,236,.9)">Skip</button>
   </div>
   <div id="inTrack" style="position:absolute;inset:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none">
-    <div class="inSlide"><div class="inPh aura" data-aura="sunset"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Save what <span class="it">you love</span></div><div class="inSub">Cafés, sunset spots, a massage lady from WhatsApp — every place and experience in one place</div></div></div>
-    <div class="inSlide"><div class="inPh aura" data-aura="dusk"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Rate it <span class="it">honestly</span></div><div class="inSub">Not just stars: is it quiet, are the staff kind, is there decaf, can you work there</div></div></div>
-    <div class="inSlide"><div class="inPh aura" data-aura="matcha"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Share <span class="it">your taste</span></div><div class="inSub">Your map, your countries, your favourite spots — with people who get it</div></div></div>
+    <div class="inSlide"><div class="inPh aura" data-aura="night"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Save what <span class="it">you love</span></div><div class="inSub">Cafés, sunset spots, a massage lady from WhatsApp — every place and experience in one place</div></div></div>
+    <div class="inSlide"><div class="inPh aura" data-aura="night"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Rate it <span class="it">honestly</span></div><div class="inSub">Not just stars: is it quiet, are the staff kind, is there decaf, can you work there</div></div></div>
+    <div class="inSlide"><div class="inPh aura" data-aura="night"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Share <span class="it">your taste</span></div><div class="inSub">Your map, your countries, your favourite spots — with people who get it</div></div></div>
   </div>
   <div style="position:absolute;left:0;right:0;bottom:0;padding:0 24px calc(16px + var(--bot));display:flex;flex-direction:column;gap:16px;z-index:3">
     <div id="inDots" style="display:flex;gap:6px;justify-content:center"></div>
@@ -411,7 +447,7 @@ button:disabled{opacity:.6}
 <!-- ========== QUIZ (after sign-up) ========== -->
 <section class="screen no-tabs aura" id="s-quiz">
   <div class="pad top" style="display:flex;align-items:center;gap:14px">
-    <button class="icon-btn" id="qzBack" aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#141317" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <button class="icon-btn" id="qzBack" aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#111216" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
     <div id="qzBar" style="flex:1;display:flex;gap:6px"></div>
     <button class="mono" id="qzSkip" style="color:var(--ink);padding:12px 0">Skip</button>
   </div>
@@ -421,7 +457,7 @@ button:disabled{opacity:.6}
 
 <!-- ========== AUTH ========== -->
 <section class="screen no-tabs" id="s-auth">
-  <div class="pad top" style="display:flex;align-items:center"><button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#141317" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button></div>
+  <div class="pad top" style="display:flex;align-items:center"><button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#111216" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button></div>
   <div class="pad" style="display:flex;flex-direction:column;gap:16px;margin-top:20px">
     <div class="serif" style="font-size:44px;line-height:1" id="authTitle">Welcome back</div>
     <div id="authSub" style="font-size:15px;line-height:1.5;color:var(--ink2);margin-top:-6px;display:none">From hidden cafés to sunset rituals — save what you love, rate it honestly and share it with people who get your taste</div>
@@ -437,12 +473,12 @@ button:disabled{opacity:.6}
 <!-- ========== EDIT PROFILE ========== -->
 <section class="screen no-tabs" id="s-editprofile">
   <div class="pad top" style="display:flex;align-items:center;justify-content:space-between">
-    <button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#141317" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#111216" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
     <div class="mono">Profile</div><div style="width:44px"></div>
   </div>
   <div class="pad" style="display:flex;flex-direction:column;gap:14px">
     <label style="display:flex;align-items:center;gap:14px;cursor:pointer">
-      <img id="epAvatar" src="img/avatar.jpg" alt="" style="width:72px;height:72px;border-radius:36px;object-fit:cover;background:rgba(255,255,255,.6)">
+      <img id="epAvatar" src="img/avatar.jpg" alt="" style="width:72px;height:72px;border-radius:36px;object-fit:cover;background:#F4F3F1">
       <span style="font-size:15px;text-decoration:underline">Change photo</span>
       <input type="file" accept="image/*" id="epFile" style="position:absolute;opacity:0;width:1px;height:1px">
     </label>
@@ -460,7 +496,7 @@ button:disabled{opacity:.6}
 </section>
 
 <!-- ========== WELCOME ========== -->
-<section class="screen no-tabs" id="s-welcome" style="background:#141317;overflow:hidden;padding:0">
+<section class="screen no-tabs" id="s-welcome" style="background:#111216;overflow:hidden;padding:0">
   <div id="wShow" style="position:absolute;inset:0;overflow:hidden">
     <div class="wSlide on"><img src="img/welcome/s1.jpg" alt="" ></div>
     <div class="wSlide"><img src="img/welcome/s2.jpg" alt="" loading="lazy" ></div>
@@ -473,39 +509,39 @@ button:disabled{opacity:.6}
     <div class="wSlide"><img src="img/welcome/s9.jpg" alt="" loading="lazy" ></div>
     <div class="wSlide"><img src="img/welcome/s10.jpg" alt="" loading="lazy" ></div>
   </div>
-  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,19,23,.35) 0%,rgba(20,19,23,0) 22%,rgba(20,19,23,0) 45%,rgba(20,19,23,.8) 76%,rgba(20,19,23,.95) 92%,#141317 100%);pointer-events:none"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,18,22,.35) 0%,rgba(17,18,22,0) 22%,rgba(17,18,22,0) 45%,rgba(17,18,22,.8) 76%,rgba(17,18,22,.95) 92%,#111216 100%);pointer-events:none"></div>
   <div style="position:absolute;left:0;right:0;bottom:0;padding:0 24px calc(16px + var(--bot));display:flex;flex-direction:column;gap:22px;z-index:2">
     <div style="display:flex;flex-direction:column;gap:12px">
       <img src="img/brand/wordmark-light.png" alt="haunts" style="width:62%;max-width:260px;height:auto">
-      <div style="font-size:18px;line-height:1.35;color:rgba(247,244,240,.9)">We bring together more than places</div>
+      <div style="font-size:18px;line-height:1.35;color:rgba(245,241,236,.9)">We bring together more than places</div>
     </div>
     <div style="display:flex;flex-direction:column;gap:6px">
-      <button class="btn" data-auth="up" style="background:#F7F4F0;color:#141317;font-weight:600">Create account</button>
-      <button data-auth="in" style="height:48px;color:#F7F4F0;font-size:15px">I already have an account · <b>Log in</b></button>
+      <button class="btn" data-auth="up" style="background:#F5F1EC;color:#111216;font-weight:600">Create account</button>
+      <button data-auth="in" style="height:48px;color:#F5F1EC;font-size:15px">I already have an account · <b>Log in</b></button>
     </div>
   </div>
 </section>
 
 <!-- ========== SCENES ========== -->
-<section class="screen" id="s-scenes" data-tabs="scenes" style="background:#0f110f;color:#F7F4F0;padding-bottom:0;scroll-snap-type:y mandatory">
+<section class="screen" id="s-scenes" data-tabs="scenes" style="background:#0f110f;color:#F5F1EC;padding-bottom:0;scroll-snap-type:y mandatory">
   <div id="scList"></div>
   <div id="scEmpty" style="display:none;height:100%;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:40px">
     <div class="serif" style="font-size:40px;line-height:1">No scenes <span class="it">yet</span></div>
-    <div style="font-size:15px;color:rgba(247,244,240,.7);max-width:280px">Short videos of places: the walk in, the view, the vibe. Share the first one</div>
-    <button class="btn" style="background:#F7F4F0;color:var(--ink);font-weight:600" data-newpost="scene">Share a scene</button>
+    <div style="font-size:15px;color:rgba(245,241,236,.7);max-width:280px">Short videos of places: the walk in, the view, the vibe. Share the first one</div>
+    <button class="btn" style="background:#F5F1EC;color:var(--ink);font-weight:600" data-newpost="scene">Share a scene</button>
   </div>
 </section>
 
 <!-- ========== NEW POSTCARD / SCENE ========== -->
 <section class="screen no-tabs" id="s-post">
   <div class="pad top" style="display:flex;align-items:center;justify-content:space-between">
-    <button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#141317" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#111216" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
     <div class="mono" id="postKind">New postcard</div><div style="width:44px"></div>
   </div>
   <div class="pad" style="display:flex;flex-direction:column;gap:16px">
     <div class="serif" style="font-size:38px;line-height:1" id="postTitle">Send a <span class="it">postcard</span></div>
     <div style="font-size:14px;color:var(--ink2);margin-top:-8px" id="postHint">A photo or short video. Disappears in 24 hours</div>
-    <label id="postPick" style="position:relative;height:380px;border-radius:20px;border:1px dashed #8E8B93;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:rgba(255,255,255,.6);overflow:hidden;cursor:pointer">
+    <label id="postPick" style="position:relative;height:380px;border-radius:20px;border:1px dashed #8E8B93;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:#F4F3F1;overflow:hidden;cursor:pointer">
       <input type="file" id="postFile" style="position:absolute;opacity:0;width:1px;height:1px">
       <svg id="postIcon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#56545C" stroke-width="1.5" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
       <span id="postPickText" style="font-size:14px;color:var(--ink2)">Choose photo or video</span>
@@ -520,13 +556,13 @@ button:disabled{opacity:.6}
 
 <!-- ========== MAP ========== -->
 <section class="screen" id="s-map" data-tabs="map" style="padding-bottom:0;overflow:hidden">
-  <div id="mapBox" style="position:absolute;inset:0;background:rgba(255,255,255,.6)"></div>
+  <div id="mapBox" style="position:absolute;inset:0;background:#F4F3F1"></div>
   <div style="position:absolute;top:calc(var(--top) + 6px);left:12px;right:12px;display:flex;align-items:center;gap:8px;z-index:500">
-    <div style="margin:0 auto;display:flex;background:rgba(247,244,240,.92);border-radius:22px;padding:3px;box-shadow:0 2px 10px rgba(20,19,23,.15)">
+    <div style="margin:0 auto;display:flex;background:rgba(245,241,236,.92);border-radius:22px;padding:3px;box-shadow:0 2px 10px rgba(17,18,22,.15)">
       <button class="chip" id="mapModeA" style="border:0">Everyone</button><button class="chip on" id="mapModeP" style="border:0">Mine</button><button class="chip" id="mapModeC" style="border:0">Countries</button>
     </div>
   </div>
-  <div style="position:absolute;left:12px;right:12px;bottom:calc(92px + var(--bot));z-index:500;background:rgba(247,244,240,.94);border-radius:22px;padding:14px 18px;display:flex;justify-content:space-around;text-align:center;box-shadow:0 4px 20px rgba(20,19,23,.18)">
+  <div style="position:absolute;left:12px;right:12px;bottom:calc(92px + var(--bot));z-index:500;background:rgba(245,241,236,.94);border-radius:22px;padding:14px 18px;display:flex;justify-content:space-around;text-align:center;box-shadow:0 4px 20px rgba(17,18,22,.18)">
     <div><div class="serif" id="mapNPlaces" style="font-size:26px;line-height:1">0</div><div class="mono" style="margin-top:4px">on the map</div></div>
     <div><div class="serif" id="mapNCountries" style="font-size:26px;line-height:1">0</div><div class="mono" style="margin-top:4px">countries</div></div>
     <div><div class="serif" id="mapPct" style="font-size:26px;line-height:1">0%</div><div class="mono" style="margin-top:4px">of the world</div></div>
@@ -536,7 +572,7 @@ button:disabled{opacity:.6}
 <!-- ========== STATS ========== -->
 <section class="screen no-tabs" id="s-stats">
   <div class="pad top" style="display:flex;align-items:center;justify-content:space-between">
-    <button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#141317" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#111216" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
     <div class="mono">Your stats</div><div style="width:44px"></div>
   </div>
   <div class="pad" id="statsBody" style="display:flex;flex-direction:column;gap:22px"></div>
@@ -545,13 +581,13 @@ button:disabled{opacity:.6}
 <!-- ========== COUNTRIES PICKER ========== -->
 <section class="screen no-tabs" id="s-countries">
   <div class="pad top" style="display:flex;align-items:center;justify-content:space-between">
-    <button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#141317" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#111216" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
     <div class="mono" id="ctCount">0 selected</div>
     <button class="mono" id="ctSave" style="padding:12px 0;color:var(--ink)">Save</button>
   </div>
   <div class="pad" style="display:flex;flex-direction:column;gap:12px">
     <div class="serif" style="font-size:38px;line-height:1">Where have you <span class="it">been</span></div>
-    <label style="height:44px;border-radius:22px;background:rgba(255,255,255,.6);display:flex;align-items:center;gap:8px;padding:0 16px">
+    <label style="height:44px;border-radius:22px;background:#F4F3F1;display:flex;align-items:center;gap:8px;padding:0 16px">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#75737B" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
       <input id="ctQ" placeholder="Search countries" style="flex:1;border:0;background:transparent;font:inherit;font-size:17px;color:var(--ink);outline:none">
     </label>
@@ -560,20 +596,20 @@ button:disabled{opacity:.6}
 </section>
 
 <!-- location picker -->
-<div id="pick" style="position:absolute;inset:0;z-index:60;display:none;background:rgba(255,255,255,.6)">
+<div id="pick" style="position:absolute;inset:0;z-index:60;display:none;background:#F4F3F1">
   <div id="pickBox" style="position:absolute;inset:0"></div>
-  <svg width="36" height="48" viewBox="0 0 36 48" aria-hidden="true" style="position:absolute;left:50%;top:50%;margin:-48px 0 0 -18px;z-index:600;pointer-events:none"><path d="M18 2C9.7 2 3 8.6 3 16.9 3 28 18 46 18 46s15-18 15-29.1C33 8.6 26.3 2 18 2z" fill="#141317"/><circle cx="18" cy="17" r="5.5" fill="#F7F4F0"/></svg>
+  <svg width="36" height="48" viewBox="0 0 36 48" aria-hidden="true" style="position:absolute;left:50%;top:50%;margin:-48px 0 0 -18px;z-index:600;pointer-events:none"><path d="M18 2C9.7 2 3 8.6 3 16.9 3 28 18 46 18 46s15-18 15-29.1C33 8.6 26.3 2 18 2z" fill="#111216"/><circle cx="18" cy="17" r="5.5" fill="#F5F1EC"/></svg>
   <div style="position:absolute;top:calc(var(--top) + 6px);left:12px;right:12px;z-index:600;display:flex;justify-content:space-between;align-items:center">
-    <button class="icon-btn" id="pickCancel" aria-label="Cancel" style="background:rgba(247,244,240,.92)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#141317" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
-    <div class="mono" style="background:rgba(247,244,240,.92);padding:10px 14px;border-radius:18px;color:var(--ink)">Move the map to the spot</div>
-    <button class="icon-btn" id="pickMe" aria-label="My location" style="background:rgba(247,244,240,.92)"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#141317" stroke-width="1.5"><circle cx="10" cy="10" r="3"/><path d="M10 1v3M10 16v3M1 10h3M16 10h3"/></svg></button>
+    <button class="icon-btn" id="pickCancel" aria-label="Cancel" style="background:rgba(245,241,236,.92)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#111216" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
+    <div class="mono" style="background:rgba(245,241,236,.92);padding:10px 14px;border-radius:18px;color:var(--ink)">Move the map to the spot</div>
+    <button class="icon-btn" id="pickMe" aria-label="My location" style="background:rgba(245,241,236,.92)"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#111216" stroke-width="1.5"><circle cx="10" cy="10" r="3"/><path d="M10 1v3M10 16v3M1 10h3M16 10h3"/></svg></button>
   </div>
   <div style="position:absolute;left:16px;right:16px;bottom:calc(20px + var(--bot));z-index:600"><button class="btn dark" id="pickOk" style="width:100%">Use this spot</button></div>
 </div>
 
 <!-- filters sheet -->
 <div id="fSheet" style="position:absolute;inset:0;z-index:40;display:none">
-  <div data-fclose style="position:absolute;inset:0;background:rgba(20,19,23,.4)"></div>
+  <div data-fclose style="position:absolute;inset:0;background:rgba(17,18,22,.4)"></div>
   <div class="sheet-panel" style="position:absolute;left:0;right:0;bottom:0;background:var(--paper);border-radius:28px 28px 0 0;padding:10px 20px calc(20px + var(--bot));display:flex;flex-direction:column;gap:10px;max-height:85%;overflow-y:auto">
     <div style="width:40px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 6px"></div>
     <div style="display:flex;justify-content:space-between;align-items:center"><div class="serif" style="font-size:28px">Filters</div><button class="mono" id="fClear" style="padding:12px 0;color:var(--ink)">Clear</button></div>
@@ -595,20 +631,20 @@ button:disabled{opacity:.6}
 </div>
 
 <!-- postcard viewer -->
-<div id="pcView" style="position:absolute;inset:0;z-index:50;background:#0f110f;display:none;color:#F7F4F0">
+<div id="pcView" style="position:absolute;inset:0;z-index:50;background:#0f110f;display:none;color:#F5F1EC">
   <div id="pcMedia" style="position:absolute;inset:0"></div>
   <div style="position:absolute;left:0;right:0;top:0;height:140px;background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,0));pointer-events:none"></div>
   <div style="position:absolute;left:0;right:0;bottom:0;height:200px;background:linear-gradient(0deg,rgba(0,0,0,.55),rgba(0,0,0,0));pointer-events:none"></div>
   <div id="pcBars" style="position:absolute;top:calc(var(--top) + 6px);left:12px;right:12px;display:flex;gap:4px;z-index:3"></div>
   <div style="position:absolute;top:calc(var(--top) + 18px);left:12px;right:8px;display:flex;align-items:center;gap:10px;z-index:3">
-    <img id="pcAva" alt="" style="width:40px;height:40px;border-radius:20px;object-fit:cover;background:#4C6BF0">
-    <div style="flex:1;display:flex;flex-direction:column"><span id="pcUser" style="font-size:15px;font-weight:600"></span><span id="pcTime" class="mono" style="color:rgba(247,244,240,.7)"></span></div>
-    <button id="pcDel" class="mono" style="color:#F7F4F0;padding:12px;display:none">Delete</button>
-    <button class="icon-btn" id="pcClose" aria-label="Close"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#F7F4F0" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
+    <img id="pcAva" alt="" style="width:40px;height:40px;border-radius:20px;object-fit:cover;background:#6078F6">
+    <div style="flex:1;display:flex;flex-direction:column"><span id="pcUser" style="font-size:15px;font-weight:600"></span><span id="pcTime" class="mono" style="color:rgba(245,241,236,.7)"></span></div>
+    <button id="pcDel" class="mono" style="color:#F5F1EC;padding:12px;display:none">Delete</button>
+    <button class="icon-btn" id="pcClose" aria-label="Close"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#F5F1EC" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
   </div>
   <div id="pcTap" style="position:absolute;left:0;right:0;top:90px;bottom:120px;z-index:2"></div>
   <div style="position:absolute;left:20px;right:20px;bottom:calc(28px + var(--bot));z-index:3;display:flex;flex-direction:column;gap:6px">
-    <div id="pcPlace" class="mono" style="color:rgba(247,244,240,.85)"></div>
+    <div id="pcPlace" class="mono" style="color:rgba(245,241,236,.85)"></div>
     <div id="pcCap" class="serif" style="font-size:26px;line-height:1.1"></div>
   </div>
 </div>
@@ -619,9 +655,9 @@ button:disabled{opacity:.6}
   <button data-sheet class="add" aria-label="Create"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
   <button data-tab="profile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c1.2-3.6 4-5.2 7-5.2s5.8 1.6 7 5.2"/></svg>Profile</button>
 </nav>
-<div id="plusHint" style="display:none;position:absolute;left:50%;transform:translateX(-50%);bottom:calc(92px + var(--bot));z-index:30;background:var(--ink);color:var(--paper);padding:12px 16px;border-radius:16px;font-size:15px;text-align:center;width:max-content;max-width:80%;box-shadow:0 8px 24px rgba(20,19,23,.3)">Tap <b>+</b> to add your first haunt<div style="position:absolute;left:50%;bottom:-6px;width:12px;height:12px;background:var(--ink);transform:translateX(-50%) rotate(45deg)"></div></div>
+<div id="plusHint" style="display:none;position:absolute;left:50%;transform:translateX(-50%);bottom:calc(92px + var(--bot));z-index:30;background:var(--ink);color:var(--paper);padding:12px 16px;border-radius:16px;font-size:15px;text-align:center;width:max-content;max-width:80%;box-shadow:0 8px 24px rgba(17,18,22,.3)">Tap <b>+</b> to add your first haunt<div style="position:absolute;left:50%;bottom:-6px;width:12px;height:12px;background:var(--ink);transform:translateX(-50%) rotate(45deg)"></div></div>
 <div id="qa" style="position:absolute;inset:0;z-index:45;display:none">
-  <div data-qaclose style="position:absolute;inset:0;background:rgba(20,19,23,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)"></div>
+  <div data-qaclose style="position:absolute;inset:0;background:rgba(17,18,22,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)"></div>
   <div style="position:absolute;left:16px;right:16px;bottom:calc(24px + var(--bot));display:flex;flex-direction:column;gap:10px">
     <div id="qaCard" style="background:var(--paper);border-radius:20px;padding:12px;display:flex;gap:12px;align-items:center"></div>
     <div style="background:var(--paper);border-radius:20px;overflow:hidden;display:flex;flex-direction:column" id="qaActions"></div>
@@ -638,7 +674,7 @@ const G={
   ocean:'radial-gradient(120% 80% at 50% 35%,#8FB3AA 0%,#5F8A84 32%,#35524F 65%,#182423 100%)',
   green:'radial-gradient(120% 90% at 30% 30%,#A9BE8E 0%,#6E8458 35%,#3D4C35 70%,#1E251B 100%)',
   bake:'radial-gradient(110% 90% at 50% 35%,#D9B58A 0%,#A27B55 40%,#6B4E37 75%,#2C2119 100%)',
-  terrace:'radial-gradient(120% 90% at 30% 30%,#C9B48F 0%,#8C7A5C 30%,#4C6BF0 62%,#2A3127 100%)',
+  terrace:'radial-gradient(120% 90% at 30% 30%,#C9B48F 0%,#8C7A5C 30%,#6078F6 62%,#2A3127 100%)',
   stone:'radial-gradient(120% 90% at 50% 30%,#A9B4BC 0%,#6F7C85 40%,#4A5560 70%,#23292E 100%)'
 };
 
@@ -799,13 +835,13 @@ $('#pwCta').onclick=()=>toast('Payments are coming next');
 
 /* ---------- profile ---------- */
 const SOC=[['Instagram','https://instagram.com/sonyaromm','<rect x="2" y="2" width="12" height="12" rx="3.5"/><circle cx="8" cy="8" r="2.8"/>'],['Telegram','https://t.me/sonyaromm','<path d="M2 8l12-5-3 11-3.5-3.5L2 8z"/>']];
-$('#socials').innerHTML=SOC.map(([n,u,p])=>`<a href="${u}" target="_blank" rel="noopener" style="height:40px;padding:0 14px;border-radius:20px;border:1px solid #D6D3D9;display:flex;align-items:center;gap:6px;font-size:14px;color:var(--ink);text-decoration:none"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#141317" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${p}</svg>${n}</a>`).join('')+
-`<button aria-label="Add social link" style="width:40px;height:40px;border-radius:20px;border:1px dashed #8E8B93;display:flex;align-items:center;justify-content:center" data-toast="Add TikTok, YouTube, Threads…"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#141317" stroke-width="1.4" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg></button>`;
+$('#socials').innerHTML=SOC.map(([n,u,p])=>`<a href="${u}" target="_blank" rel="noopener" style="height:40px;padding:0 14px;border-radius:20px;border:1px solid #D6D3D9;display:flex;align-items:center;gap:6px;font-size:14px;color:var(--ink);text-decoration:none"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#111216" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${p}</svg>${n}</a>`).join('')+
+`<button aria-label="Add social link" style="width:40px;height:40px;border-radius:20px;border:1px dashed #8E8B93;display:flex;align-items:center;justify-content:center" data-toast="Add TikTok, YouTube, Threads…"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#111216" stroke-width="1.4" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg></button>`;
 $('#top4').innerHTML=['single','amed','kopi','crumb'].map(k=>`<button data-place="${k}" class="grain" style="aspect-ratio:3/4;border-radius:10px;background:${PLACES[k].bg}" aria-label="${PLACES[k].name}"></button>`).join('');
 const PT=[
   ()=>`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
     <button data-tab="collection" style="display:flex;flex-direction:column;gap:6px;text-align:left"><div class="grain" style="height:110px;width:100%;border-radius:14px;background:url(img/welcome/s7.jpg) center/cover no-repeat"></div><div class="serif" style="font-size:18px;line-height:1.1"><span class="it">Bali,</span> édition 01</div></button>
-    <button data-go="paywall" style="display:flex;flex-direction:column;gap:6px;text-align:left"><div class="grain" style="height:110px;width:100%;border-radius:14px;background:url(img/welcome/s4.jpg) center/cover no-repeat"><span class="mono" style="position:absolute;top:8px;left:8px;background:rgba(247,244,240,.9);color:var(--ink);padding:3px 7px;border-radius:8px;z-index:2">Paid</span></div><div class="serif" style="font-size:18px;line-height:1.1">Bali <span class="it">for insiders</span></div></button></div>`,
+    <button data-go="paywall" style="display:flex;flex-direction:column;gap:6px;text-align:left"><div class="grain" style="height:110px;width:100%;border-radius:14px;background:url(img/welcome/s4.jpg) center/cover no-repeat"><span class="mono" style="position:absolute;top:8px;left:8px;background:rgba(245,241,236,.9);color:var(--ink);padding:3px 7px;border-radius:8px;z-index:2">Paid</span></div><div class="serif" style="font-size:18px;line-height:1.1">Bali <span class="it">for insiders</span></div></button></div>`,
   ()=>[...MY,'single','kopi','amed','slow'].map(k=>[k,PLACES[k]]).map(([k,p],i)=>`<button class="row" data-place="${k}" ${i===0?'style="border-top:0"':''}><div class="mono" style="width:44px">${p.date||['NOV 12','NOV 09','NOV 02','OCT 28'][(i-MY.length+4)%4]}</div><div style="flex:1"><div class="serif" style="font-size:19px">${p.name}</div><div style="font-size:14px;color:var(--ink2)">★ ${p.rating} · ${p.tag}</div></div></button>`).join(''),
   ()=>(liked.length?liked:['bowl','slow']).map((k,i)=>{const p=PLACES[k];return `<button class="row" data-place="${k}" ${i===0?'style="border-top:0"':''}><div class="thumb" style="width:48px;height:48px;background:${p.bg}"></div><div style="flex:1"><div class="serif" style="font-size:19px">${p.name}</div><div style="font-size:14px;color:var(--ink2)">from swipes</div></div></button>`}).join('')
 ];
@@ -869,8 +905,8 @@ function renderSocials(p){
   if(p.telegram)items.push(['Telegram','https://t.me/'+encodeURIComponent(clean(p.telegram)),SOC[1][2]]);
   if(p.tiktok)items.push(['TikTok','https://www.tiktok.com/@'+encodeURIComponent(clean(p.tiktok)),'<path d="M10 2v7.5a2.5 2.5 0 1 1-2.5-2.5M10 2c.5 2 2 3 4 3"/>']);
   if(p.website&&/^https?:\/\//.test(p.website))items.push(['Website',p.website,'<circle cx="8" cy="8" r="6"/><path d="M2 8h12M8 2c2 2 2 10 0 12M8 2c-2 2-2 10 0 12"/>']);
-  $('#socials').innerHTML=items.map(([n,u,ic])=>`<a href="${esc(u)}" target="_blank" rel="noopener" style="height:40px;padding:0 14px;border-radius:20px;border:1px solid #D6D3D9;display:flex;align-items:center;gap:6px;font-size:14px;color:var(--ink);text-decoration:none"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#141317" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${ic}</svg>${n}</a>`).join('')+
-    `<button aria-label="Add social link" data-go="editprofile" style="width:40px;height:40px;border-radius:20px;border:1px dashed #8E8B93;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#141317" stroke-width="1.4" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg></button>`;
+  $('#socials').innerHTML=items.map(([n,u,ic])=>`<a href="${esc(u)}" target="_blank" rel="noopener" style="height:40px;padding:0 14px;border-radius:20px;border:1px solid #D6D3D9;display:flex;align-items:center;gap:6px;font-size:14px;color:var(--ink);text-decoration:none"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#111216" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${ic}</svg>${n}</a>`).join('')+
+    `<button aria-label="Add social link" data-go="editprofile" style="width:40px;height:40px;border-radius:20px;border:1px dashed #8E8B93;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#111216" stroke-width="1.4" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg></button>`;
 }
 function renderProfileHead(){
   $('#authBanner').style.display=ME?'none':'block';
@@ -1154,13 +1190,13 @@ function renderScenes(){
   $('#scEmpty').style.display=SCENES.length?'none':'flex';
   list.innerHTML=SCENES.map((x,i)=>`<div class="scene" data-scene="${i}">
     <video src="${x.url}#t=0.1" preload="metadata" muted loop playsinline></video>
-    <button class="icon-btn mute" data-scmute aria-label="Sound" style="background:rgba(15,17,15,.45)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F7F4F0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${muteIcon(scMuted)}</svg></button>
+    <button class="icon-btn mute" data-scmute aria-label="Sound" style="background:rgba(15,17,15,.45)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5F1EC" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${muteIcon(scMuted)}</svg></button>
     <div class="meta">
-      <div style="display:flex;align-items:center;gap:8px">${x.ava?`<img src="${x.ava}" alt="" style="width:30px;height:30px;border-radius:15px;object-fit:cover">`:''}<span style="font-weight:600;font-size:15px">@${x.user}</span><span class="mono" style="color:rgba(247,244,240,.7)">${ago(x.at)}</span></div>
-      ${x.place?`<div class="mono" style="color:rgba(247,244,240,.85)">${x.place}</div>`:''}
+      <div style="display:flex;align-items:center;gap:8px">${x.ava?`<img src="${x.ava}" alt="" style="width:30px;height:30px;border-radius:15px;object-fit:cover">`:''}<span style="font-weight:600;font-size:15px">@${x.user}</span><span class="mono" style="color:rgba(245,241,236,.7)">${ago(x.at)}</span></div>
+      ${x.place?`<div class="mono" style="color:rgba(245,241,236,.85)">${x.place}</div>`:''}
       ${x.cap?`<div class="serif" style="font-size:24px;line-height:1.1">${x.cap}</div>`:''}
     </div>
-    ${ME&&x.uid===ME.id?`<div class="side"><button class="mono" data-scdel="${i}" style="color:#F7F4F0;padding:10px;background:rgba(15,17,15,.45);border-radius:16px">Delete</button></div>`:''}
+    ${ME&&x.uid===ME.id?`<div class="side"><button class="mono" data-scdel="${i}" style="color:#F5F1EC;padding:10px;background:rgba(15,17,15,.45);border-radius:16px">Delete</button></div>`:''}
   </div>`).join('');
   if(scObs)scObs.disconnect();
   scObs=new IntersectionObserver(es=>es.forEach(en=>{const v=en.target.querySelector('video');if(en.isIntersecting&&en.intersectionRatio>.6&&$('#s-scenes').classList.contains('active')){v.muted=scMuted;v.play().catch(()=>{})}else v.pause()}),{root:$('#s-scenes'),threshold:[0,.6,1]});
@@ -1282,7 +1318,7 @@ function renderCt(){const q=$('#ctQ').value.trim().toLowerCase();
   $('#ctCount').textContent=ctSel.size+' selected';
   const list=ALLC.filter(([c,n])=>!q||n.toLowerCase().includes(q));
   const sel=list.filter(([c])=>ctSel.has(c)),rest=list.filter(([c])=>!ctSel.has(c));
-  $('#ctList').innerHTML=[...sel,...rest].map(([c,n])=>`<button class="ctrow ${ctSel.has(c)?'on':''}" data-ct="${c}"><span>${esc(n)}</span><span class="box">${ctSel.has(c)?'<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#F7F4F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5l2.5 2.5L11 4.5"/></svg>':''}</span></button>`).join('');
+  $('#ctList').innerHTML=[...sel,...rest].map(([c,n])=>`<button class="ctrow ${ctSel.has(c)?'on':''}" data-ct="${c}"><span>${esc(n)}</span><span class="box">${ctSel.has(c)?'<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#F5F1EC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5l2.5 2.5L11 4.5"/></svg>':''}</span></button>`).join('');
 }
 $('#ctQ').addEventListener('input',renderCt);
 document.addEventListener('click',e=>{const b=e.target.closest('[data-ct]');if(b){const c=b.dataset.ct;ctSel.has(c)?ctSel.delete(c):ctSel.add(c);renderCt()}});
@@ -1303,13 +1339,13 @@ async function openMap(){
   await loadGeo();
   const cs=new Set(myCountries());
   if(countryLayer){countryLayer.remove();countryLayer=null}
-  if(mapMode==='countries')countryLayer=L.geoJSON(GEO,{style:f=>cs.has(f.properties.a2)?{color:'#141317',weight:1,fillColor:'#141317',fillOpacity:mapMode==='countries'?.55:.18}:{color:'#8E8B93',weight:mapMode==='countries'?.6:0,fillOpacity:0},interactive:false}).addTo(MAP);
+  if(mapMode==='countries')countryLayer=L.geoJSON(GEO,{style:f=>cs.has(f.properties.a2)?{color:'#111216',weight:1,fillColor:'#111216',fillOpacity:mapMode==='countries'?.55:.18}:{color:'#8E8B93',weight:mapMode==='countries'?.6:0,fillOpacity:0},interactive:false}).addTo(MAP);
   if(placeLayer)placeLayer.remove();placeLayer=L.layerGroup().addTo(MAP);
   const pts=[];
   const q=($('#q').value||'').trim().toLowerCase();
   const src=mapMode==='places'?myPlaces():mapMode==='all'?Object.entries(PLACES).filter(([k,p])=>[...on].every(t=>(p.has||[]).includes(t))&&(!q||(p.name+p.tags).toLowerCase().includes(q))):[];
   src.forEach(([k,p])=>{if(p.lat==null)return;pts.push([p.lat,p.lng]);
-    L.circleMarker([p.lat,p.lng],{radius:9,color:'#F7F4F0',weight:3,fillColor:'#141317',fillOpacity:1}).bindPopup(`<button data-place="${k}" style="font:inherit;text-align:left;display:flex;gap:10px;align-items:center;min-width:200px"><span style="width:52px;height:52px;border-radius:10px;flex:none;background:${p.bg}"></span><span><b class="serif" style="font-size:18px;font-weight:400">${p.name}</b><br><span style="font-size:13px;color:#56545C">${p.tag} · ★ ${p.rating}</span><br><span style="font-size:12px;font-weight:600">Open →</span></span></button>`,{closeButton:false}).addTo(placeLayer)});
+    L.circleMarker([p.lat,p.lng],{radius:9,color:'#F5F1EC',weight:3,fillColor:'#111216',fillOpacity:1}).bindPopup(`<button data-place="${k}" style="font:inherit;text-align:left;display:flex;gap:10px;align-items:center;min-width:200px"><span style="width:52px;height:52px;border-radius:10px;flex:none;background:${p.bg}"></span><span><b class="serif" style="font-size:18px;font-weight:400">${p.name}</b><br><span style="font-size:13px;color:#56545C">${p.tag} · ★ ${p.rating}</span><br><span style="font-size:12px;font-weight:600">Open →</span></span></button>`,{closeButton:false}).addTo(placeLayer)});
   if(mapMode!=='countries'&&pts.length)MAP.fitBounds(pts,{padding:[70,70],maxZoom:15});else if(mapMode==='countries'){const vis=GEO.features.filter(f=>cs.has(f.properties.a2));if(vis.length)MAP.fitBounds(L.geoJSON({type:'FeatureCollection',features:vis}).getBounds(),{padding:[40,90]});else MAP.setView([20,20],1.5)}
   $('#mapNPlaces').textContent=mapMode==='countries'?myPlaces().filter(([k,p])=>p.lat!=null).length:pts.length;
   $('#mapNCountries').textContent=cs.size;$('#mapPct').textContent=Math.round(cs.size/195*100)+'%';
@@ -1427,7 +1463,7 @@ function renderMyList(){
   $('#myCount').textContent=mine.length?mine.length+(mine.length===1?' place':' places'):'';
   if(LOADING&&ME&&!mine.length){el.innerHTML=[1,2,3].map(()=>`<div class="row" style="pointer-events:none"><div class="skel" style="width:56px;height:56px"></div><div style="flex:1;display:flex;flex-direction:column;gap:8px"><div class="skel" style="height:16px;width:60%"></div><div class="skel" style="height:12px;width:40%"></div></div></div>`).join('');return}
   if(!mine.length){el.innerHTML=`<div style="margin-top:6px;background:var(--paper2);border-radius:22px;padding:24px 20px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center">
-      <svg width="40" height="52" viewBox="0 0 36 48" aria-hidden="true"><path d="M18 2C9.7 2 3 8.6 3 16.9 3 28 18 46 18 46s15-18 15-29.1C33 8.6 26.3 2 18 2z" fill="#141317"/><circle cx="18" cy="17" r="5.5" fill="#F7F4F0"/></svg>
+      <svg width="40" height="52" viewBox="0 0 36 48" aria-hidden="true"><path d="M18 2C9.7 2 3 8.6 3 16.9 3 28 18 46 18 46s15-18 15-29.1C33 8.6 26.3 2 18 2z" fill="#111216"/><circle cx="18" cy="17" r="5.5" fill="#F5F1EC"/></svg>
       <div class="serif" style="font-size:24px">Add your first haunt</div>
       <div style="font-size:15px;color:var(--ink2);max-width:270px">A café you keep going back to, a sunset spot, a massage lady from WhatsApp — anything worth remembering</div>
       <button class="btn dark" data-go="add" style="margin-top:6px;width:100%">+ Add a place</button></div>`;return}
@@ -1489,8 +1525,8 @@ function renderQuiz(){
     <div style="display:flex;flex-wrap:wrap;gap:8px">${[...extra,...list].map(([c,n])=>`<button class="chip${qz.countries.has(c)?' on':''}" data-qc="${c}">${esc(n)}</button>`).join('')}</div>`}
   if(st===3){const t=tasteLabel([...qz.ints]);h=`<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px">
     <div class="mono">Your travel taste</div>
-    <div class="aura" style="border-radius:28px;height:340px;background:${auraBG(tastePalette([...qz.ints]))};box-shadow:0 20px 50px rgba(20,19,23,.15)">
-      <div class="mono" style="position:absolute;left:20px;top:18px;color:rgba(20,19,23,.6)">haunts · taste</div>
+    <div class="aura" style="border-radius:28px;height:340px;background:${auraBG(tastePalette([...qz.ints]))};box-shadow:0 20px 50px rgba(17,18,22,.15)">
+      <div class="mono" style="position:absolute;left:20px;top:18px;color:rgba(17,18,22,.6)">haunts · taste</div>
       <div style="position:absolute;left:20px;right:20px;bottom:20px;color:var(--ink);display:flex;flex-direction:column;gap:8px">
         <div class="serif it" style="font-size:36px;line-height:1">${esc(t)}</div>
         <div style="font-size:15px;opacity:.9">${qz.countries.size} ${qz.countries.size===1?'country':'countries'}${qz.city?' · based in '+esc(qz.city):''}</div>
@@ -1533,19 +1569,19 @@ const _show7=show;show=function(id,push){if(id==='quiz')openQuiz();if(id==='intr
 
 /* ---------- aura system ---------- */
 function auraBG(name){const P={
-  sunset:['#F9DCC0',[['#F07F6A','20% 12%'],['#F6C463','72% 42%'],['#F39A9A','28% 82%'],['#FCE9D6','88% 92%']]],
-  dusk:['#E3E1F6',[['#B9B0F0','18% 18%'],['#F3A98C','40% 62%'],['#F7D9B6','60% 46%'],['#6F8FF2','88% 80%']]],
-  rose:['#F7E3CA',[['#D66E80','8% 8%'],['#C6CEC0','4% 66%'],['#F3AE94','76% 70%'],['#E9B5C2','42% 44%']]],
-  matcha:['#E6E7D2',[['#A6CFAE','10% 10%'],['#B8D46E','40% 60%'],['#E2B0CE','82% 36%'],['#86B596','92% 84%']]],
-  night:['#141317',[['#4C6BF0','50% 50%'],['#EE7B54','50% 60%'],['#F6C59A','50% 66%'],['#141317','90% 10%']]]};
-  const [base,bl]=P[name]||P.rose;return bl.map(([c,at])=>`radial-gradient(60% 55% at ${at},${c} 0%,${c}00 70%)`).join(',')+','+base}
+  sunset:['#F5F1EC',[['#FF7654','25% 22%'],['#FFC2A8','60% 45%'],['#B7A7D8','85% 85%'],['#FFE3D6','20% 90%']]],
+  dusk:['#EEEBF4',[['#B7A7D8','15% 15%'],['#FFC2A8','45% 60%'],['#6078F6','92% 85%'],['#F5F1EC','60% 30%']]],
+  rose:['#F5F1EC',[['#FF7654','10% 10%'],['#B7A7D8','10% 80%'],['#FFC2A8','70% 60%'],['#E4DDF0','85% 20%']]],
+  matcha:['#EEEBF4',[['#6078F6','10% 12%'],['#B7A7D8','45% 55%'],['#FFC2A8','88% 35%'],['#D9D2EE','90% 90%']]],
+  night:['#111216',[['#FFD2B4','50% 58%'],['#FF7654','50% 60%'],['#6078F6','50% 48%'],['#B7A7D8','50% 40%']]]};
+  const [base,bl]=P[name]||P.rose;const sz=name==='night'?['18% 14%','32% 26%','46% 38%','52% 44%']:['60% 55%','60% 55%','60% 55%','60% 55%'];return bl.map(([c,at],i)=>`radial-gradient(${sz[i]} at ${at},${c} 0%,${c}00 ${name==='night'?'100%':'70%'})`).join(',')+','+base}
 function auraForTags(t){t=t||[];if(t.includes('sunset'))return 'sunset';if(t.some(x=>['work','wifi','sockets','quiet'].includes(x)))return 'dusk';if(t.some(x=>['vegan','protein'].includes(x)))return 'matcha';return 'rose'}
-function tastePalette(ints){const m={coffee:'rose',work:'dusk',sunsets:'sunset',food:'sunset',wellness:'matcha',nature:'matcha',nightlife:'night'};return m[ints[0]]||'dusk'}
+function tastePalette(ints){return 'night';const m={coffee:'rose',work:'dusk',sunsets:'sunset',food:'sunset',wellness:'matcha',nature:'matcha',nightlife:'night'};return m[ints[0]]||'dusk'}
 function paintAuras(root){(root||document).querySelectorAll('[data-aura]').forEach(el=>el.style.background=auraBG(el.dataset.aura))}
 paintAuras();
-$('#bgAura').style.background=['radial-gradient(70% 40% at 100% 0%,#F4B39A70 0%,#F4B39A00 70%)','radial-gradient(60% 35% at 0% 6%,#C8C2F480 0%,#C8C2F400 70%)','radial-gradient(70% 40% at 0% 100%,#9DB2F655 0%,#9DB2F600 70%)','radial-gradient(60% 40% at 100% 92%,#F7D3B060 0%,#F7D3B000 70%)'].join(',');
+$('#bgAura').style.background=['radial-gradient(70% 40% at 100% 0%,#FF765440 0%,#F4B39A00 70%)','radial-gradient(60% 35% at 0% 6%,#B7A7D880 0%,#B7A7D800 70%)','radial-gradient(70% 40% at 0% 100%,#6078F640 0%,#9DB2F600 70%)','radial-gradient(60% 40% at 100% 92%,#FFC2A860 0%,#F7D3B000 70%)'].join(',');
 $('#s-quiz').style.background=auraBG('rose')+'';
-(function(){const q=$('#s-quiz');q.style.background='linear-gradient(rgba(248,244,239,.55),rgba(248,244,239,.55)),'+auraBG('dusk')})();
+(function(){const q=$('#s-quiz');q.style.background='linear-gradient(rgba(245,241,236,.55),rgba(245,241,236,.55)),'+auraBG('dusk')})();
 </script>
 </body>
 </html>
