@@ -22,19 +22,21 @@ Read this first before changing anything. Keep it updated: add a line to the cha
 - Hosting: GitHub Pages → https://sonyaromm.github.io/places-app/ (repo `sonyaromm/places-app`, branch `main`; push = deploy in ~1–2 min).
 - Backend: Supabase project `uaorlwqiarejbemexhte` (region ap-south-1). Publishable key is in `index.html` (safe to be public). NEVER commit a secret/service_role key.
   - Auth: email + password, email confirmation OFF, Site URL = the Pages URL.
-  - Tables: `profiles` (id, username, name, bio, avatar_url, instagram, telegram, tiktok, website), `places` (user_id, name, city, note, rating, tags[], photo_url), `postcards` (24h stories: media_url, media_type image|video, caption, place, expires_at), `scenes` (short videos: video_url, caption, place). RLS: everyone reads, users write only their own rows.
+  - Tables: `profiles` (id, username, name, bio, avatar_url, instagram, telegram, tiktok, website, countries[] ISO alpha-2), `places` (user_id, name, city, note, rating, tags[], photo_url, lat, lng, country), `postcards` (24h stories: media_url, media_type image|video, caption, place, expires_at), `scenes` (short videos: video_url, caption, place). RLS: everyone reads, users write only their own rows.
   - Storage: public bucket `photos`, each user writes only into `<uid>/…`; 50 MB file limit.
-  - SQL lives in `supabase/setup.sql` and `supabase/002_postcards_scenes.sql` — Sofia runs them manually in SQL Editor. New schema changes = new numbered file + tell her to run it.
+  - SQL lives in `supabase/setup.sql`, `002_postcards_scenes.sql`, `003_countries_map.sql` — Sofia runs them manually in SQL Editor. New schema changes = new numbered file + tell her to run it.
 - Claude's sandbox cannot reach supabase.co, so backend changes can't be tested from here; UI is checked with headless Chrome (playwright).
+- Maps: Leaflet 1.9.4 vendored in `vendor/leaflet/` (sandbox can't reach CDNs), CARTO Voyager raster tiles (sepia-tinted via CSS), country shapes `data/countries.geojson` (Natural Earth 50m via world-atlas, simplified, antimeridian-fixed, Antarctica removed, property `a2`). `countryAt(lat,lng)` = point-in-polygon with nearest-vertex fallback (small islands like Bali).
 - User-generated text is escaped (`esc`) and media URLs are whitelisted to the project's storage (`safeMedia`) — keep this for anything new.
 
 ## App structure (screens in index.html)
-welcome (slideshow of `img/welcome/1–6.jpg`, login gate) → auth → tabs: **Swipe** (demo deck) · **Explore** (Postcards row, search, filters sheet, places list) · **+** (sheet: Postcard / Scene / Place) · **Scenes** (vertical video feed) · **Profile** (avatar, socials, stats, top-4, tabs Collections/Diary/Want/Scenes, edit profile). Other screens: place card, add place, new post, match, collection, paywall.
+welcome (slideshow of `img/welcome/1–6.jpg`, login gate) → auth → tabs: **Swipe** (demo deck) · **Explore** (Postcards row, search, filters sheet, places list) · **+** (sheet: Postcard / Scene / Place) · **Scenes** (vertical video feed) · **Profile** (avatar, socials, real stats row → Stats screen, My map card, top-4, tabs Collections/Diary/Want/Scenes, edit profile). Other screens: place card (own places: set location), add place (location: my location / pick on map), new post, match, collection, paywall, **map** (modes Mine / Everyone / Countries; pins → popup → place card; Explore has a Map button that opens Everyone with current filters), **stats** (countries, % of world, places, cities, avg rating, scenes, taste tags, top cities, rating distribution), **countries** picker.
 
 ## Naming
 - Stories = **Postcards** (24h), Reels = **Scenes**. Proposed by Claude, Sofia hasn't objected; alternatives offered: Glimpses/Moments, Walks.
 
 ## Still demo / not real yet
+- Demo places have Bali coordinates so the Everyone map isn't empty.
 - Swipe deck, Match, Collections ("Bali, édition 01"), Paywall, profile stats/top-4 when logged out, demo places (Single Fin, Kopi Pagi, Amed reef, Slow Hours, Green Bowl, Crumb & Co).
 - No payments, no friends/follow graph, no comments/likes yet.
 
@@ -53,3 +55,4 @@ welcome (slideshow of `img/welcome/1–6.jpg`, login gate) → auth → tabs: **
 - 2026-11-25 — Postcards (24h stories) and Scenes (short videos) + `002_postcards_scenes.sql`; tab Collections replaced by Scenes; + opens a create sheet.
 - 2026-11-25 — Brand: haunts name, logo, app icon, espresso/ivory palette.
 - 2026-11-25 — UX pass: Fraunces + Inter, larger text, 44px targets, warm greys, filters bottom sheet, shrinking tab bar.
+- 2026-11-25 — Countries visited, personal stats screen, maps (my places, everyone, countries) with pin → place card; location on add/edit place; `003_countries_map.sql`.

@@ -11,6 +11,8 @@
 <link rel="apple-touch-icon" href="img/brand/apple-touch-icon.png">
 <link rel="icon" href="img/brand/icon-192.png">
 <link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+<script src="vendor/leaflet/leaflet.js"></script>
 <meta name="apple-mobile-web-app-title" content="haunts">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -105,6 +107,17 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .scene .meta{position:absolute;left:16px;right:70px;bottom:calc(104px + var(--bot));display:flex;flex-direction:column;gap:6px;text-shadow:0 1px 8px rgba(0,0,0,.4)}
 .scene .side{position:absolute;right:12px;bottom:calc(110px + var(--bot));display:flex;flex-direction:column;gap:14px;align-items:center}
 .scene .mute{position:absolute;top:calc(var(--top) + 8px);right:12px}
+.leaflet-container{font-family:var(--sans);background:#E8DFD1}
+.leaflet-tile{filter:sepia(.22) saturate(.85) brightness(1.02)}
+.leaflet-control-attribution{font-size:10px;background:rgba(241,233,220,.8)!important}
+.leaflet-popup-content-wrapper{border-radius:14px;background:var(--paper);color:var(--ink)}
+.leaflet-popup-tip{background:var(--paper)}
+.ctrow{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:48px;border-bottom:1px solid var(--line);font-size:16px;text-align:left}
+.ctrow .box{width:24px;height:24px;border-radius:7px;border:1.5px solid #857E70;display:flex;align-items:center;justify-content:center}
+.ctrow.on .box{background:var(--ink);border-color:var(--ink)}
+.statbig{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.statbig>div{background:var(--paper2);border-radius:18px;padding:16px}
+.hbar{height:8px;border-radius:4px;background:var(--line);overflow:hidden}.hbar i{display:block;height:100%;background:var(--ink);border-radius:4px}
 .toast{position:absolute;left:50%;top:calc(var(--top) + 10px);transform:translate(-50%,-80px);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:20px;font-size:14px;z-index:50;transition:transform .3s}
 .toast.show{transform:translate(-50%,0)}
 </style>
@@ -177,6 +190,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   </div>
   <div style="flex:none;margin-top:14px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:4px 20px">
     <button class="chip" id="fOpen" style="flex:none;display:flex;align-items:center;gap:6px"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4h12M4 8h8M6 12h4"/></svg><span id="fOpenLabel">Filters</span></button>
+    <button class="chip" id="exMap" style="flex:none;display:flex;align-items:center;gap:6px"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M1.5 3.5l4-1.5 5 2 4-1.5v10l-4 1.5-5-2-4 1.5z"/><path d="M5.5 2v10M10.5 4v10"/></svg>Map</button>
     <div id="fActive" style="display:flex;gap:8px;flex:none"></div>
   </div>
   <div class="pad" id="exList" style="margin-top:16px"></div>
@@ -205,6 +219,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     <button class="btn dark" style="flex:1" data-toast="Rating by scales opens here">Rate</button>
     <button class="btn line" id="plSave">Add to collection</button>
   </div>
+  <button id="plSetLoc" class="btn line" style="display:none;margin:12px 20px 0">Set location on map</button>
   <button id="plDel" class="mono" style="display:none;margin:14px auto 0;padding:12px;color:#8A3B2E">Delete place</button>
 </section>
 
@@ -273,12 +288,19 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   </div>
   <div class="pad" id="socials" style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px"></div>
   <div class="pad" id="authBanner" style="margin-top:14px;display:none"><button class="btn dark" style="width:100%" data-go="auth">Log in or create account</button></div>
-  <div style="margin:18px 20px 0;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);text-align:center">
-    <div><div class="serif" id="stCities" style="font-size:28px;line-height:1">14</div><div class="mono" style="margin-top:4px">cities</div></div>
-    <div><div class="serif" id="stPlaces" style="font-size:28px;line-height:1">63</div><div class="mono" style="margin-top:4px">places</div></div>
-    <div><div class="serif" style="font-size:28px;line-height:1">6</div><div class="mono" style="margin-top:4px">collections</div></div>
-    <div><div class="serif" style="font-size:28px;line-height:1">212</div><div class="mono" style="margin-top:4px">friends</div></div>
-  </div>
+  <button data-go="stats" aria-label="Your stats" style="flex:none;margin:18px 20px 0;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);text-align:center">
+    <div><div class="serif" id="stCountries" style="font-size:28px;line-height:1">0</div><div class="mono" style="margin-top:4px">countries</div></div>
+    <div><div class="serif" id="stPlaces" style="font-size:28px;line-height:1">0</div><div class="mono" style="margin-top:4px">places</div></div>
+    <div><div class="serif" id="stCities" style="font-size:28px;line-height:1">0</div><div class="mono" style="margin-top:4px">cities</div></div>
+    <div><div class="serif" id="stScenes" style="font-size:28px;line-height:1">0</div><div class="mono" style="margin-top:4px">scenes</div></div>
+  </button>
+  <button data-go="map" style="flex:none;margin:14px 20px 0;height:96px;border-radius:18px;position:relative;overflow:hidden;background:#D9CDB8;text-align:left">
+    <img src="data/map-preview.svg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9">
+    <div style="position:absolute;left:16px;bottom:12px;right:16px;display:flex;justify-content:space-between;align-items:flex-end">
+      <div><div class="serif" style="font-size:24px;line-height:1">My map</div><div style="font-size:14px;color:var(--ink2);margin-top:4px" id="mapCardSub">Places and countries you've been to</div></div>
+      <span class="mono" style="color:var(--ink)">Open →</span>
+    </div>
+  </button>
   <div class="pad" style="margin-top:16px;display:flex;flex-direction:column;gap:10px">
     <div style="display:flex;justify-content:space-between;align-items:baseline">
       <div class="serif it" style="font-size:22px">My top 4</div>
@@ -314,6 +336,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     <div class="field"><label class="mono" for="addNote">What’s great here</label><textarea class="input" id="addNote" rows="3" placeholder="What to order, when to go, what makes it special" style="resize:none"></textarea></div>
     <div class="field"><div class="mono">Rating</div><div id="addStars" style="display:flex;gap:2px"></div></div>
     <div class="field"><div class="mono">Tags</div><div id="addTags" style="display:flex;flex-wrap:wrap;gap:8px"></div></div>
+    <div class="field"><div class="mono">Location</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="chip" id="addLocMe">Use my location</button><button class="chip" id="addLocMap">Pick on map</button></div>
+      <div id="addLocTxt" style="font-size:14px;color:var(--ink2)">Optional — puts the place on your map</div></div>
     <button class="btn dark" id="addSave" style="margin-top:4px">Save place</button>
     <div style="font-size:12px;color:var(--muted);text-align:center;line-height:1.5"><span id="addHint">Log in so everyone can see it.<br>Without an account it stays on this phone only.</span></div>
   </div>
@@ -412,6 +437,60 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   </div>
 </section>
 
+<!-- ========== MAP ========== -->
+<section class="screen no-tabs" id="s-map" style="padding-bottom:0;overflow:hidden">
+  <div id="mapBox" style="position:absolute;inset:0;background:#E8DFD1"></div>
+  <div style="position:absolute;top:calc(var(--top) + 6px);left:12px;right:12px;display:flex;align-items:center;gap:8px;z-index:500">
+    <button class="icon-btn" data-back aria-label="Back" style="background:rgba(241,233,220,.92);box-shadow:0 2px 10px rgba(43,26,20,.15)"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#2B1A14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <div style="display:flex;background:rgba(241,233,220,.92);border-radius:22px;padding:3px;box-shadow:0 2px 10px rgba(43,26,20,.15)">
+      <button class="chip on" id="mapModeP" style="border:0">Mine</button><button class="chip" id="mapModeA" style="border:0">Everyone</button><button class="chip" id="mapModeC" style="border:0">Countries</button>
+    </div>
+  </div>
+  <div style="position:absolute;left:12px;right:12px;bottom:calc(16px + var(--bot));z-index:500;background:rgba(241,233,220,.94);border-radius:22px;padding:14px 18px;display:flex;justify-content:space-around;text-align:center;box-shadow:0 4px 20px rgba(43,26,20,.18)">
+    <div><div class="serif" id="mapNPlaces" style="font-size:26px;line-height:1">0</div><div class="mono" style="margin-top:4px">on the map</div></div>
+    <div><div class="serif" id="mapNCountries" style="font-size:26px;line-height:1">0</div><div class="mono" style="margin-top:4px">countries</div></div>
+    <div><div class="serif" id="mapPct" style="font-size:26px;line-height:1">0%</div><div class="mono" style="margin-top:4px">of the world</div></div>
+  </div>
+</section>
+
+<!-- ========== STATS ========== -->
+<section class="screen no-tabs" id="s-stats">
+  <div class="pad top" style="display:flex;align-items:center;justify-content:space-between">
+    <button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#2B1A14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <div class="mono">Your stats</div><div style="width:44px"></div>
+  </div>
+  <div class="pad" id="statsBody" style="display:flex;flex-direction:column;gap:22px"></div>
+</section>
+
+<!-- ========== COUNTRIES PICKER ========== -->
+<section class="screen no-tabs" id="s-countries">
+  <div class="pad top" style="display:flex;align-items:center;justify-content:space-between">
+    <button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#2B1A14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <div class="mono" id="ctCount">0 selected</div>
+    <button class="mono" id="ctSave" style="padding:12px 0;color:var(--ink)">Save</button>
+  </div>
+  <div class="pad" style="display:flex;flex-direction:column;gap:12px">
+    <div class="serif" style="font-size:38px;line-height:1">Where have you <span class="it">been</span></div>
+    <label style="height:44px;border-radius:22px;background:#E7DED0;display:flex;align-items:center;gap:8px;padding:0 16px">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#6E5D52" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
+      <input id="ctQ" placeholder="Search countries" style="flex:1;border:0;background:transparent;font:inherit;font-size:16px;color:var(--ink);outline:none">
+    </label>
+    <div id="ctList"></div>
+  </div>
+</section>
+
+<!-- location picker -->
+<div id="pick" style="position:absolute;inset:0;z-index:60;display:none;background:#E8DFD1">
+  <div id="pickBox" style="position:absolute;inset:0"></div>
+  <svg width="36" height="48" viewBox="0 0 36 48" aria-hidden="true" style="position:absolute;left:50%;top:50%;margin:-48px 0 0 -18px;z-index:600;pointer-events:none"><path d="M18 2C9.7 2 3 8.6 3 16.9 3 28 18 46 18 46s15-18 15-29.1C33 8.6 26.3 2 18 2z" fill="#2B1A14"/><circle cx="18" cy="17" r="5.5" fill="#F1E9DC"/></svg>
+  <div style="position:absolute;top:calc(var(--top) + 6px);left:12px;right:12px;z-index:600;display:flex;justify-content:space-between;align-items:center">
+    <button class="icon-btn" id="pickCancel" aria-label="Cancel" style="background:rgba(241,233,220,.92)"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#2B1A14" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
+    <div class="mono" style="background:rgba(241,233,220,.92);padding:10px 14px;border-radius:18px;color:var(--ink)">Move the map to the spot</div>
+    <button class="icon-btn" id="pickMe" aria-label="My location" style="background:rgba(241,233,220,.92)"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#2B1A14" stroke-width="1.5"><circle cx="10" cy="10" r="3"/><path d="M10 1v3M10 16v3M1 10h3M16 10h3"/></svg></button>
+  </div>
+  <div style="position:absolute;left:16px;right:16px;bottom:calc(20px + var(--bot));z-index:600"><button class="btn dark" id="pickOk" style="width:100%">Use this spot</button></div>
+</div>
+
 <!-- filters sheet -->
 <div id="fSheet" style="position:absolute;inset:0;z-index:40;display:none">
   <div data-fclose style="position:absolute;inset:0;background:rgba(43,26,20,.4)"></div>
@@ -479,22 +558,22 @@ const G={
 
 /* ---------- data ---------- */
 const PLACES={
-  single:{name:'Single Fin, Uluwatu',tag:'Sunset',cat:'experience',note:'Come by 5:30 pm and grab a table on the cliff edge. The best sunset on the Bukit.',author:'@masha',rating:'4.5',bg:G.sunset,ph:'sunset over the ocean',
+  single:{lat:-8.8197,lng:115.0867,country:'ID',name:'Single Fin, Uluwatu',tag:'Sunset',cat:'experience',note:'Come by 5:30 pm and grab a table on the cliff edge. The best sunset on the Bukit.',author:'@masha',rating:'4.5',bg:G.sunset,ph:'sunset over the ocean',
     has:['sunset'],tags:'Sunset · terrace · loud after 5 pm',
     bars:[['Quiet',1,'loud and fun'],['Staff',4,'friendly'],['View',5,'best on the Bukit'],['Prices',2,'pricey']],labels:[['Sunset',18],['Cocktails',7]]},
-  kopi:{name:'Kopi Pagi, Canggu',tag:'Coffee without tourists',cat:'place',note:'A tiny warung down an alley. Local beans, and the owner teaches you to brew Balinese-style.',author:'@lesha',rating:'4.9',bg:G.coffee,ph:'coffee on a wooden table',
+  kopi:{lat:-8.6478,lng:115.1385,country:'ID',name:'Kopi Pagi, Canggu',tag:'Coffee without tourists',cat:'place',note:'A tiny warung down an alley. Local beans, and the owner teaches you to brew Balinese-style.',author:'@lesha',rating:'4.9',bg:G.coffee,ph:'coffee on a wooden table',
     has:['work','decaf','quiet','staff','sockets','wifi'],tags:'Quiet · decaf · outlets at every table',
     bars:[['Quiet',4,'quiet enough for calls'],['Staff',5,'very kind'],['Wi-Fi',3,'fine for video calls'],['Pastry',4,'banana bread — yes']],labels:[['Work',14],['Decaf',9],['Outlets',11]]},
-  amed:{name:'Amed reef',tag:'Ocean',cat:'experience',note:'Snorkel from the shore at 7 am before the boats. Bring your own mask.',author:'@masha',rating:'4.8',bg:G.ocean,ph:'turquoise water and reef',
+  amed:{lat:-8.3466,lng:115.6489,country:'ID',name:'Amed reef',tag:'Ocean',cat:'experience',note:'Snorkel from the shore at 7 am before the boats. Bring your own mask.',author:'@masha',rating:'4.8',bg:G.ocean,ph:'turquoise water and reef',
     has:['sunset'],tags:'Snorkeling · morning · from shore',
     bars:[['Quiet',5,'empty in the morning'],['Water',5,'20 m visibility'],['Rentals',2,'masks are foggy']],labels:[['Snorkeling',12],['Sunrise',6]]},
-  slow:{name:'Slow Hours',tag:'Work',cat:'place',note:'Big tables, AC and croissants in the morning.',author:'@sonyaromm',rating:'4.7',bg:G.terrace,ph:'bright room with plants',
+  slow:{lat:-8.6555,lng:115.1302,country:'ID',name:'Slow Hours',tag:'Work',cat:'place',note:'Big tables, AC and croissants in the morning.',author:'@sonyaromm',rating:'4.7',bg:G.terrace,ph:'bright room with plants',
     has:['work','wifi','sockets','bakery','quiet'],tags:'120 Mbps Wi-Fi · morning croissants',
     bars:[['Quiet',4,'quiet until lunch'],['Staff',4,'fast service'],['Wi-Fi',5,'120 Mbps'],['Pastry',5,'croissants are top']],labels:[['Work',21],['Pastry',8]]},
-  bowl:{name:'Green Bowl',tag:'Protein',cat:'place',note:'Chicken and tempeh bowls, protein listed on the menu.',author:'@masha',rating:'4.6',bg:G.green,ph:'green bowl',
+  bowl:{lat:-8.6602,lng:115.1421,country:'ID',name:'Green Bowl',tag:'Protein',cat:'place',note:'Chicken and tempeh bowls, protein listed on the menu.',author:'@masha',rating:'4.6',bg:G.green,ph:'green bowl',
     has:['protein','vegan','breakfast','staff'],tags:'Bowls with 40 g protein · vegan options',
     bars:[['Quiet',3,'can have a line'],['Staff',5,'help you order'],['Protein',5,'up to 45 g per bowl']],labels:[['Protein',16],['Vegan',10]]},
-  crumb:{name:'Crumb & Co',tag:'Pastry',cat:'place',note:'Best pain au chocolat on the island, oat-milk decaf.',author:'@lesha',rating:'4.8',bg:G.bake,ph:'pastry counter',
+  crumb:{lat:-8.6703,lng:115.1552,country:'ID',name:'Crumb & Co',tag:'Pastry',cat:'place',note:'Best pain au chocolat on the island, oat-milk decaf.',author:'@lesha',rating:'4.8',bg:G.bake,ph:'pastry counter',
     has:['bakery','decaf','breakfast','staff'],tags:'Pain au chocolat · oat decaf',
     bars:[['Quiet',3,'cozy buzz'],['Staff',5,'all smiles'],['Pastry',5,'fresh every morning']],labels:[['Great pastry',22],['Decaf',7]]}
 };
@@ -719,7 +798,7 @@ function remoteToPlace(r){
   const safeUrl=u=>u&&/^https:\/\/uaorlwqiarejbemexhte\.supabase\.co\/storage\/v1\/object\/public\/photos\/[\w\-\/.%]+$/.test(u)?u:null;
   const o={id:'r'+r.id,name:esc(r.name),city:esc(r.city),note:esc(r.note),rating:Number(r.rating)||0,tags:(r.tags||[]).map(esc),photo:safeUrl(r.photo_url),date:new Date(r.created_at).getTime()};
   const p=toPlace(o);p.remote=true;p.rid=r.id;p.city=r.city;p.photoUrl=r.photo_url;
-  p.mine=!!(ME&&r.user_id===ME.id);p.author='@'+esc((r.profiles&&r.profiles.username)||'guest');
+  p.mine=!!(ME&&r.user_id===ME.id);p.lat=typeof r.lat==='number'?r.lat:null;p.lng=typeof r.lng==='number'?r.lng:null;p.country=/^[A-Z]{2}$/.test(r.country||'')?r.country:null;p.author='@'+esc((r.profiles&&r.profiles.username)||'guest');
   return p;
 }
 async function loadRemote(){
@@ -810,7 +889,7 @@ $('#addSave').onclick=async()=>{
   $('#addSave').disabled=true;$('#addSave').textContent='Publishing…';
   try{
     const photo_url=add.photo?await uploadPhoto(add.photo,'place'):null;
-    const {error}=await sb.from('places').insert({user_id:ME.id,name,city:$('#addCity').value.trim()||null,note:$('#addNote').value.trim()||null,rating:add.rating||null,tags:[...add.tags],photo_url});
+    const {error}=await sb.from('places').insert({user_id:ME.id,name,city:$('#addCity').value.trim()||null,note:$('#addNote').value.trim()||null,rating:add.rating||null,tags:[...add.tags],photo_url,...(add.lat!=null?{lat:add.lat,lng:add.lng,country:add.country||null}:{})});
     if(error)throw error;
     await loadRemote();stack=['profile'];show('profile',false);renderPT(1);toast('Place published');
   }catch(e){console.warn(e);toast('Couldn’t publish: '+(e.message||'error'))}
@@ -1045,6 +1124,152 @@ renderExplore();
 $$('.screen').forEach(sc=>{let last=0;sc.addEventListener('scroll',()=>{const y=sc.scrollTop,t=$('#tabs');
   if(y>80&&y>last+6)t.classList.add('mini');else if(y<last-6||y<40)t.classList.remove('mini');last=y},{passive:true})});
 const _show4=show;show=function(id,push){$('#tabs').classList.remove('mini');return _show4(id,push)};
+
+/* ---------- countries, stats & maps ---------- */
+const CODES='AF,AL,DZ,AS,AD,AO,AI,AQ,AG,AR,AM,AW,AU,AT,AZ,BS,BH,BD,BB,BY,BE,BZ,BJ,BM,BT,BO,BA,BW,BV,BR,IO,BN,BG,BF,BI,KH,CM,CA,CV,KY,CF,TD,CL,CN,CX,CC,CO,KM,CG,CD,CK,CR,CI,HR,CU,CY,CZ,DK,DJ,DM,DO,EC,EG,SV,GQ,ER,EE,ET,FK,FO,FJ,FI,FR,GF,PF,TF,GA,GM,GE,DE,GH,GI,GR,GL,GD,GP,GU,GT,GN,GW,GY,HT,HM,VA,HN,HK,HU,IS,IN,ID,IR,IQ,IE,IL,IT,JM,JP,JO,KZ,KE,KI,KP,KR,KW,KG,LA,LV,LB,LS,LR,LY,LI,LT,LU,MO,MG,MW,MY,MV,ML,MT,MH,MQ,MR,MU,YT,MX,FM,MD,MC,MN,MS,MA,MZ,MM,NA,NR,NP,NL,NC,NZ,NI,NE,NG,NU,NF,MP,MK,NO,OM,PK,PW,PS,PA,PG,PY,PE,PH,PN,PL,PT,PR,QA,RE,RO,RU,RW,SH,KN,LC,PM,VC,WS,SM,ST,SA,SN,SC,SL,SG,SK,SI,SB,SO,ZA,GS,ES,LK,SD,SR,SJ,SZ,SE,CH,SY,TW,TJ,TZ,TH,TL,TG,TK,TO,TT,TN,TR,TM,TC,TV,UG,UA,AE,GB,US,UM,UY,UZ,VU,VE,VN,VG,VI,WF,EH,YE,ZM,ZW,AX,BQ,CW,GG,IM,JE,ME,BL,MF,RS,SX,SS,XK'.split(',');
+const regionName=(()=>{try{const d=new Intl.DisplayNames(['en'],{type:'region'});return c=>{try{return d.of(c)||c}catch(_){return c}}}catch(_){return c=>c}})();
+const ALLC=CODES.map(c=>[c,regionName(c)]).sort((a,b)=>a[1].localeCompare(b[1]));
+let GEO=null;
+async function loadGeo(){if(GEO)return GEO;try{GEO=await (await fetch('data/countries.geojson')).json()}catch(_){GEO={type:'FeatureCollection',features:[]}}return GEO}
+function inRing(x,y,r){let c=false;for(let i=0,j=r.length-1;i<r.length;j=i++){const[xi,yi]=r[i],[xj,yj]=r[j];if(((yi>y)!==(yj>y))&&(x<(xj-xi)*(y-yi)/(yj-yi)+xi))c=!c}return c}
+function countryAt(lat,lng){if(!GEO)return null;const xs=lng<0?[lng,lng+360]:[lng];let best=null,bd=1.5;
+  for(const f of GEO.features){const g=f.geometry,polys=g.type==='Polygon'?[g.coordinates]:g.coordinates;
+    for(const p of polys){for(const x of xs)if(inRing(x,lat,p[0])&&!p.slice(1).some(h=>inRing(x,lat,h)))return f.properties.a2;
+      for(const [px,py] of p[0]){for(const x of xs){const d=Math.abs(px-x)+Math.abs(py-lat);if(d<bd){bd=d;best=f.properties.a2}}}}}
+  return best}
+loadGeo();
+
+function myPlaces(){return Object.entries(PLACES).filter(([k,p])=>p.mine)}
+function myCountries(){const s=new Set((MYPROFILE&&MYPROFILE.countries)||[]);myPlaces().forEach(([k,p])=>{if(p.country)s.add(p.country)});return [...s]}
+function updateStats(){
+  if(!ME)return;
+  const mp=myPlaces().map(([k,p])=>p);
+  $('#stCountries').textContent=myCountries().length;
+  $('#stPlaces').textContent=mp.length;
+  $('#stCities').textContent=new Set(mp.map(p=>(p.city||'').toLowerCase()).filter(Boolean)).size;
+  $('#stScenes').textContent=SCENES.filter(x=>x.uid===ME.id).length;
+  const pinned=mp.filter(p=>p.lat!=null).length;
+  $('#mapCardSub').textContent=`${pinned} on the map · ${myCountries().length} countries`;
+}
+const _rph=renderProfileHead;renderProfileHead=function(){_rph();updateStats()};
+const _ls=loadScenes;loadScenes=async function(){await _ls();updateStats()};
+
+/* stats screen */
+function renderStats(){
+  const mp=myPlaces().map(([k,p])=>p), cs=myCountries(), pct=Math.round(cs.length/195*100);
+  const cities={};mp.forEach(p=>{if(p.city){const c=p.city;cities[c]=(cities[c]||0)+1}});
+  const topCities=Object.entries(cities).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const tags={};mp.forEach(p=>(p.has||[]).forEach(t=>tags[t]=(tags[t]||0)+1));
+  const topTags=Object.entries(tags).sort((a,b)=>b[1]-a[1]).slice(0,6);const maxT=topTags.length?topTags[0][1]:1;
+  const rated=mp.map(p=>parseFloat(p.rating)).filter(r=>r>0);const avg=rated.length?(rated.reduce((a,b)=>a+b,0)/rated.length).toFixed(1):'—';
+  const dist=[5,4,3,2,1].map(n=>[n,rated.filter(r=>Math.round(r)===n).length]);const maxD=Math.max(1,...dist.map(d=>d[1]));
+  const sc=SCENES.filter(x=>ME&&x.uid===ME.id).length;
+  const taste=topTags.length?`${tagLabel(topTags[0][0])} lover`:'Still exploring';
+  $('#statsBody').innerHTML=`
+    <div><div class="serif" style="font-size:40px;line-height:1">Your travel,<br><span class="it">in numbers</span></div></div>
+    <div class="statbig">
+      <div><div class="serif" style="font-size:40px;line-height:1">${cs.length}</div><div class="mono" style="margin-top:6px">countries</div></div>
+      <div><div class="serif" style="font-size:40px;line-height:1">${pct}%</div><div class="mono" style="margin-top:6px">of the world</div></div>
+      <div><div class="serif" style="font-size:40px;line-height:1">${mp.length}</div><div class="mono" style="margin-top:6px">places</div></div>
+      <div><div class="serif" style="font-size:40px;line-height:1">${Object.keys(cities).length}</div><div class="mono" style="margin-top:6px">cities</div></div>
+      <div><div class="serif" style="font-size:40px;line-height:1">${avg}</div><div class="mono" style="margin-top:6px">avg rating</div></div>
+      <div><div class="serif" style="font-size:40px;line-height:1">${sc}</div><div class="mono" style="margin-top:6px">scenes</div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><div class="mono">Countries</div><button class="mono" data-go="countries" style="color:var(--ink);padding:10px 0">Edit →</button></div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">${cs.length?cs.map(c=>`<span class="chip" style="display:inline-flex;align-items:center;pointer-events:none">${esc(regionName(c))}</span>`).join(''):'<span style="font-size:14px;color:var(--ink2)">Add the countries you’ve been to</span>'}</div>
+    </div>
+    <button data-go="map" class="btn line">Open my map</button>
+    <div style="display:flex;flex-direction:column;gap:10px"><div class="mono">Your taste</div><div class="serif it" style="font-size:28px">${esc(taste)}</div>
+      ${topTags.map(([t,n])=>`<div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;justify-content:space-between;font-size:14px"><span>${esc(tagLabel(t))}</span><span style="color:var(--ink2)">${n}</span></div><div class="hbar"><i style="width:${n/maxT*100}%"></i></div></div>`).join('')||'<div style="font-size:14px;color:var(--ink2)">Tag your places to see your taste</div>'}
+    </div>
+    ${topCities.length?`<div style="display:flex;flex-direction:column"><div class="mono" style="margin-bottom:6px">Top cities</div>${topCities.map(([c,n],i)=>`<div class="row" style="${i?'':'border-top:0'};justify-content:space-between"><span class="serif" style="font-size:20px">${c}</span><span class="mono">${n} places</span></div>`).join('')}</div>`:''}
+    ${rated.length?`<div style="display:flex;flex-direction:column;gap:6px"><div class="mono">How you rate</div>${dist.map(([n,c])=>`<div style="display:flex;align-items:center;gap:10px;font-size:14px"><span style="width:28px">${n}★</span><div class="hbar" style="flex:1"><i style="width:${c/maxD*100}%"></i></div><span style="width:20px;text-align:right;color:var(--ink2)">${c}</span></div>`).join('')}</div>`:''}
+  `;
+}
+
+/* countries picker */
+let ctSel=new Set();
+function renderCt(){const q=$('#ctQ').value.trim().toLowerCase();
+  $('#ctCount').textContent=ctSel.size+' selected';
+  const list=ALLC.filter(([c,n])=>!q||n.toLowerCase().includes(q));
+  const sel=list.filter(([c])=>ctSel.has(c)),rest=list.filter(([c])=>!ctSel.has(c));
+  $('#ctList').innerHTML=[...sel,...rest].map(([c,n])=>`<button class="ctrow ${ctSel.has(c)?'on':''}" data-ct="${c}"><span>${esc(n)}</span><span class="box">${ctSel.has(c)?'<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#F1E9DC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5l2.5 2.5L11 4.5"/></svg>':''}</span></button>`).join('');
+}
+$('#ctQ').addEventListener('input',renderCt);
+document.addEventListener('click',e=>{const b=e.target.closest('[data-ct]');if(b){const c=b.dataset.ct;ctSel.has(c)?ctSel.delete(c):ctSel.add(c);renderCt()}});
+$('#ctSave').onclick=async()=>{
+  if(!ME||!sb)return;const countries=[...ctSel];
+  const {error}=await sb.from('profiles').update({countries}).eq('id',ME.id);
+  if(error){toast(error.message.includes('column')?'Run the 003 SQL script in Supabase first':'Couldn’t save');return}
+  MYPROFILE.countries=countries;renderProfileHead();back();toast('Countries saved');
+};
+
+/* map screen */
+let MAP=null,mapMode='places',placeLayer=null,countryLayer=null;
+const TILE='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', ATTR='© OpenStreetMap © CARTO';
+async function openMap(){
+  if(!window.L){toast('Map didn’t load — check connection');return}
+  if(!MAP){MAP=L.map('mapBox',{zoomControl:false,worldCopyJump:true}).setView([-8.5,115.2],4);L.tileLayer(TILE,{attribution:ATTR,subdomains:'abcd',maxZoom:19}).addTo(MAP)}
+  setTimeout(()=>MAP.invalidateSize(),60);
+  await loadGeo();
+  const cs=new Set(myCountries());
+  if(countryLayer){countryLayer.remove();countryLayer=null}
+  if(mapMode==='countries')countryLayer=L.geoJSON(GEO,{style:f=>cs.has(f.properties.a2)?{color:'#2B1A14',weight:1,fillColor:'#2B1A14',fillOpacity:mapMode==='countries'?.55:.18}:{color:'#857E70',weight:mapMode==='countries'?.6:0,fillOpacity:0},interactive:false}).addTo(MAP);
+  if(placeLayer)placeLayer.remove();placeLayer=L.layerGroup().addTo(MAP);
+  const pts=[];
+  const q=($('#q').value||'').trim().toLowerCase();
+  const src=mapMode==='places'?myPlaces():mapMode==='all'?Object.entries(PLACES).filter(([k,p])=>[...on].every(t=>(p.has||[]).includes(t))&&(!q||(p.name+p.tags).toLowerCase().includes(q))):[];
+  src.forEach(([k,p])=>{if(p.lat==null)return;pts.push([p.lat,p.lng]);
+    L.circleMarker([p.lat,p.lng],{radius:9,color:'#F1E9DC',weight:3,fillColor:'#2B1A14',fillOpacity:1}).bindPopup(`<button data-place="${k}" style="font:inherit;text-align:left;display:flex;gap:10px;align-items:center;min-width:200px"><span style="width:52px;height:52px;border-radius:10px;flex:none;background:${p.bg}"></span><span><b class="serif" style="font-size:18px;font-weight:400">${p.name}</b><br><span style="font-size:13px;color:#5C4A3F">${p.tag} · ★ ${p.rating}</span><br><span style="font-size:12px;font-weight:600">Open →</span></span></button>`,{closeButton:false}).addTo(placeLayer)});
+  if(mapMode!=='countries'&&pts.length)MAP.fitBounds(pts,{padding:[70,70],maxZoom:15});else if(mapMode==='countries'){const vis=GEO.features.filter(f=>cs.has(f.properties.a2));if(vis.length)MAP.fitBounds(L.geoJSON({type:'FeatureCollection',features:vis}).getBounds(),{padding:[40,90]});else MAP.setView([20,20],1.5)}
+  $('#mapNPlaces').textContent=mapMode==='countries'?myPlaces().filter(([k,p])=>p.lat!=null).length:pts.length;
+  $('#mapNCountries').textContent=cs.size;$('#mapPct').textContent=Math.round(cs.size/195*100)+'%';
+  $('#mapModeP').classList.toggle('on',mapMode==='places');$('#mapModeA').classList.toggle('on',mapMode==='all');$('#mapModeC').classList.toggle('on',mapMode==='countries');
+}
+$('#mapModeP').onclick=()=>{mapMode='places';openMap()};$('#mapModeA').onclick=()=>{mapMode='all';openMap()};
+$('#exMap').onclick=()=>{mapMode='all';show('map')};
+document.addEventListener('click',e=>{if(e.target.closest('[data-go="map"]'))mapMode='places'},true);$('#mapModeC').onclick=()=>{mapMode='countries';openMap()};
+
+/* location picker */
+let PICK=null,pickCb=null;
+function openPick(start,cb){
+  if(!window.L){toast('Map didn’t load — check connection');return}
+  pickCb=cb;$('#pick').style.display='block';
+  if(!PICK){PICK=L.map('pickBox',{zoomControl:false}).setView(start||[-8.65,115.14],start?16:11);L.tileLayer(TILE,{attribution:ATTR,subdomains:'abcd',maxZoom:19}).addTo(PICK)}
+  else PICK.setView(start||PICK.getCenter(),start?16:PICK.getZoom());
+  setTimeout(()=>PICK.invalidateSize(),60);
+}
+$('#pickCancel').onclick=()=>{$('#pick').style.display='none'};
+$('#pickOk').onclick=()=>{const c=PICK.getCenter();$('#pick').style.display='none';pickCb&&pickCb(+c.lat.toFixed(6),+c.lng.toFixed(6))};
+function locate(cb){if(!navigator.geolocation){toast('Location isn’t available');return}
+  navigator.geolocation.getCurrentPosition(p=>cb(p.coords.latitude,p.coords.longitude),()=>toast('Allow location access in Settings to use this'),{enableHighAccuracy:true,timeout:10000})}
+$('#pickMe').onclick=()=>locate((la,ln)=>PICK.setView([la,ln],17));
+
+/* add place: location */
+function setAddLoc(lat,lng){add.lat=lat;add.lng=lng;add.country=countryAt(lat,lng);
+  $('#addLocTxt').textContent=`📍 ${lat.toFixed(4)}, ${lng.toFixed(4)}${add.country?' · '+regionName(add.country):''}`}
+$('#addLocMe').onclick=()=>locate(setAddLoc);
+$('#addLocMap').onclick=()=>openPick(add.lat!=null?[add.lat,add.lng]:null,setAddLoc);
+
+/* own place: set location */
+$('#plSetLoc').onclick=()=>{const p=PLACES[curPlace];if(!p||!p.remote)return;
+  openPick(p.lat!=null?[p.lat,p.lng]:null,async(lat,lng)=>{const country=countryAt(lat,lng);
+    const {error}=await sb.from('places').update({lat,lng,country}).eq('id',p.rid);
+    if(error){toast(error.message.includes('column')?'Run the 003 SQL script in Supabase first':'Couldn’t save');return}
+    p.lat=lat;p.lng=lng;p.country=country;updateStats();toast('Location saved')})};
+const _openPlace=openPlace;openPlace=function(k){_openPlace(k);const p=PLACES[k];$('#plSetLoc').style.display=p&&p.mine&&p.remote?'block':'none';$('#plSetLoc').textContent=p&&p.lat!=null?'Change location on map':'Set location on map'};
+
+/* hooks */
+const _show5=show;show=function(id,push){
+  if(id==='countries'){ctSel=new Set((MYPROFILE&&MYPROFILE.countries)||[]);$('#ctQ').value=''}
+  if(id==='add'){$('#addLocTxt').textContent='Optional — puts the place on your map'}
+  const r=_show5(id,push);
+  if(id==='countries')renderCt();
+  if(id==='stats')renderStats();
+  if(id==='map')openMap();
+  return r;
+};
 </script>
 </body>
 </html>
