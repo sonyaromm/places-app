@@ -98,3 +98,4 @@ MVP navigation (decided with Sofia 2026-11-26, based on her UX research): **Expl
 - 2026-11-26 — Intro slides and taste card are image slots (img/intro/intro-N.jpg, img/taste/taste-1.jpg) with orb fallback.
 - 2026-11-26 — Orbs looked like a wellness app → intro slides and taste card show Sofia's photos with charcoal fade; line drawings removed.
 - 2026-11-26 — Stylish-minimal pass from Sofia's refs: photo-first Explore cards, profile cover + photo grid, dark pill tab bar; orb gradient becomes the single accent (active tab, taste badge/label, onboarding arrow, gradient wordmark on welcome).
+- 2026-11-26 — Orb accent: less orange in the centre (smaller peach/coral core, more periwinkle/lavender).
