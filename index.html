@@ -19,10 +19,11 @@
   --top: max(env(safe-area-inset-top), 16px); --bot: env(safe-area-inset-bottom);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;height:100%;background:#0f110f;overscroll-behavior:none}
+html,body{margin:0;height:100%;background:#F2F0E9;overscroll-behavior:none}
+@media (min-width:441px){html,body{background:#0f110f}}
 body{font-family:var(--sans);color:var(--ink);display:flex;justify-content:center}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
-#app{position:relative;width:100%;max-width:440px;height:100dvh;overflow:hidden;background:var(--paper)}
+#app{position:fixed;top:0;bottom:0;left:0;right:0;margin:0 auto;width:100%;max-width:440px;overflow:hidden;background:var(--paper)}
 .screen{position:absolute;inset:0;display:none;flex-direction:column;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(88px + var(--bot))}
 .screen.active{display:flex;animation:fade .25s ease}
 .screen.no-tabs{padding-bottom:calc(24px + var(--bot))}
