@@ -14,6 +14,7 @@ Read this first before changing anything. Keep it updated: add a line to the cha
 - Colors (2026-11-26, Sofia disliked brown buttons; palette from her SOMA/finance-app refs): bg milk `#F8F4EF`, ink near-black `#141317` (buttons, text, dark screens), ink2 `#56545C`, muted `#75737B`, accents blue `#4C6BF0` (--blue, was moss), coral `#EE7B54`, lavender `#C8C2F4`. Espresso/ivory browns are gone (logo png is still espresso until Sofia's new logo).
 - Type (2026-11-26, Sofia's Ohm ref "Start Where You Are"): **Albert Sans** for everything — titles 300 Light with tight tracking (`.serif` class name kept for titles), UI 400–600; **Newsreader** for serif accents: italic words inside titles (`.serif .it`) and `.book` semibold subheads. Fonts self-hosted in `fonts/` (woff2, latin) — no Google Fonts request. Fraunces/Inter removed.
 - Scale: display 40–46px, titles ~19–28px serif, body 16px, secondary 14px, nothing below 11px.
+- Primary buttons (`.btn.dark`) = frosted white glass (gradient white 78→50%, blur 24, white border, soft shadow), dark text — chosen by Sofia 2026-11-26 instead of black/brown.
 - Touch targets ≥ 44px (chips 40px + invisible hit area). Primary actions in the bottom third; filters live in a bottom sheet; tab bar shrinks on scroll.
 - Glass/blur only on temporary layers (sheets, toasts, overlays). Scenes feed is dark, the rest is light.
 - Full research: Claude doc "haunts: UX/UI и типографика" (https://claude.ai/artifact/DTf1kaunrCvzQCkdjQtcFe).
@@ -84,3 +85,4 @@ MVP navigation (decided with Sofia 2026-11-26, based on her UX research): **Expl
 - 2026-11-26 — Visual redesign pass 1 (Sofia: "too template-beige"): aura gradients with grain, glass tab bar/chips/inputs/sheets, lighter background, aura fallback thumbs, aura intro slides, quiz and taste card.
 - 2026-11-26 — Palette swap: brown espresso → near-black #141317, ivory → milk, accents blue/coral/lavender; auras re-tuned (dusk = lavender/coral/blue, night = blue-coral orb on black); greyer map tiles.
 - 2026-11-26 — Fonts: Fraunces+Inter → Albert Sans (light titles) + Newsreader (italic accents), self-hosted in fonts/.
+- 2026-11-26 — Primary buttons → frosted white glass (Sofia's choice).
