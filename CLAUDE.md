@@ -30,7 +30,7 @@ Read this first before changing anything. Keep it updated: add a line to the cha
 - User-generated text is escaped (`esc`) and media URLs are whitelisted to the project's storage (`safeMedia`) — keep this for anything new.
 
 ## App structure (screens in index.html)
-welcome (slideshow of `img/welcome/1–6.jpg`, login gate) → auth → tabs: **Swipe** (demo deck) · **Explore** (Postcards row, search, filters sheet, places list) · **+** (sheet: Postcard / Scene / Place) · **Scenes** (vertical video feed) · **Profile** (avatar, socials, real stats row → Stats screen, My map card, top-4, tabs Collections/Diary/Want/Scenes, edit profile). Other screens: place card (own places: set location), add place (location: my location / pick on map), new post, match, collection, paywall, **map** (modes Mine / Everyone / Countries; pins → popup → place card; Explore has a Map button that opens Everyone with current filters), **stats** (countries, % of world, places, cities, avg rating, scenes, taste tags, top cities, rating distribution), **countries** picker.
+welcome (slideshow of Sofia's own photos `img/welcome/1–10.jpg`, no captions, login gate) → auth → tabs: **Swipe** (demo deck) · **Explore** (Postcards row, search, filters sheet, places list) · **+** (sheet: Postcard / Scene / Place) · **Scenes** (vertical video feed) · **Profile** (avatar, socials, real stats row → Stats screen, My map card, top-4, tabs Collections/Diary/Want/Scenes, edit profile). Other screens: place card (own places: set location), add place (location: my location / pick on map), new post, match, collection, paywall, **map** (modes Mine / Everyone / Countries; pins → popup → place card; Explore has a Map button that opens Everyone with current filters), **stats** (countries, % of world, places, cities, avg rating, scenes, taste tags, top cities, rating distribution), **countries** picker.
 
 ## Naming
 - Stories = **Postcards** (24h), Reels = **Scenes**. Proposed by Claude, Sofia hasn't objected; alternatives offered: Glimpses/Moments, Walks.
@@ -56,3 +56,4 @@ welcome (slideshow of `img/welcome/1–6.jpg`, login gate) → auth → tabs: **
 - 2026-11-25 — Brand: haunts name, logo, app icon, espresso/ivory palette.
 - 2026-11-25 — UX pass: Fraunces + Inter, larger text, 44px targets, warm greys, filters bottom sheet, shrinking tab bar.
 - 2026-11-25 — Countries visited, personal stats screen, maps (my places, everyone, countries) with pin → place card; location on add/edit place; `003_countries_map.sql`.
+- 2026-11-25 — Welcome slideshow now uses Sofia's 10 own photos (Bali + Bangkok); Starbucks Reserve photo placed last.
