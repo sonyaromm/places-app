@@ -6,20 +6,24 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#F2F0E9">
-<title>Places · prototype</title>
+<meta name="theme-color" content="#F1E9DC">
+<title>haunts</title>
+<link rel="apple-touch-icon" href="img/brand/apple-touch-icon.png">
+<link rel="icon" href="img/brand/icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-title" content="haunts">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 :root{
-  --paper:#F2F0E9; --paper2:#E9E6DC; --line:#D8D5CB; --ink:#1A1D19; --ink2:#4A4F45; --muted:#5B5F55;
-  --moss:#4F5A45; --sage:#E2E7D3; --night:#1A1D19;
+  --paper:#F1E9DC; --paper2:#E8DFD1; --line:#DDD3C4; --ink:#2B1A14; --ink2:#4A4F45; --muted:#5B5F55;
+  --moss:#4F5A45; --sage:#E2E7D3; --night:#2B1A14;
   --serif:'Cormorant Garamond', Georgia, serif; --sans:Inter, system-ui, sans-serif; --mono:'JetBrains Mono', ui-monospace, monospace;
   --top: max(env(safe-area-inset-top), 16px); --bot: env(safe-area-inset-bottom);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;height:100%;background:#F2F0E9;overscroll-behavior:none}
+html,body{margin:0;height:100%;background:#F1E9DC;overscroll-behavior:none}
 @media (min-width:441px){html,body{background:#0f110f}}
 body{font-family:var(--sans);color:var(--ink);display:flex;justify-content:center}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
@@ -40,13 +44,13 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .btn.dark{background:var(--ink);color:var(--paper)}
 .btn.line{border:1px solid var(--ink)}
 .icon-btn{width:44px;height:44px;border-radius:22px;display:flex;align-items:center;justify-content:center}
-.chip{height:36px;padding:0 14px;border-radius:18px;border:1px solid #C9C5B8;font-size:13px;transition:all .15s}
+.chip{height:36px;padding:0 14px;border-radius:18px;border:1px solid #CFC4B3;font-size:13px;transition:all .15s}
 .chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .row{display:flex;gap:14px;align-items:center;padding:10px 0;border-top:1px solid var(--line);width:100%;text-align:left}
 .thumb{flex:none;border-radius:12px}
 /* tab bar */
-#tabs{position:absolute;left:12px;right:12px;bottom:calc(12px + var(--bot));height:64px;border-radius:32px;background:rgba(26,29,25,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);display:flex;justify-content:space-around;align-items:center;z-index:20}
-#tabs button{display:flex;flex-direction:column;align-items:center;gap:3px;color:rgba(242,240,233,.55);font-size:10px;min-width:60px;min-height:48px;justify-content:center}
+#tabs{position:absolute;left:12px;right:12px;bottom:calc(12px + var(--bot));height:64px;border-radius:32px;background:rgba(43,26,20,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);display:flex;justify-content:space-around;align-items:center;z-index:20}
+#tabs button{display:flex;flex-direction:column;align-items:center;gap:3px;color:rgba(241,233,220,.55);font-size:10px;min-width:60px;min-height:48px;justify-content:center}
 #tabs button.on{color:var(--paper)}
 #tabs.hide{display:none}
 /* swipe */
@@ -68,28 +72,28 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* bars */
 .bar{display:flex;gap:4px}.bar span{flex:1;height:6px;border-radius:3px;background:#CFCBBE}.bar span.f{background:var(--moss)}
 .blur{filter:blur(5px);opacity:.6}
-.plan{width:100%;min-height:56px;padding:8px 14px;border-radius:16px;display:flex;align-items:center;justify-content:space-between;color:var(--paper);border:1px solid rgba(242,240,233,.25);text-align:left}
+.plan{width:100%;min-height:56px;padding:8px 14px;border-radius:16px;display:flex;align-items:center;justify-content:space-between;color:var(--paper);border:1px solid rgba(241,233,220,.25);text-align:left}
 .plan.on{border:1.5px solid var(--paper)}
 .field{display:flex;flex-direction:column;gap:6px}
-.input{border:1px solid #C9C5B8;border-radius:14px;background:#F7F6F1;padding:12px 14px;font:inherit;font-size:16px;color:var(--ink);outline:none;width:100%}
+.input{border:1px solid #CFC4B3;border-radius:14px;background:#F8F2E9;padding:12px 14px;font:inherit;font-size:16px;color:var(--ink);outline:none;width:100%}
 .star{font-size:30px;line-height:1;color:#CFCBBE;padding:4px}.star.on{color:var(--ink)}
 #tabs .add{width:48px;height:48px;min-width:48px;border-radius:24px;background:var(--paper);color:var(--ink)}
 .wSlide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
 .wSlide.on{opacity:1}
 .wSlide img{width:100%;height:100%;object-fit:cover;transform:scale(1.02);transition:transform 6s ease-out}
 .wSlide.on img{transform:scale(1.1)}
-.wSlide span{position:absolute;left:20px;bottom:110px;color:rgba(242,240,233,.92);text-shadow:0 1px 8px rgba(0,0,0,.4);z-index:2}
-.wFade{position:absolute;left:0;right:0;bottom:0;height:45%;background:linear-gradient(180deg,rgba(242,240,233,0) 0%,rgba(242,240,233,.55) 60%,#F2F0E9 100%);pointer-events:none;z-index:1}
-.wBar{flex:1;height:2px;border-radius:1px;background:rgba(242,240,233,.35);overflow:hidden}
-.wBar i{display:block;height:100%;width:0;background:#F2F0E9}
+.wSlide span{position:absolute;left:20px;bottom:110px;color:rgba(241,233,220,.92);text-shadow:0 1px 8px rgba(0,0,0,.4);z-index:2}
+.wFade{position:absolute;left:0;right:0;bottom:0;height:45%;background:linear-gradient(180deg,rgba(241,233,220,0) 0%,rgba(241,233,220,.55) 60%,#F1E9DC 100%);pointer-events:none;z-index:1}
+.wBar{flex:1;height:2px;border-radius:1px;background:rgba(241,233,220,.35);overflow:hidden}
+.wBar i{display:block;height:100%;width:0;background:#F1E9DC}
 .wBar.done i{width:100%}
 .wBar.run i{width:100%;transition:width 4.5s linear}
 #pcRow::-webkit-scrollbar{display:none}
 .pc{flex:none;display:flex;flex-direction:column;align-items:center;gap:6px;width:72px}
 .pc .ring{width:68px;height:68px;border-radius:34px;padding:3px;background:conic-gradient(#D9A877,#4F5A45,#8FB3AA,#D9A877)}
-.pc .ring.seen{background:#C9C5B8}
+.pc .ring.seen{background:#CFC4B3}
 .pc .ring.add{background:transparent;border:1px dashed #9E9A8C}
-.pc img,.pc .ph0{width:100%;height:100%;border-radius:50%;object-fit:cover;border:2px solid var(--paper);background:#E6E3DA;display:flex;align-items:center;justify-content:center}
+.pc img,.pc .ph0{width:100%;height:100%;border-radius:50%;object-fit:cover;border:2px solid var(--paper);background:#E7DED0;display:flex;align-items:center;justify-content:center}
 .pc span{font-size:11px;max-width:72px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink2)}
 .scene{position:relative;height:100dvh;scroll-snap-align:start;overflow:hidden;background:#000}
 .scene video{width:100%;height:100%;object-fit:cover}
@@ -124,7 +128,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   <div class="swipe-actions">
     <button class="round" id="btnNo" aria-label="Skip"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#F1EFE7" stroke-width="1.6" stroke-linecap="round"><path d="M4 4l12 12M16 4L4 16"/></svg></button>
     <div class="mono" style="color:rgba(241,239,231,.75);text-align:center;line-height:1.6">saved<br><span id="likedTop">0</span></div>
-    <button class="want" id="btnYes"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#1A1D19" stroke-width="1.7" stroke-linejoin="round"><path d="M10 17s-6.5-3.9-6.5-8.6A3.6 3.6 0 0 1 10 6.1a3.6 3.6 0 0 1 6.5 2.3C16.5 13.1 10 17 10 17z"/></svg>WANT</button>
+    <button class="want" id="btnYes"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#2B1A14" stroke-width="1.7" stroke-linejoin="round"><path d="M10 17s-6.5-3.9-6.5-8.6A3.6 3.6 0 0 1 10 6.1a3.6 3.6 0 0 1 6.5 2.3C16.5 13.1 10 17 10 17z"/></svg>WANT</button>
   </div>
 </section>
 
@@ -137,9 +141,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   </div>
   <div class="pad" style="display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;margin-top:10px;position:relative;z-index:1">
     <div style="display:flex">
-      <div class="serif" style="width:56px;height:56px;border-radius:28px;background:#C9B48F;color:#1A1D19;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #222820">S</div>
-      <div class="serif" style="width:56px;height:56px;border-radius:28px;background:#8FB3AA;color:#1A1D19;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #222820;margin-left:-14px">M</div>
-      <div class="serif" style="width:56px;height:56px;border-radius:28px;background:#D9A877;color:#1A1D19;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #222820;margin-left:-14px">L</div>
+      <div class="serif" style="width:56px;height:56px;border-radius:28px;background:#C9B48F;color:#2B1A14;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #222820">S</div>
+      <div class="serif" style="width:56px;height:56px;border-radius:28px;background:#8FB3AA;color:#2B1A14;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #222820;margin-left:-14px">M</div>
+      <div class="serif" style="width:56px;height:56px;border-radius:28px;background:#D9A877;color:#2B1A14;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #222820;margin-left:-14px">L</div>
     </div>
     <div class="serif" style="font-size:46px;line-height:1">It's a <span class="it">match</span></div>
     <div style="font-size:14px;line-height:1.45;color:rgba(241,239,231,.8);max-width:290px">All three of you swiped right on the same places. The rest is up to each of you.</div>
@@ -161,7 +165,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
       <div class="serif" style="font-size:40px;line-height:1">Canggu, <span class="it">coffee</span></div>
       <div class="mono" id="exCount"></div>
     </div>
-    <label style="height:44px;border-radius:22px;background:#E6E3DA;display:flex;align-items:center;gap:8px;padding:0 16px">
+    <label style="height:44px;border-radius:22px;background:#E7DED0;display:flex;align-items:center;gap:8px;padding:0 16px">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#5B5F55" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
       <input id="q" placeholder="Place, area or vibe" style="flex:1;border:0;background:transparent;font:inherit;font-size:16px;color:var(--ink);outline:none">
     </label>
@@ -178,7 +182,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 <!-- ========== PLACE ========== -->
 <section class="screen no-tabs" id="s-place">
   <div class="grain" id="plHero" style="height:280px;flex:none">
-    <button class="icon-btn" data-back aria-label="Back" style="position:absolute;top:calc(var(--top) + 4px);left:16px;background:rgba(242,240,233,.85);z-index:2"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#1A1D19" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <button class="icon-btn" data-back aria-label="Back" style="position:absolute;top:calc(var(--top) + 4px);left:16px;background:rgba(241,233,220,.85);z-index:2"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#2B1A14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
     <div class="ph" id="plPh" style="position:absolute;left:20px;bottom:16px"></div>
   </div>
   <div class="pad" style="margin-top:18px;display:flex;flex-direction:column;gap:6px">
@@ -226,9 +230,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 <!-- ========== PAYWALL ========== -->
 <section class="screen no-tabs" id="s-paywall">
   <div class="grain" style="height:230px;flex:none;background:radial-gradient(120% 90% at 50% 30%,#C9B48F 0%,#8C7A5C 30%,#4F5A45 65%,#222820 100%)">
-    <button class="icon-btn" data-back aria-label="Back" style="position:absolute;top:calc(var(--top) + 4px);left:16px;background:rgba(242,240,233,.85);z-index:2"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#1A1D19" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
-    <div style="position:absolute;left:20px;right:20px;bottom:18px;color:#F2F0E9;display:flex;flex-direction:column;gap:6px;z-index:2">
-      <div class="mono" style="color:rgba(242,240,233,.85)">Guide by @sonyaromm · 42 places · 7 days</div>
+    <button class="icon-btn" data-back aria-label="Back" style="position:absolute;top:calc(var(--top) + 4px);left:16px;background:rgba(241,233,220,.85);z-index:2"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#2B1A14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <div style="position:absolute;left:20px;right:20px;bottom:18px;color:#F1E9DC;display:flex;flex-direction:column;gap:6px;z-index:2">
+      <div class="mono" style="color:rgba(241,233,220,.85)">Guide by @sonyaromm · 42 places · 7 days</div>
       <div class="serif" style="font-size:36px;line-height:1">Bali <span class="it">for insiders</span></div>
     </div>
   </div>
@@ -255,7 +259,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 <section class="screen" id="s-profile" data-tabs="profile">
   <div class="pad top" style="display:flex;align-items:center;justify-content:space-between">
     <div class="mono" id="pHandle">@sonyaromm</div>
-    <button class="icon-btn" aria-label="Edit profile" style="justify-content:flex-end" id="pMenu"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1A1D19" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    <button class="icon-btn" aria-label="Edit profile" style="justify-content:flex-end" id="pMenu"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#2B1A14" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
   </div>
   <div class="pad" style="display:flex;gap:16px;align-items:center">
     <img id="pAvatar" src="img/avatar.jpg" alt="Profile photo" style="width:84px;height:84px;border-radius:42px;flex:none;object-fit:cover">
@@ -291,13 +295,13 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 <!-- ========== ADD PLACE ========== -->
 <section class="screen no-tabs" id="s-add">
   <div class="pad top" style="display:flex;align-items:center;justify-content:space-between">
-    <button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1A1D19" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#2B1A14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
     <div class="mono">New place</div>
     <div style="width:44px"></div>
   </div>
   <div class="pad" style="display:flex;flex-direction:column;gap:16px">
     <div class="serif" style="font-size:40px;line-height:1">Where have you <span class="it">been?</span></div>
-    <label id="addPhoto" style="position:relative;height:220px;border-radius:20px;border:1px dashed #9E9A8C;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:#ECE9E0 center/cover no-repeat;cursor:pointer">
+    <label id="addPhoto" style="position:relative;height:220px;border-radius:20px;border:1px dashed #9E9A8C;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:#EAE2D5 center/cover no-repeat;cursor:pointer">
       <input type="file" accept="image/*" id="addFile" style="position:absolute;opacity:0;width:1px;height:1px">
       <svg id="addPhIcon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4A4F45" stroke-width="1.5" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
       <span id="addPhText" style="font-size:13px;color:var(--ink2)">Add photo</span>
@@ -314,7 +318,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 
 <!-- ========== AUTH ========== -->
 <section class="screen no-tabs" id="s-auth">
-  <div class="pad top" style="display:flex;align-items:center"><button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1A1D19" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button></div>
+  <div class="pad top" style="display:flex;align-items:center"><button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#2B1A14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button></div>
   <div class="pad" style="display:flex;flex-direction:column;gap:16px;margin-top:20px">
     <div class="serif" style="font-size:44px;line-height:1" id="authTitle">Welcome back</div>
     <div style="display:flex;gap:8px"><button class="chip on" id="authModeIn">Log in</button><button class="chip" id="authModeUp">Create account</button></div>
@@ -329,12 +333,12 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 <!-- ========== EDIT PROFILE ========== -->
 <section class="screen no-tabs" id="s-editprofile">
   <div class="pad top" style="display:flex;align-items:center;justify-content:space-between">
-    <button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1A1D19" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#2B1A14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
     <div class="mono">Profile</div><div style="width:44px"></div>
   </div>
   <div class="pad" style="display:flex;flex-direction:column;gap:14px">
     <label style="display:flex;align-items:center;gap:14px;cursor:pointer">
-      <img id="epAvatar" src="img/avatar.jpg" alt="" style="width:72px;height:72px;border-radius:36px;object-fit:cover;background:#E6E3DA">
+      <img id="epAvatar" src="img/avatar.jpg" alt="" style="width:72px;height:72px;border-radius:36px;object-fit:cover;background:#E7DED0">
       <span style="font-size:14px;text-decoration:underline">Change photo</span>
       <input type="file" accept="image/*" id="epFile" style="position:absolute;opacity:0;width:1px;height:1px">
     </label>
@@ -363,7 +367,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     <div id="wBars" style="position:absolute;top:calc(var(--top) + 6px);left:16px;right:16px;display:flex;gap:4px;z-index:3"></div>
   </div>
   <div class="pad" style="display:flex;flex-direction:column;gap:12px;margin-top:-28px;position:relative;z-index:2">
-    <div class="mono">Places · beta</div>
+    <div style="display:flex;align-items:flex-end;gap:10px"><img src="img/brand/wordmark.png" alt="haunts" style="height:40px;width:auto"><span class="mono" style="padding-bottom:6px">beta</span></div>
     <div class="serif" style="font-size:42px;line-height:1.02">We bring together<br><span class="it">more than places</span></div>
     <div style="font-size:15px;line-height:1.5;color:var(--ink2)">Save the spots you love, rate them honestly and share them with people who get your taste</div>
   </div>
@@ -374,25 +378,25 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 </section>
 
 <!-- ========== SCENES ========== -->
-<section class="screen" id="s-scenes" data-tabs="scenes" style="background:#0f110f;color:#F2F0E9;padding-bottom:0;scroll-snap-type:y mandatory">
+<section class="screen" id="s-scenes" data-tabs="scenes" style="background:#0f110f;color:#F1E9DC;padding-bottom:0;scroll-snap-type:y mandatory">
   <div id="scList"></div>
   <div id="scEmpty" style="display:none;height:100%;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:40px">
     <div class="serif" style="font-size:40px;line-height:1">No scenes <span class="it">yet</span></div>
-    <div style="font-size:14px;color:rgba(242,240,233,.7);max-width:280px">Short videos of places: the walk in, the view, the vibe. Share the first one</div>
-    <button class="btn" style="background:#F2F0E9;color:var(--ink);font-weight:600" data-newpost="scene">Share a scene</button>
+    <div style="font-size:14px;color:rgba(241,233,220,.7);max-width:280px">Short videos of places: the walk in, the view, the vibe. Share the first one</div>
+    <button class="btn" style="background:#F1E9DC;color:var(--ink);font-weight:600" data-newpost="scene">Share a scene</button>
   </div>
 </section>
 
 <!-- ========== NEW POSTCARD / SCENE ========== -->
 <section class="screen no-tabs" id="s-post">
   <div class="pad top" style="display:flex;align-items:center;justify-content:space-between">
-    <button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1A1D19" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
+    <button class="icon-btn" data-back aria-label="Back" style="justify-content:flex-start"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#2B1A14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
     <div class="mono" id="postKind">New postcard</div><div style="width:44px"></div>
   </div>
   <div class="pad" style="display:flex;flex-direction:column;gap:16px">
     <div class="serif" style="font-size:38px;line-height:1" id="postTitle">Send a <span class="it">postcard</span></div>
     <div style="font-size:13px;color:var(--ink2);margin-top:-8px" id="postHint">A photo or short video. Disappears in 24 hours</div>
-    <label id="postPick" style="position:relative;height:380px;border-radius:20px;border:1px dashed #9E9A8C;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:#ECE9E0;overflow:hidden;cursor:pointer">
+    <label id="postPick" style="position:relative;height:380px;border-radius:20px;border:1px dashed #9E9A8C;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:#EAE2D5;overflow:hidden;cursor:pointer">
       <input type="file" id="postFile" style="position:absolute;opacity:0;width:1px;height:1px">
       <svg id="postIcon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4A4F45" stroke-width="1.5" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
       <span id="postPickText" style="font-size:13px;color:var(--ink2)">Choose photo or video</span>
@@ -416,20 +420,20 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 </div>
 
 <!-- postcard viewer -->
-<div id="pcView" style="position:absolute;inset:0;z-index:50;background:#0f110f;display:none;color:#F2F0E9">
+<div id="pcView" style="position:absolute;inset:0;z-index:50;background:#0f110f;display:none;color:#F1E9DC">
   <div id="pcMedia" style="position:absolute;inset:0"></div>
   <div style="position:absolute;left:0;right:0;top:0;height:140px;background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,0));pointer-events:none"></div>
   <div style="position:absolute;left:0;right:0;bottom:0;height:200px;background:linear-gradient(0deg,rgba(0,0,0,.55),rgba(0,0,0,0));pointer-events:none"></div>
   <div id="pcBars" style="position:absolute;top:calc(var(--top) + 6px);left:12px;right:12px;display:flex;gap:4px;z-index:3"></div>
   <div style="position:absolute;top:calc(var(--top) + 18px);left:12px;right:8px;display:flex;align-items:center;gap:10px;z-index:3">
     <img id="pcAva" alt="" style="width:34px;height:34px;border-radius:17px;object-fit:cover;background:#4F5A45">
-    <div style="flex:1;display:flex;flex-direction:column"><span id="pcUser" style="font-size:14px;font-weight:600"></span><span id="pcTime" class="mono" style="color:rgba(242,240,233,.7)"></span></div>
-    <button id="pcDel" class="mono" style="color:#F2F0E9;padding:12px;display:none">Delete</button>
-    <button class="icon-btn" id="pcClose" aria-label="Close"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#F2F0E9" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
+    <div style="flex:1;display:flex;flex-direction:column"><span id="pcUser" style="font-size:14px;font-weight:600"></span><span id="pcTime" class="mono" style="color:rgba(241,233,220,.7)"></span></div>
+    <button id="pcDel" class="mono" style="color:#F1E9DC;padding:12px;display:none">Delete</button>
+    <button class="icon-btn" id="pcClose" aria-label="Close"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#F1E9DC" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
   </div>
   <div id="pcTap" style="position:absolute;left:0;right:0;top:90px;bottom:120px;z-index:2"></div>
   <div style="position:absolute;left:20px;right:20px;bottom:calc(28px + var(--bot));z-index:3;display:flex;flex-direction:column;gap:6px">
-    <div id="pcPlace" class="mono" style="color:rgba(242,240,233,.85)"></div>
+    <div id="pcPlace" class="mono" style="color:rgba(241,233,220,.85)"></div>
     <div id="pcCap" class="serif" style="font-size:26px;line-height:1.1"></div>
   </div>
 </div>
@@ -608,13 +612,13 @@ $('#pwCta').onclick=()=>toast('Payments are coming next');
 
 /* ---------- profile ---------- */
 const SOC=[['Instagram','https://instagram.com/sonyaromm','<rect x="2" y="2" width="12" height="12" rx="3.5"/><circle cx="8" cy="8" r="2.8"/>'],['Telegram','https://t.me/sonyaromm','<path d="M2 8l12-5-3 11-3.5-3.5L2 8z"/>']];
-$('#socials').innerHTML=SOC.map(([n,u,p])=>`<a href="${u}" target="_blank" rel="noopener" style="height:34px;padding:0 12px;border-radius:17px;border:1px solid #C9C5B8;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink);text-decoration:none"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#1A1D19" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${p}</svg>${n}</a>`).join('')+
-`<button aria-label="Add social link" style="width:34px;height:34px;border-radius:17px;border:1px dashed #9E9A8C;display:flex;align-items:center;justify-content:center" data-toast="Add TikTok, YouTube, Threads…"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#1A1D19" stroke-width="1.4" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg></button>`;
+$('#socials').innerHTML=SOC.map(([n,u,p])=>`<a href="${u}" target="_blank" rel="noopener" style="height:34px;padding:0 12px;border-radius:17px;border:1px solid #CFC4B3;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink);text-decoration:none"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#2B1A14" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${p}</svg>${n}</a>`).join('')+
+`<button aria-label="Add social link" style="width:34px;height:34px;border-radius:17px;border:1px dashed #9E9A8C;display:flex;align-items:center;justify-content:center" data-toast="Add TikTok, YouTube, Threads…"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#2B1A14" stroke-width="1.4" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg></button>`;
 $('#top4').innerHTML=['single','amed','kopi','crumb'].map(k=>`<button data-place="${k}" class="grain" style="aspect-ratio:3/4;border-radius:10px;background:${PLACES[k].bg}" aria-label="${PLACES[k].name}"></button>`).join('');
 const PT=[
   ()=>`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
     <button data-tab="collection" style="display:flex;flex-direction:column;gap:6px;text-align:left"><div class="grain" style="height:110px;width:100%;border-radius:14px;background:${G.terrace}"></div><div class="serif" style="font-size:18px;line-height:1.1"><span class="it">Bali,</span> édition 01</div></button>
-    <button data-go="paywall" style="display:flex;flex-direction:column;gap:6px;text-align:left"><div class="grain" style="height:110px;width:100%;border-radius:14px;background:${G.stone}"><span class="mono" style="position:absolute;top:8px;left:8px;background:rgba(242,240,233,.9);color:var(--ink);padding:3px 7px;border-radius:8px;z-index:2">Paid</span></div><div class="serif" style="font-size:18px;line-height:1.1">Bali <span class="it">for insiders</span></div></button></div>`,
+    <button data-go="paywall" style="display:flex;flex-direction:column;gap:6px;text-align:left"><div class="grain" style="height:110px;width:100%;border-radius:14px;background:${G.stone}"><span class="mono" style="position:absolute;top:8px;left:8px;background:rgba(241,233,220,.9);color:var(--ink);padding:3px 7px;border-radius:8px;z-index:2">Paid</span></div><div class="serif" style="font-size:18px;line-height:1.1">Bali <span class="it">for insiders</span></div></button></div>`,
   ()=>[...MY,'single','kopi','amed','slow'].map(k=>[k,PLACES[k]]).map(([k,p],i)=>`<button class="row" data-place="${k}" ${i===0?'style="border-top:0"':''}><div class="mono" style="width:44px">${p.date||['NOV 12','NOV 09','NOV 02','OCT 28'][(i-MY.length+4)%4]}</div><div style="flex:1"><div class="serif" style="font-size:19px">${p.name}</div><div style="font-size:12px;color:var(--ink2)">★ ${p.rating} · ${p.tag}</div></div></button>`).join(''),
   ()=>(liked.length?liked:['bowl','slow']).map((k,i)=>{const p=PLACES[k];return `<button class="row" data-place="${k}" ${i===0?'style="border-top:0"':''}><div class="thumb" style="width:48px;height:48px;background:${p.bg}"></div><div style="flex:1"><div class="serif" style="font-size:19px">${p.name}</div><div style="font-size:12px;color:var(--ink2)">from swipes</div></div></button>`}).join('')
 ];
@@ -678,8 +682,8 @@ function renderSocials(p){
   if(p.telegram)items.push(['Telegram','https://t.me/'+encodeURIComponent(clean(p.telegram)),SOC[1][2]]);
   if(p.tiktok)items.push(['TikTok','https://www.tiktok.com/@'+encodeURIComponent(clean(p.tiktok)),'<path d="M10 2v7.5a2.5 2.5 0 1 1-2.5-2.5M10 2c.5 2 2 3 4 3"/>']);
   if(p.website&&/^https?:\/\//.test(p.website))items.push(['Website',p.website,'<circle cx="8" cy="8" r="6"/><path d="M2 8h12M8 2c2 2 2 10 0 12M8 2c-2 2-2 10 0 12"/>']);
-  $('#socials').innerHTML=items.map(([n,u,ic])=>`<a href="${esc(u)}" target="_blank" rel="noopener" style="height:34px;padding:0 12px;border-radius:17px;border:1px solid #C9C5B8;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink);text-decoration:none"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#1A1D19" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${ic}</svg>${n}</a>`).join('')+
-    `<button aria-label="Add social link" data-go="editprofile" style="width:34px;height:34px;border-radius:17px;border:1px dashed #9E9A8C;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#1A1D19" stroke-width="1.4" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg></button>`;
+  $('#socials').innerHTML=items.map(([n,u,ic])=>`<a href="${esc(u)}" target="_blank" rel="noopener" style="height:34px;padding:0 12px;border-radius:17px;border:1px solid #CFC4B3;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink);text-decoration:none"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#2B1A14" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${ic}</svg>${n}</a>`).join('')+
+    `<button aria-label="Add social link" data-go="editprofile" style="width:34px;height:34px;border-radius:17px;border:1px dashed #9E9A8C;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#2B1A14" stroke-width="1.4" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg></button>`;
 }
 function renderProfileHead(){
   $('#authBanner').style.display=ME?'none':'block';
@@ -966,13 +970,13 @@ function renderScenes(){
   $('#scEmpty').style.display=SCENES.length?'none':'flex';
   list.innerHTML=SCENES.map((x,i)=>`<div class="scene" data-scene="${i}">
     <video src="${x.url}#t=0.1" preload="metadata" muted loop playsinline></video>
-    <button class="icon-btn mute" data-scmute aria-label="Sound" style="background:rgba(15,17,15,.45)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F2F0E9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${muteIcon(scMuted)}</svg></button>
+    <button class="icon-btn mute" data-scmute aria-label="Sound" style="background:rgba(15,17,15,.45)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F1E9DC" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${muteIcon(scMuted)}</svg></button>
     <div class="meta">
-      <div style="display:flex;align-items:center;gap:8px">${x.ava?`<img src="${x.ava}" alt="" style="width:30px;height:30px;border-radius:15px;object-fit:cover">`:''}<span style="font-weight:600;font-size:14px">@${x.user}</span><span class="mono" style="color:rgba(242,240,233,.7)">${ago(x.at)}</span></div>
-      ${x.place?`<div class="mono" style="color:rgba(242,240,233,.85)">${x.place}</div>`:''}
+      <div style="display:flex;align-items:center;gap:8px">${x.ava?`<img src="${x.ava}" alt="" style="width:30px;height:30px;border-radius:15px;object-fit:cover">`:''}<span style="font-weight:600;font-size:14px">@${x.user}</span><span class="mono" style="color:rgba(241,233,220,.7)">${ago(x.at)}</span></div>
+      ${x.place?`<div class="mono" style="color:rgba(241,233,220,.85)">${x.place}</div>`:''}
       ${x.cap?`<div class="serif" style="font-size:24px;line-height:1.1">${x.cap}</div>`:''}
     </div>
-    ${ME&&x.uid===ME.id?`<div class="side"><button class="mono" data-scdel="${i}" style="color:#F2F0E9;padding:10px;background:rgba(15,17,15,.45);border-radius:16px">Delete</button></div>`:''}
+    ${ME&&x.uid===ME.id?`<div class="side"><button class="mono" data-scdel="${i}" style="color:#F1E9DC;padding:10px;background:rgba(15,17,15,.45);border-radius:16px">Delete</button></div>`:''}
   </div>`).join('');
   if(scObs)scObs.disconnect();
   scObs=new IntersectionObserver(es=>es.forEach(en=>{const v=en.target.querySelector('video');if(en.isIntersecting&&en.intersectionRatio>.6&&$('#s-scenes').classList.contains('active')){v.muted=scMuted;v.play().catch(()=>{})}else v.pause()}),{root:$('#s-scenes'),threshold:[0,.6,1]});
