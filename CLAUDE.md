@@ -28,6 +28,8 @@ Read this first before changing anything. Keep it updated: add a line to the cha
 - Claude's sandbox cannot reach supabase.co, so backend changes can't be tested from here; UI is checked with headless Chrome (playwright).
 - Maps: Leaflet 1.9.4 vendored in `vendor/leaflet/` (sandbox can't reach CDNs), CARTO Voyager raster tiles (sepia-tinted via CSS), country shapes `data/countries.geojson` (Natural Earth 50m via world-atlas, simplified, antimeridian-fixed, Antarctica removed, property `a2`). `countryAt(lat,lng)` = point-in-polygon with nearest-vertex fallback (small islands like Bali).
 - Images are cached hard by iPhone home-screen apps: when replacing an image, give it a NEW filename (that's why welcome photos are `s1…s10`).
+- QA routine: playwright screenshots of every screen at iPhone 15 (393×852, safe areas 59/34 via `--top/--bot` override) and iPhone SE (375×667, 20/0); check nothing hides under the Dynamic Island or home bar and nothing overflows.
+- `.grain` sets position:relative — a `.screen` with `.grain` must stay absolute (`.screen.grain` rule).
 - Toasts appear at the bottom above the tab bar (never at the top — the Dynamic Island hides them).
 - User-generated text is escaped (`esc`) and media URLs are whitelisted to the project's storage (`safeMedia`) — keep this for anything new.
 
@@ -62,3 +64,4 @@ welcome (slideshow of Sofia's own photos `img/welcome/s1–s10.jpg`, no captions
 - 2026-11-25 — UX fixes: removed slideshow progress bars, cache-busted photos, toast moved to bottom, demo content uses real photos, Explore title "Find your next haunt", Postcards add-circle with +.
 - 2026-11-25 — Welcome subline now mentions experiences: "Save the places and experiences you love…".
 - 2026-11-25 — Welcome subline: "From hidden cafés to sunset rituals — …" (chosen by Sofia).
+- 2026-11-26 — QA pass: welcome fits small iPhones (slideshow flexes), Match screen full height, paywall/place hero account for status bar, Swipe has a labeled Match button.

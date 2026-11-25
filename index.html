@@ -40,6 +40,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .pad{padding-left:20px;padding-right:20px}
 .top{padding-top:calc(var(--top) + 8px)}
 .grain{position:relative;overflow:hidden}
+.screen.grain{position:absolute}
 .grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .ph{font-family:var(--mono);font-size:11px;color:rgba(241,239,231,.7)}
 .btn{height:52px;border-radius:26px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;padding:0 20px}
@@ -140,9 +141,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
       <div class="mono" style="color:rgba(241,239,231,.85)">Bali · by @masha</div>
       <div class="mono" style="color:rgba(241,239,231,.85)" id="deckCount">01 / 06</div>
     </div>
-    <button class="icon-btn" style="background:rgba(20,22,19,.55)" data-go="match" aria-label="Match with friends">
-      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#F1EFE7" stroke-width="1.5"><circle cx="7.5" cy="10" r="4.5"/><circle cx="12.5" cy="10" r="4.5"/></svg>
-    </button>
+    <button data-go="match" style="height:40px;padding:0 14px;border-radius:20px;background:rgba(20,22,19,.55);color:#F1EFE7;font-size:14px;font-weight:500;display:flex;align-items:center;gap:6px"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7.5" cy="10" r="4.5"/><circle cx="12.5" cy="10" r="4.5"/></svg>Match</button>
   </div>
   <div class="swipe-actions">
     <button class="round" id="btnNo" aria-label="Skip"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#F1EFE7" stroke-width="1.6" stroke-linecap="round"><path d="M4 4l12 12M16 4L4 16"/></svg></button>
@@ -199,7 +198,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 
 <!-- ========== PLACE ========== -->
 <section class="screen no-tabs" id="s-place">
-  <div class="grain" id="plHero" style="height:280px;flex:none">
+  <div class="grain" id="plHero" style="height:calc(250px + var(--top));flex:none">
     <button class="icon-btn" data-back aria-label="Back" style="position:absolute;top:calc(var(--top) + 4px);left:16px;background:rgba(241,233,220,.85);z-index:2"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#2B1A14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
     <div class="ph" id="plPh" style="position:absolute;left:20px;bottom:16px"></div>
   </div>
@@ -248,7 +247,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 
 <!-- ========== PAYWALL ========== -->
 <section class="screen no-tabs" id="s-paywall">
-  <div class="grain" style="height:230px;flex:none;background:url(img/welcome/s4.jpg) center/cover no-repeat">
+  <div class="grain" style="height:calc(230px + var(--top));flex:none;background:url(img/welcome/s4.jpg) center/cover no-repeat">
     <button class="icon-btn" data-back aria-label="Back" style="position:absolute;top:calc(var(--top) + 4px);left:16px;background:rgba(241,233,220,.85);z-index:2"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#2B1A14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10H4M9 5l-5 5 5 5"/></svg></button>
     <div style="position:absolute;left:20px;right:20px;bottom:18px;color:#F1E9DC;display:flex;flex-direction:column;gap:6px;z-index:2">
       <div class="mono" style="color:rgba(241,233,220,.85)">Guide by @sonyaromm · 42 places · 7 days</div>
@@ -384,8 +383,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 </section>
 
 <!-- ========== WELCOME ========== -->
-<section class="screen no-tabs" id="s-welcome" style="background:var(--paper)">
-  <div id="wShow" style="position:relative;height:62vh;min-height:420px;flex:none;overflow:hidden;background:#2A2E28">
+<section class="screen no-tabs" id="s-welcome" style="background:var(--paper);overflow:hidden">
+  <div id="wShow" style="position:relative;flex:1 1 auto;min-height:200px;overflow:hidden;background:#2A2E28">
     <div class="wSlide on"><img src="img/welcome/s1.jpg" alt="" ></div>
     <div class="wSlide"><img src="img/welcome/s2.jpg" alt="" loading="lazy" ></div>
     <div class="wSlide"><img src="img/welcome/s3.jpg" alt="" loading="lazy" ></div>
@@ -399,12 +398,12 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     <div class="wFade"></div>
     
   </div>
-  <div class="pad" style="display:flex;flex-direction:column;gap:12px;margin-top:-28px;position:relative;z-index:2">
+  <div class="pad" style="flex:none;display:flex;flex-direction:column;gap:10px;margin-top:-28px;position:relative;z-index:2">
     <div style="display:flex;align-items:flex-end;gap:10px"><img src="img/brand/wordmark.png" alt="haunts" style="height:40px;width:auto"><span class="mono" style="padding-bottom:6px">beta</span></div>
     <div class="serif" style="font-size:42px;line-height:1.02">We bring together<br><span class="it">more than places</span></div>
     <div style="font-size:16px;line-height:1.5;color:var(--ink2)">From hidden cafés to sunset rituals — save what you love, rate it honestly and share it with people who get your taste</div>
   </div>
-  <div class="pad" style="margin-top:auto;padding-top:24px;display:flex;flex-direction:column;gap:10px">
+  <div class="pad" style="flex:none;padding-top:20px;display:flex;flex-direction:column;gap:10px">
     <button class="btn dark" data-auth="up">Create account</button>
     <button class="btn line" data-auth="in">Log in</button>
   </div>
