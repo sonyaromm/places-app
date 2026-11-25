@@ -8,6 +8,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#FFFFFF">
 <title>haunts</title>
+<link rel="preload" as="image" href="img/brand/wordmark-light.png">
+<link rel="preload" as="image" href="img/welcome/s1.jpg">
 <link rel="apple-touch-icon" href="img/brand/icon-v3-180.png">
 <link rel="icon" href="img/brand/icon-v3-192.png">
 <link rel="manifest" href="manifest.json">
@@ -117,7 +119,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .input{border:1px solid #D6D3D9;border-radius:14px;background:#FFFFFF;padding:12px 14px;font:inherit;font-size:17px;color:var(--ink);outline:none;width:100%}
 .star{font-size:30px;line-height:1;color:#CFCBBE;padding:4px}.star.on{color:var(--ink)}
 #tabs .add{width:48px;height:48px;min-width:48px;border-radius:24px;background:var(--paper);color:var(--ink)}
-.wSlide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
+.wSlide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;z-index:0}
+.wSlide.first{transition:none}
+.wSlide.top{z-index:1}
+.wSlide.keep{opacity:1}
 .wSlide.on{opacity:1}
 .wSlide img{width:100%;height:100%;object-fit:cover;transform:scale(1.02);transition:transform 6s ease-out}
 .wSlide.on img{transform:scale(1.1)}
@@ -548,21 +553,21 @@ button:disabled{opacity:.6}
 <!-- ========== WELCOME ========== -->
 <section class="screen no-tabs" id="s-welcome" style="background:#111216;overflow:hidden;padding:0">
   <div id="wShow" style="position:absolute;inset:0;overflow:hidden">
-    <div class="wSlide on"><img src="img/welcome/s1.jpg" alt="" ></div>
-    <div class="wSlide"><img src="img/welcome/s2.jpg" alt="" loading="lazy" ></div>
-    <div class="wSlide"><img src="img/welcome/s3.jpg" alt="" loading="lazy" ></div>
-    <div class="wSlide"><img src="img/welcome/s4.jpg" alt="" loading="lazy" ></div>
-    <div class="wSlide"><img src="img/welcome/s5.jpg" alt="" loading="lazy" ></div>
-    <div class="wSlide"><img src="img/welcome/s6.jpg" alt="" loading="lazy" ></div>
-    <div class="wSlide"><img src="img/welcome/s7.jpg" alt="" loading="lazy" ></div>
-    <div class="wSlide"><img src="img/welcome/s8.jpg" alt="" loading="lazy" ></div>
-    <div class="wSlide"><img src="img/welcome/s9.jpg" alt="" loading="lazy" ></div>
-    <div class="wSlide"><img src="img/welcome/s10.jpg" alt="" loading="lazy" ></div>
+    <div class="wSlide on first"><img src="img/welcome/s1.jpg" alt="" fetchpriority="high"></div>
+    <div class="wSlide"><img src="img/welcome/s2.jpg" alt=""></div>
+    <div class="wSlide"><img src="img/welcome/s3.jpg" alt=""></div>
+    <div class="wSlide"><img src="img/welcome/s4.jpg" alt=""></div>
+    <div class="wSlide"><img src="img/welcome/s5.jpg" alt=""></div>
+    <div class="wSlide"><img src="img/welcome/s6.jpg" alt=""></div>
+    <div class="wSlide"><img src="img/welcome/s7.jpg" alt=""></div>
+    <div class="wSlide"><img src="img/welcome/s8.jpg" alt=""></div>
+    <div class="wSlide"><img src="img/welcome/s9.jpg" alt=""></div>
+    <div class="wSlide"><img src="img/welcome/s10.jpg" alt=""></div>
   </div>
   <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,18,22,.35) 0%,rgba(17,18,22,0) 22%,rgba(17,18,22,0) 45%,rgba(17,18,22,.8) 76%,rgba(17,18,22,.95) 92%,#111216 100%);pointer-events:none"></div>
   <div style="position:absolute;left:0;right:0;bottom:0;padding:0 24px calc(16px + var(--bot));display:flex;flex-direction:column;gap:22px;z-index:2">
     <div style="display:flex;flex-direction:column;gap:12px">
-      <div class="orbmark" role="img" aria-label="haunts" style="width:62%;max-width:260px;aspect-ratio:900/239"></div>
+      <img src="img/brand/wordmark-light.png" alt="haunts" style="width:62%;max-width:260px;height:auto;display:block">
       <div style="font-size:18px;line-height:1.35;color:rgba(245,241,236,.9)">We bring together more than places</div>
     </div>
     <div style="display:flex;flex-direction:column;gap:6px">
@@ -1094,9 +1099,18 @@ function route(){
 (function(){
   const sl=[...document.querySelectorAll('.wSlide')]; if(!sl.length)return;
   let i=0, t;
-  function go(n){
-    sl[i].classList.remove('on'); i=(n+sl.length)%sl.length; sl[i].classList.add('on');
-    clearTimeout(t); t=setTimeout(()=>go(i+1),4500);
+  function ready(img){return img.complete&&img.naturalWidth?Promise.resolve():(img.decode?img.decode().catch(()=>{}):new Promise(r=>{img.onload=img.onerror=r}))}
+  let busy=false;
+  async function go(n){
+    if(busy)return;busy=true;clearTimeout(t);
+    const prev=sl[i]; const ni=(n+sl.length)%sl.length; const next=sl[ni];
+    if(ni===i){busy=false;t=setTimeout(()=>go(i+1),4500);return}
+    await ready(next.querySelector('img'));          // never fade to an unloaded photo (was a black gap)
+    sl.forEach(x=>x.classList.remove('top','first'));
+    prev.classList.add('keep');                         // old photo stays fully visible underneath
+    next.classList.add('top','on');
+    setTimeout(()=>{prev.classList.remove('on','keep');busy=false},1250);
+    i=ni; t=setTimeout(()=>go(i+1),4500);
   }
   $('#wShow').addEventListener('click',e=>{const r=e.currentTarget.getBoundingClientRect();go(e.clientX-r.left<r.width/3?i-1:i+1)});
   let sx=0;$('#wShow').addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
