@@ -111,7 +111,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .scene .side{position:absolute;right:12px;bottom:calc(110px + var(--bot));display:flex;flex-direction:column;gap:14px;align-items:center}
 .scene .mute{position:absolute;top:calc(var(--top) + 8px);right:12px}
 .leaflet-container{font-family:var(--sans);background:#E8DFD1}
-.leaflet-tile{filter:sepia(.22) saturate(.85) brightness(1.02)}
+.leaflet-tile{filter:grayscale(.55) sepia(.35) saturate(.8) brightness(1.04) contrast(.92)}
 .leaflet-control-attribution{font-size:10px;background:rgba(241,233,220,.8)!important}
 .leaflet-popup-content-wrapper{border-radius:14px;background:var(--paper);color:var(--ink)}
 .leaflet-popup-tip{background:var(--paper)}
@@ -1265,10 +1265,10 @@ $('#ctSave').onclick=async()=>{
 
 /* map screen */
 let MAP=null,mapMode='all',placeLayer=null,countryLayer=null;
-const TILE='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', ATTR='© OpenStreetMap © CARTO';
+const TILE='https://tile.openstreetmap.org/{z}/{x}/{y}.png', ATTR='© OpenStreetMap';
 async function openMap(){
   if(!window.L){toast('Map didn’t load — check connection');return}
-  if(!MAP){MAP=L.map('mapBox',{zoomControl:false,worldCopyJump:true}).setView([-8.5,115.2],4);L.tileLayer(TILE,{attribution:ATTR,subdomains:'abcd',maxZoom:19}).addTo(MAP)}
+  if(!MAP){MAP=L.map('mapBox',{zoomControl:false,worldCopyJump:true}).setView([-8.5,115.2],4);L.tileLayer(TILE,{attribution:ATTR,maxZoom:19}).addTo(MAP)}
   setTimeout(()=>MAP.invalidateSize(),60);
   await loadGeo();
   const cs=new Set(myCountries());
@@ -1294,7 +1294,7 @@ let PICK=null,pickCb=null;
 function openPick(start,cb){
   if(!window.L){toast('Map didn’t load — check connection');return}
   pickCb=cb;$('#pick').style.display='block';
-  if(!PICK){PICK=L.map('pickBox',{zoomControl:false}).setView(start||[-8.65,115.14],start?16:11);L.tileLayer(TILE,{attribution:ATTR,subdomains:'abcd',maxZoom:19}).addTo(PICK)}
+  if(!PICK){PICK=L.map('pickBox',{zoomControl:false}).setView(start||[-8.65,115.14],start?16:11);L.tileLayer(TILE,{attribution:ATTR,maxZoom:19}).addTo(PICK)}
   else PICK.setView(start||PICK.getCenter(),start?16:PICK.getZoom());
   setTimeout(()=>PICK.invalidateSize(),60);
 }
@@ -1411,7 +1411,7 @@ const _lr=loadRemote;loadRemote=async function(){try{await _lr()}finally{LOADING
 
 // first-run hint above +
 function maybeHint(){try{if(!ME||LOADING||MY.length||localStorage.getItem('hintPlus'))return}catch(_){return}
-  const sc=$('.screen.active');if(!sc||sc.id!=='s-explore')return;$('#plusHint').style.display='block'}
+  const sc=$('.screen.active');if(!sc||sc.id!=='s-explore'){$('#plusHint').style.display='none';return}$('#plusHint').style.display='block'}
 function hideHint(){if($('#plusHint').style.display==='block'){$('#plusHint').style.display='none';try{localStorage.setItem('hintPlus','1')}catch(_){}}}
 document.addEventListener('click',e=>{if($('#plusHint').style.display==='block'&&!e.target.closest('[data-tab]'))hideHint()},true);
 
