@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#FFFFFF">
 <title>haunts</title>
 <link rel="preload" as="image" href="img/brand/wordmark-light.png">
-<link rel="preload" as="image" href="img/welcome/s1.jpg">
+<link rel="preload" as="image" href="img/welcome/f1.jpg">
 <link rel="apple-touch-icon" href="img/brand/icon-v3-180.png">
 <link rel="icon" href="img/brand/icon-v3-192.png">
 <link rel="manifest" href="manifest.json">
@@ -267,6 +267,27 @@ button:disabled{opacity:.6}
 #s-intro .btn.dark::after,#s-quiz .btn.dark::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none' stroke='%23FFFFFF' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 9h12M10 4l5 5-5 5'/%3E%3C/svg%3E"),radial-gradient(60% 55% at 30% 25%,#9AAA80 0%,#9AAA8000 70%),linear-gradient(160deg,#6E8456 0%,#4E6038 55%,#3D4729 100%)!important}
 #pTaste{background:linear-gradient(90deg,#56683F,#3D4729)!important;-webkit-background-clip:text!important;background-clip:text!important}
 .pcMatch{border:1px solid rgba(255,255,255,.35)}
+
+/* ===== welcome: film slideshow + logo reveal (approved 2026-11-26) ===== */
+@font-face{font-family:'Caveat';font-weight:500;font-display:swap;src:url(fonts/caveat-latin-500-normal.woff2) format('woff2')}
+#s-welcome [data-auth=up]{background:#fff!important;color:#111216!important;font-weight:600!important;border:0!important}
+.wTop{position:absolute;left:24px;right:24px;top:calc(var(--top) + 8px);display:flex;justify-content:space-between;font-size:10px;letter-spacing:.22em;font-weight:600;color:rgba(255,255,255,.85);z-index:2;font-variant-numeric:tabular-nums;opacity:0}
+.wGrain{position:absolute;inset:-50%;pointer-events:none;z-index:1;opacity:.14;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:wGr .45s steps(4) infinite}
+@keyframes wGr{25%{transform:translate(-4%,3%)}50%{transform:translate(3%,-4%)}75%{transform:translate(-2%,-2%)}}
+.wLeak{position:absolute;inset:0;pointer-events:none;z-index:1;mix-blend-mode:screen;opacity:0;background:radial-gradient(70% 50% at 100% 0%,rgba(255,150,80,.55),transparent 70%),radial-gradient(40% 30% at 0% 100%,rgba(255,90,40,.25),transparent 70%)}
+.wLeak.go{animation:wLk 1.4s ease}
+@keyframes wLk{35%{opacity:1}}
+.wLogo{opacity:0;transform:translateY(18px);filter:blur(6px)}
+.wTag{font-family:'Caveat',cursive;font-weight:500;font-size:26px;line-height:1.15;color:#fff;white-space:nowrap;overflow:hidden;width:0}
+.wBtns{opacity:0;transform:translateY(14px)}
+#s-welcome.active .wTop{animation:wUp .8s .3s forwards}
+#s-welcome.active .wLogo{animation:wLogo 1.1s .6s cubic-bezier(.2,.8,.2,1) forwards}
+#s-welcome.active .wTag{animation:wType 1.3s steps(30) 1.6s forwards}
+#s-welcome.active .wBtns{animation:wUp .6s 2.9s forwards}
+@keyframes wLogo{to{opacity:1;transform:none;filter:none}}
+@keyframes wType{to{width:100%}}
+@keyframes wUp{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.wLogo,.wTag,.wBtns,.wTop{animation:none!important;opacity:1!important;transform:none!important;filter:none!important;width:auto!important}.wGrain{animation:none}}
 </style>
 </head>
 <body>
@@ -489,9 +510,9 @@ button:disabled{opacity:.6}
     <button class="mono" id="inSkip" style="color:var(--ink);height:40px;padding:0 16px;border-radius:20px;background:rgba(245,241,236,.9)">Skip</button>
   </div>
   <div id="inTrack" style="position:absolute;inset:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none">
-    <div class="inSlide"><div class="inPh aura" data-aura="night" data-img="img/welcome/s7.jpg"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Save what <span class="it">you love</span></div><div class="inSub">Cafés, sunset spots, a massage lady from WhatsApp — every place and experience in one place</div></div></div>
-    <div class="inSlide"><div class="inPh aura" data-aura="night" data-img="img/welcome/s2.jpg"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Rate it <span class="it">honestly</span></div><div class="inSub">Not just stars: is it quiet, are the staff kind, is there decaf, can you work there</div></div></div>
-    <div class="inSlide"><div class="inPh aura" data-aura="night" data-img="img/welcome/s3.jpg"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Share <span class="it">your vibe</span></div><div class="inSub">Your map, your countries, your favourite spots — with people who get it</div></div></div>
+    <div class="inSlide"><div class="inPh aura" data-aura="night" data-img="img/welcome/f7.jpg"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Save what <span class="it">you love</span></div><div class="inSub">Cafés, sunset spots, a massage lady from WhatsApp — every place and experience in one place</div></div></div>
+    <div class="inSlide"><div class="inPh aura" data-aura="night" data-img="img/welcome/f2.jpg"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Rate it <span class="it">honestly</span></div><div class="inSub">Not just stars: is it quiet, are the staff kind, is there decaf, can you work there</div></div></div>
+    <div class="inSlide"><div class="inPh aura" data-aura="night" data-img="img/welcome/f3.jpg"></div><div class="inTx"><div class="serif" style="font-size:40px;line-height:1">Share <span class="it">your vibe</span></div><div class="inSub">Your map, your countries, your favourite spots — with people who get it</div></div></div>
   </div>
   <div style="position:absolute;left:0;right:0;bottom:0;padding:0 24px calc(16px + var(--bot));display:flex;flex-direction:column;gap:16px;z-index:3">
     <div id="inDots" style="display:flex;gap:6px;justify-content:center"></div>
@@ -553,25 +574,28 @@ button:disabled{opacity:.6}
 <!-- ========== WELCOME ========== -->
 <section class="screen no-tabs" id="s-welcome" style="background:#111216;overflow:hidden;padding:0">
   <div id="wShow" style="position:absolute;inset:0;overflow:hidden">
-    <div class="wSlide on first"><img src="img/welcome/s1.jpg" alt="" fetchpriority="high"></div>
-    <div class="wSlide"><img src="img/welcome/s2.jpg" alt=""></div>
-    <div class="wSlide"><img src="img/welcome/s3.jpg" alt=""></div>
-    <div class="wSlide"><img src="img/welcome/s4.jpg" alt=""></div>
-    <div class="wSlide"><img src="img/welcome/s5.jpg" alt=""></div>
-    <div class="wSlide"><img src="img/welcome/s6.jpg" alt=""></div>
-    <div class="wSlide"><img src="img/welcome/s7.jpg" alt=""></div>
-    <div class="wSlide"><img src="img/welcome/s8.jpg" alt=""></div>
-    <div class="wSlide"><img src="img/welcome/s9.jpg" alt=""></div>
-    <div class="wSlide"><img src="img/welcome/s10.jpg" alt=""></div>
+    <div class="wSlide on first"><img src="img/welcome/f1.jpg" alt="" fetchpriority="high"></div>
+    <div class="wSlide"><img src="img/welcome/f2.jpg" alt=""></div>
+    <div class="wSlide"><img src="img/welcome/f3.jpg" alt=""></div>
+    <div class="wSlide"><img src="img/welcome/f4.jpg" alt=""></div>
+    <div class="wSlide"><img src="img/welcome/f5.jpg" alt=""></div>
+    <div class="wSlide"><img src="img/welcome/f6.jpg" alt=""></div>
+    <div class="wSlide"><img src="img/welcome/f7.jpg" alt=""></div>
+    <div class="wSlide"><img src="img/welcome/f8.jpg" alt=""></div>
+    <div class="wSlide"><img src="img/welcome/f9.jpg" alt=""></div>
+    <div class="wSlide"><img src="img/welcome/f10.jpg" alt=""></div>
   </div>
   <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,18,22,.35) 0%,rgba(17,18,22,0) 22%,rgba(17,18,22,0) 45%,rgba(17,18,22,.8) 76%,rgba(17,18,22,.95) 92%,#111216 100%);pointer-events:none"></div>
+  <div class="wLeak" id="wLeak"></div>
+  <div class="wGrain"></div>
+  <div class="wTop"><span>HAUNTS · DIARY</span><span id="wCnt">01 / 10</span></div>
   <div style="position:absolute;left:0;right:0;bottom:0;padding:0 24px calc(16px + var(--bot));display:flex;flex-direction:column;gap:22px;z-index:2">
-    <div style="display:flex;flex-direction:column;gap:12px">
-      <img src="img/brand/wordmark-light.png" alt="haunts" style="width:62%;max-width:260px;height:auto;display:block">
-      <div style="font-size:18px;line-height:1.35;color:rgba(245,241,236,.9)">We bring together more than places</div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <img class="wLogo" src="img/brand/wordmark-light.png" alt="haunts" style="width:62%;max-width:250px;height:auto;display:block">
+      <div class="wTag">we bring together more than places</div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:6px">
-      <button class="btn" data-auth="up" style="background:#F5F1EC;color:#111216;font-weight:600">Create account</button>
+    <div class="wBtns" style="display:flex;flex-direction:column;gap:6px">
+      <button class="btn" data-auth="up">Create account</button>
       <button data-auth="in" style="height:48px;color:#F5F1EC;font-size:15px">I already have an account · <b>Log in</b></button>
     </div>
   </div>
@@ -1111,6 +1135,7 @@ function route(){
     next.classList.add('top','on');
     setTimeout(()=>{prev.classList.remove('on','keep');busy=false},1250);
     i=ni; t=setTimeout(()=>go(i+1),4500);
+    try{$('#wCnt').textContent=String(i+1).padStart(2,'0')+' / '+String(sl.length).padStart(2,'0');const L=$('#wLeak');L.classList.remove('go');void L.offsetWidth;L.classList.add('go')}catch(_){}
   }
   $('#wShow').addEventListener('click',e=>{const r=e.currentTarget.getBoundingClientRect();go(e.clientX-r.left<r.width/3?i-1:i+1)});
   let sx=0;$('#wShow').addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
@@ -1587,7 +1612,7 @@ function renderQuiz(){
     <div style="display:flex;flex-wrap:wrap;gap:8px">${[...extra,...list].map(([c,n])=>`<button class="chip${qz.countries.has(c)?' on':''}" data-qc="${c}">${esc(n)}</button>`).join('')}</div>`}
   if(st===3){const t=tasteLabel([...qz.ints]);h=`<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px">
     <div class="mono">Your travel taste</div>
-    <div class="aura" style="border-radius:28px;height:340px;background:linear-gradient(180deg,rgba(17,18,22,.45) 0%,rgba(17,18,22,0) 22%,rgba(17,18,22,0) 45%,rgba(17,18,22,.8) 100%),url(img/welcome/s3.jpg) center/cover no-repeat,${auraBG(tastePalette([...qz.ints]))};box-shadow:0 20px 50px rgba(17,18,22,.15)">
+    <div class="aura" style="border-radius:28px;height:340px;background:linear-gradient(180deg,rgba(17,18,22,.45) 0%,rgba(17,18,22,0) 22%,rgba(17,18,22,0) 45%,rgba(17,18,22,.8) 100%),url(img/welcome/f3.jpg) center/cover no-repeat,${auraBG(tastePalette([...qz.ints]))};box-shadow:0 20px 50px rgba(17,18,22,.15)">
       <div class="mono" style="position:absolute;left:20px;top:18px;color:rgba(17,18,22,.6)">haunts · taste</div>
       <div style="position:absolute;left:20px;right:20px;bottom:20px;color:var(--ink);display:flex;flex-direction:column;gap:8px">
         <div class="serif it" style="font-size:36px;line-height:1">${esc(t)}</div>
