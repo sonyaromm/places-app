@@ -64,6 +64,7 @@ MVP navigation (decided with Sofia 2026-11-26, based on her UX research): **Expl
 
 ## Open decisions / next ideas
 - Mockups shown 2026-11-26, NOT implemented: collage-journal profile (torn-edge cover, taped polaroid avatar, scattered mini photos, handwritten taste), "My haunts" as a grid-paper diary, place card as a diary entry; **Month recap** story (paper sheet with binder clip, polaroids on calendar days, postcard with countries, "NEW HAUNTS" ticket, "on repeat" most-visited card, watermark) + recap card in profile on the 1st of the month. Handwriting font for mockups: Caveat (npm @fontsource/caveat, not in repo yet).
+- Sofia LIKED the profile-with-recap mockup (2026-11-26): photo cover, avatar overlap, name + moss taste caps line, big "November recap" card (photo bg, dark fade, 2 tilted polaroids, "7 new haunts · 2 countries", moss "Open & share →"), "Past recaps" row of 3 tall photo tiles with handwritten month names, light tab bar. Not implemented yet — waiting for her go-ahead.
 - Later (vision): photo carousels / collage editor for sharing trips.
 - Real collections from own places; swipe through other users' places; public profile link `?u=username`.
 - Passwordless login (email code / Sign in with Apple).
