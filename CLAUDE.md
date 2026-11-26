@@ -7,6 +7,7 @@ Read this first before changing anything. Keep it updated: add a line to the cha
 - Founder: Sofia (@sonyaromm on Instagram/Telegram), travels a lot, based in Bali. Not a developer; communicates in Russian, casual tone. UI is English for now.
 - Concept: personal diary of places (ratings, notes, photos) + social (friends, profiles, recommendations) + creators (guides that open via web link, paid guides / creator subscriptions).
 - Target: travelers / digital nomads, starting with Bali & SE Asia.
+- **Vibe (Sofia 2026-11-26): film aesthetic + collages / journal** (polaroids, tape, paper, handwriting, grain). Long-term vision: a full place to share travels — carousels from photos, collages, Month recap stories. BUT for now keep it simple and not overloaded: apply the vibe with light touches on top of the clean white/graphite/moss UI.
 
 ## Brand & design system
 - **Process rule (Sofia 2026-11-26): for visual/design changes show a mockup first; implement only after she approves.**
@@ -62,6 +63,8 @@ MVP navigation (decided with Sofia 2026-11-26, based on her UX research): **Expl
 - No payments, no friends/follow graph, no comments/likes yet.
 
 ## Open decisions / next ideas
+- Mockups shown 2026-11-26, NOT implemented: collage-journal profile (torn-edge cover, taped polaroid avatar, scattered mini photos, handwritten taste), "My haunts" as a grid-paper diary, place card as a diary entry; **Month recap** story (paper sheet with binder clip, polaroids on calendar days, postcard with countries, "NEW HAUNTS" ticket, "on repeat" most-visited card, watermark) + recap card in profile on the 1st of the month. Handwriting font for mockups: Caveat (npm @fontsource/caveat, not in repo yet).
+- Later (vision): photo carousels / collage editor for sharing trips.
 - Real collections from own places; swipe through other users' places; public profile link `?u=username`.
 - Passwordless login (email code / Sign in with Apple).
 - Import from Instagram/TikTok links; taste card / year-in-review; maybe mascot.
